@@ -1,4 +1,4 @@
 class FacilityController < ApplicationController
-  def index
+  def home
   end
 end
