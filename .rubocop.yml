@@ -1,0 +1,30 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+  - rubocop-capybara
+  - rubocop-factory_bot
+
+Rails:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 150
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - '**/Gemfile'
+    - 'vendor/**/*'
+    - '.git/**/*'
+  NewCops: enable

@@ -57,7 +57,6 @@ header{
 .header-logo{
   width: 75px;
   border-radius: 50%;
-  text-shadow: 1px 1px #fa0;
   padding: 20px 0 20px 0;
 }
 
@@ -68,6 +67,7 @@ header{
   color: #fff;
   display: flex;
   justify-content: space-between;
+  bottom: 0;
 }
 
 .footer-left{
@@ -76,4 +76,26 @@ header{
 
 .footer-right{
   padding: 5px 30px;
+}
+
+.search-field{
+  width: 300px;
+  padding: 10px 15px;
+}
+
+.search-field:focus {
+  outline: none;
+  border: 3px solid #fa0; 
+}
+
+.search-btn{
+  background-color: #fff;
+  color: #fa0;
+  border: 2px solid #fa0;
+  padding: 10px 18px;
+}
+
+.search-btn:hover{
+  background-color: #fa0;
+  color: #fff;
 }

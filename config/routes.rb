@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
-  get 'facility/home'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'facility#home'
+  get 'facility/index', to: 'facility#index'
+  
+  resources :facilities
 end
