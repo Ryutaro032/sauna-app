@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'vcr'
 
 RSpec.describe 'Facilities', type: :request do
   describe '#index' do

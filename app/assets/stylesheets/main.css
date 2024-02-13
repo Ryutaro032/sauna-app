@@ -78,6 +78,10 @@ header{
   padding: 5px 30px;
 }
 
+.search-form{
+  text-align: center;
+}
+
 .search-field{
   width: 300px;
   padding: 10px 15px;
