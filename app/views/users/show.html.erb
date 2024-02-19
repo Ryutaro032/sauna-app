@@ -1,0 +1,40 @@
+<div class="prof-warapper">
+  <div class="prof-container">
+    <div class="back-contents">
+      <div class="back-content">
+        <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
+      </div>
+      <div class="account-content">
+        <p>👇Eメール・パスワードの編集はこちら👇</p>
+        <button class="button base-color"><%= link_to"アカウントを編集する",edit_user_registration_path, class: "link" %></button>
+      </div>
+    </div>
+    <table class="prof-contents">
+      <h2>Myプロフィール</h2>
+      <tbody class="prof-content">
+        <tr>
+          <th></th>
+           <th class="prof-name">ユーザー名</th>
+           <th>Myルール</th>
+        </tr>
+        <tr>
+          <td>
+            <% if @user.icon_image.attached?  %>
+              <%= image_tag @user.icon_image.variant(resize: '200x200'), class: "user-icon", alt: "ユーザーアイコン" %>
+            <% else %>
+              <%= image_tag src='default.png', class: "user-icon", alt: "ユーザーアイコン" %>
+            <% end %>
+          </td>
+          <td><p><%= @user.name %></p></td>
+          <td><textarea class="prof-rule-textarea" disabled><%= @user.my_rule %></textarea></td>
+           <td class="btn-contents">
+            <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
+              <button class="button prof-edit-btn"><%= link_to '編集する',edit_user_path(@user),class: "link" %></button>
+              <button class="button destory-btn"><%= link_to '削除する',edit_user_path(@user),class: "link" %></button>
+             <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

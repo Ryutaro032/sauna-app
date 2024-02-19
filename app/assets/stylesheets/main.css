@@ -10,12 +10,39 @@ body{
   line-height: 1.4;
 }
 
-li {
+li{
 	list-style-type:none;
 }
 
-img {
+.link{
+  text-decoration: none;
+  color: #fff;
+  display: block; 
+}
+
+img{
 	border:0;
+}
+
+.button{
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.sauna-contanier{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer{
+  margin-top: auto;
 }
 
 .header-container{
@@ -51,6 +78,7 @@ header{
 .header-list{
   margin: 20px 30px 20px 10px;
   font-size: 20px;
+  color: #fff;
 }
 
 
@@ -67,7 +95,6 @@ header{
   color: #fff;
   display: flex;
   justify-content: space-between;
-  bottom: 0;
 }
 
 .footer-left{
@@ -87,7 +114,7 @@ header{
   padding: 10px 15px;
 }
 
-.search-field:focus {
+.search-field:focus{
   outline: none;
   border: 3px solid #fa0; 
 }
@@ -102,4 +129,32 @@ header{
 .search-btn:hover{
   background-color: #fa0;
   color: #fff;
+}
+
+.destory-btn{
+  background-color: #af544c;
+}
+
+.base-color{
+  background-color: #fa0;
+}
+.back-btn a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 22px;
+}
+
+th{
+ padding: 20px; 
+}
+
+td{
+  padding: 15px;
+}
+
+.back-contents{
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
 }

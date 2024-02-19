@@ -3,7 +3,6 @@ class CreateFacilities < ActiveRecord::Migration[6.1]
     create_table :facilities do |t|
       t.string :name
       t.string :address
-      t.string :image
       t.float :latitude
       t.float :longitude
       t.timestamps

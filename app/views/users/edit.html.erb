@@ -1,0 +1,23 @@
+<div class="prof-warapper">
+  <div class="edit-contents">
+    <h2>プロフィール編集</h2>
+    <%= form_with(model: @user, local: true) do |f| %>
+      <div class="img-contents">
+        <div>
+          <% if @user.icon_image.attached?  %>
+            <%= image_tag @user.icon_image.variant(resize: '200x200'), class: "user-icon", alt: "ユーザーアイコン" %>
+          <% else %>
+            <%= image_tag src='default.png', class: "user-icon", alt: "ユーザーアイコン" %>
+          <% end %>
+          <div><%= f.file_field :icon_image %></div>
+        </div>
+      </div>
+      <div>ユーザー名<%= f.text_field :name %></div>
+      <div>Myルール<%= f.text_area :my_rule, rows: 5, col: 40, class: "prof-rule-textarea" %></div>
+      <div class="back-contents">
+        <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
+        <%= f.submit "保存", class: "button base-color"%>
+      </div>
+    <% end %>
+  </div>
+</div>
