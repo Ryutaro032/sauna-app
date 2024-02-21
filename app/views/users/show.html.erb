@@ -20,9 +20,9 @@
         <tr>
           <td>
             <% if @user.icon_image.attached?  %>
-              <%= image_tag @user.icon_image.variant(resize: '200x200'), class: "user-icon", alt: "ユーザーアイコン" %>
+              <%= image_tag @user.icon_image, class: "user-icon", alt: "ユーザーアイコン", size: "200x200" %>
             <% else %>
-              <%= image_tag src='default.png', class: "user-icon", alt: "ユーザーアイコン" %>
+              <%= image_tag src='default.png', class: "user-icon", alt: "ユーザーアイコン", size: "200x200" %>
             <% end %>
           </td>
           <td><p><%= @user.name %></p></td>
