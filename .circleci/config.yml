@@ -44,8 +44,8 @@ jobs:
   rspec:
     docker:
       - image: cimg/ruby:3.0.6
-      environment:
-          - RAILS_ENV: 'test'
+    environment:
+      - RAILS_ENV: 'test'
     steps:
       - checkout
       - run: bundle exec rake db:create
