@@ -44,12 +44,12 @@ jobs:
   rspec:
     docker:
       - image: cimg/ruby:3.0.6
-      - environment:
+      environment:
           - RAILS_ENV: 'test'
       - image: circleci/mysql:8.0
           name: "db"
           command: mysqld --default-authentication-plugin=mysql_native_password
-          - environment:
+          environment:
             - MYSQL_ROOT_PASSWORD: password
     
     steps:
