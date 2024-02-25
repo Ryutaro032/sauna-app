@@ -3,7 +3,7 @@ class FacilityController < ApplicationController
 
   def index
     if params[:word].present?
-      @client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
+      @client = ::GooglePlaces::Client.new(ENV['GOOGLE_API_KEY'])
       @places = @client.spots_by_query("#{params[:word]},サウナ", language: 'ja', type: '"point_of_interest", "establishment","spa"')
       gon.places = @places
     else
