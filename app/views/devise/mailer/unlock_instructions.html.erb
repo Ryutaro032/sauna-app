@@ -1,0 +1,9 @@
+<div class="user-container"> 
+  <p><%= @resource.name%>さん こんにちは!</p>
+
+  <p>サインイン試行の失敗回数が多すぎるため、アカウントがロックされました。</p>
+
+  <p>アカウントのロックを解除するには、下のリンクをクリックしてください：</p>
+
+  <p><%= link_to 'ロックを解除する', unlock_url(@resource, unlock_token: @token) %></p>
+</div>
