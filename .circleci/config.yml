@@ -28,6 +28,18 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
+  
+  rubocop:
+    docker:
+      - image: cimg/ruby:3.0.6
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: bundle install
+      - run:
+          name: Run RuboCop
+          command: bundle exec rubocop
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
@@ -36,3 +48,4 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build
+      - rubocop
