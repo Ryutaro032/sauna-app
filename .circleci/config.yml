@@ -44,8 +44,13 @@ jobs:
   rspec:
     docker:
       - image: cimg/ruby:3.0.6
-    environment:
-      - RAILS_ENV: 'test'
+          environment:
+            - RAILS_ENV: 'test'
+      - image: circleci/mysql:8.0
+          name: "db"
+          command: mysqld --default-authentication-plugin=mysql_native_password
+          environment:
+            - MYSQL_ROOT_PASSWORD: password
     steps:
       - checkout
       - run: bundle exec rake db:create
