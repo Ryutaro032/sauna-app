@@ -47,7 +47,7 @@ jobs:
         environment:
           - RAILS_ENV: 'test'
       - image: circleci/mysql:8.0
-          name: "db"
+          name: db
           command: mysqld --default-authentication-plugin=mysql_native_password
           environment:
             - MYSQL_ROOT_PASSWORD: password
@@ -65,7 +65,7 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-          
+
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - run:
