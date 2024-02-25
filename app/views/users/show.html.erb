@@ -5,8 +5,10 @@
         <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
       </div>
       <div class="account-content">
-        <p>👇Eメール・パスワードの編集はこちら👇</p>
-        <button class="button base-color"><%= link_to"アカウントを編集する",edit_user_registration_path, class: "link" %></button>
+        <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
+          <p>👇Eメール・パスワードの編集はこちら👇</p>
+          <button class="button base-color"><%= link_to"アカウントを編集する",edit_user_registration_path, class: "link edit-ac" %></button>
+        <% end %>
       </div>
     </div>
     <table class="prof-contents">
@@ -19,7 +21,7 @@
         </tr>
         <tr>
           <td>
-            <% if @user.icon_image.attached?  %>
+            <% if @user.present? && @user.icon_image.attached?  %>
               <%= image_tag @user.icon_image, class: "user-icon", alt: "ユーザーアイコン", size: "200x200" %>
             <% else %>
               <%= image_tag src='default.png', class: "user-icon", alt: "ユーザーアイコン", size: "200x200" %>
@@ -29,9 +31,8 @@
           <td><textarea class="prof-rule-textarea" disabled><%= @user.my_rule %></textarea></td>
            <td class="btn-contents">
             <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
-              <button class="button prof-edit-btn"><%= link_to '編集する',edit_user_path(@user),class: "link" %></button>
-              <button class="button destory-btn"><%= link_to '削除する',edit_user_path(@user),class: "link" %></button>
-             <% end %>
+              <button class="button prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link edit-prof" %></button>
+            <% end %>
           </td>
         </tr>
       </tbody>

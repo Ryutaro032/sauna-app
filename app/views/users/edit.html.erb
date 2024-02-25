@@ -12,11 +12,17 @@
           <div><%= f.file_field :icon_image %></div>
         </div>
       </div>
-      <div>ユーザー名<%= f.text_field :name %></div>
-      <div>Myルール<%= f.text_area :my_rule, rows: 5, col: 40, class: "prof-rule-textarea" %></div>
+      <div>
+        <%= f.label :name, "ユーザー名" %>
+        <%= f.text_field :name, class: "user-name" %>
+      </div>
+      <div>
+        <%= f.label :my_rule, "Myルール" %>
+        <%= f.text_area :my_rule, rows: 5, col: 40, class: "prof-rule-textarea" %>
+      </div>
       <div class="back-contents">
         <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
-        <%= f.submit "保存", class: "button base-color"%>
+        <%= f.submit "保存", class: "button base-color save"%>
       </div>
     <% end %>
   </div>

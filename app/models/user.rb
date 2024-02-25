@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, uniqueness: true
+  validates :password, confirmation: true, length: { minimum: 6 }, allow_nil: true
+  validates :password_confirmation, presence: true, allow_nil: true
   validates :my_rule, length: { maximum: 400 }
 
   def self.guest
