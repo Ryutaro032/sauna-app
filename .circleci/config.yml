@@ -41,6 +41,18 @@ jobs:
           name: Run RuboCop
           command: bundle exec rubocop
 
+  rspec:
+    docker:
+      - image: cimg/ruby:3.0.6
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: bundle install
+      - run:
+          name: Run RSpec
+          command: bundle exec rspec
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -49,3 +61,4 @@ workflows:
     jobs:
       - build
       - rubocop
+      - rspec
