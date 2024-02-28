@@ -1,28 +1,16 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
   <head>
     <title>SaunaApp</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= include_gon %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+
   <body>
-    <div class="sauna-contanier">
-      <header>
-         <%= render 'shared/header' %>
-      </header>
-      <main>
-        <%= yield %>
-      </main>
-      <footer>
-        <%= render 'shared/footer' %>
-      </footer>
-    </div>
+    <%= yield %>
   </body>
 </html>
