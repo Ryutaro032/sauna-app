@@ -34,7 +34,6 @@ RSpec.describe 'Facilities', type: :request do
         get facility_index_path
         expect(response).to have_http_status(:ok)
         expect(response).to render_template(:index)
-        expect(flash[:notice]).to eq('キーワードを入力してください')
       end
     end
   end

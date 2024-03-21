@@ -15,7 +15,7 @@ RSpec.describe 'Favorites', type: :request do
         allow(GooglePlaces::Client).to receive(:new).and_return(client)
         allow(client).to receive(:spot).and_return(
           instance_double(
-            place_details,
+            'place_details',
             name: 'サウナ&ホテル かるまる池袋店',
             formatted_address: '日本、〒171-0014 東京都豊島区池袋２丁目７−７ 6F',
             lat: 35.7324069,
