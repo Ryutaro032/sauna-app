@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :icon_image
+  
+  has_many :favorites, dependent: :destroy
+  has_many :facilities, through: :favorites
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, uniqueness: true
@@ -16,7 +19,7 @@ class User < ApplicationRecord
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = 'ゲスト'
-      user.id = 2
+      user.id = 1
     end
   end
 end

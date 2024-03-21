@@ -4,6 +4,11 @@ RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   let(:guest_user) { described_class.guest }
 
+  describe "アソシエーションについて" do
+    it { should have_many(:favorites).dependent(:destroy) }
+    it { should have_many(:facilities).through(:favorites) }
+  end
+
   describe 'バリデーションについて' do
     it 'ユーザー名が空白の場合にエラーメッセージが返ってくるか' do
       user.name = ''
@@ -62,7 +67,7 @@ RSpec.describe User, type: :model do
     it 'ゲスト用でログインできること' do
       expect(guest_user.email).to eq('guest@example.com')
       expect(guest_user.name).to eq('ゲスト')
-      expect(guest_user.id).to eq(2)
+      expect(guest_user.id).to eq(1)
     end
   end
 end
