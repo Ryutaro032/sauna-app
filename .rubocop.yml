@@ -17,6 +17,12 @@ Documentation:
 Layout/LineLength:
   Max: 150
 
+Metrics/AbcSize:
+  Max: 30 
+
+Metrics/MethodLength:
+  Max: 25
+
 AllCops:
   Exclude:
     - 'db/**/*'

@@ -72,12 +72,12 @@ RSpec.describe 'Users', type: :system do
         within '.favorite-contents' do
           expect(page).to have_button('削除する')
 
-          click_button '削除する'
+          click_link_or_button '削除する'
 
           expect(page).to have_current_path user_path(user), ignore_query: true
 
           visit current_path
-          expect(page).not_to have_content(favorite.facility.name)
+          expect(page).to have_no_content(favorite.facility.name)
         end
       end
     end
@@ -101,7 +101,7 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_no_link('編集する', href: edit_user_path(user))
       end
 
-      it 'お気に入り登録した施設が表示されること'  do
+      it 'お気に入り登録した施設が表示されること' do
         expect(page).to have_content('お気に入り一覧')
         expect(page).to have_content(facility.name)
         expect(page).to have_content(facility.address)
@@ -109,7 +109,7 @@ RSpec.describe 'Users', type: :system do
 
       it '削除ボタンが表示されないこと' do
         within '.favorite-contents' do
-          expect(page).not_to have_button('削除する')
+          expect(page).to have_no_button('削除する')
         end
       end
     end
@@ -134,7 +134,7 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_no_link('編集する', href: edit_user_path(user))
       end
 
-      it 'お気に入り登録した施設が表示されること'  do
+      it 'お気に入り登録した施設が表示されること' do
         expect(page).to have_content('お気に入り一覧')
         expect(page).to have_content(facility.name)
         expect(page).to have_content(facility.address)
@@ -142,7 +142,7 @@ RSpec.describe 'Users', type: :system do
 
       it '削除ボタンが表示されないこと' do
         within '.favorite-contents' do
-          expect(page).not_to have_button('削除する')
+          expect(page).to have_no_button('削除する')
         end
       end
     end

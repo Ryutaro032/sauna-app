@@ -4,9 +4,9 @@ RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   let(:guest_user) { described_class.guest }
 
-  describe "アソシエーションについて" do
-    it { should have_many(:favorites).dependent(:destroy) }
-    it { should have_many(:facilities).through(:favorites) }
+  describe 'アソシエーションについて' do
+    it { is_expected.to have_many(:favorites).dependent(:destroy) }
+    it { is_expected.to have_many(:facilities).through(:favorites) }
   end
 
   describe 'バリデーションについて' do

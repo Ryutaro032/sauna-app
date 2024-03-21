@@ -5,6 +5,7 @@ RSpec.describe 'Facilities', type: :request do
   describe '#index' do
     context 'ユーザーがログインしている場合' do
       let(:user) { create(:user) }
+
       before { sign_in(user) }
 
       it 'リストページが表示されること' do

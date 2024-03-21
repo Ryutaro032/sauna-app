@@ -13,19 +13,19 @@ RSpec.describe 'Users', type: :request do
         sign_in user
         get user_path(user)
       end
-  
+
       it 'ユーザーの詳細ページにアクセスできること' do
         expect(response).to have_http_status(:ok)
       end
-  
+
       it 'ユーザー名が表示されること' do
         expect(response.body).to include user.name
       end
-  
+
       it 'Myルールが表示されること' do
         expect(response.body).to include user.my_rule
       end
-  
+
       it '画像が表示されること' do
         expect(response.body).to include('user-icon"')
       end
@@ -43,7 +43,7 @@ RSpec.describe 'Users', type: :request do
       end
 
       it '削除ボタンが表示されること' do
-        expect(response.body).to include("削除する")
+        expect(response.body).to include('削除する')
       end
     end
 
@@ -52,19 +52,19 @@ RSpec.describe 'Users', type: :request do
         sign_in other_user
         get user_path(user)
       end
-  
+
       it 'ユーザーの詳細ページにアクセスできること' do
         expect(response).to have_http_status(:ok)
       end
-  
+
       it 'ユーザー名が表示されること' do
         expect(response.body).to include user.name
       end
-  
+
       it 'Myルールが表示されること' do
         expect(response.body).to include user.my_rule
       end
-  
+
       it '画像が表示されること' do
         expect(response.body).to include('user-icon"')
       end
@@ -82,7 +82,7 @@ RSpec.describe 'Users', type: :request do
       end
 
       it '削除ボタンが表示されないこと' do
-        expect(response.body).not_to include("削除する")
+        expect(response.body).not_to include('削除する')
       end
     end
   end
