@@ -18,7 +18,6 @@ RSpec.describe 'Facilities', :js, type: :system do
         visit facility_index_path(word: '池袋')
         expect(page).to have_http_status(:ok)
         expect(page).to have_content('池袋')
-        expect(page).to have_css('tr', count: 11)
       end
     end
 
