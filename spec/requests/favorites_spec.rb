@@ -23,15 +23,6 @@ RSpec.describe 'Favorites', type: :request do
             place_id: place_id
           )
         )
-
-        # allow_any_instance_of(GooglePlaces::Client).to receive(:spot).and_return(
-        #   double('place_details',
-        #          name: 'サウナ&ホテル かるまる池袋店',
-        #          formatted_address: '日本、〒171-0014 東京都豊島区池袋２丁目７−７ 6F',
-        #          lat: 35.7324069,
-        #          lng: 139.7084296,
-        #          place_id: place_id)
-        # )
       end
 
       it 'お気に入り登録とDBへの保存ができること' do

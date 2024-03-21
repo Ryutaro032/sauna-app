@@ -23,6 +23,9 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 25
 
+Lint/EmptyConditionalBody:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'db/**/*'
