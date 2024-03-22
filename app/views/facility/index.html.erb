@@ -1,5 +1,8 @@
 <div class="facilityーlist-warapper">
   <div class="facility-list-container">
+    <div>
+      <%= render 'shared/flash_message' %>
+    </div>
     <form>
       <div class="search-form">
         <%= form_with url: facility_index_path, local: true, method: :get do |f| %>
@@ -9,14 +12,29 @@
       </div>
     </form>
     <div class="list-contents">
-       <div id='map' class="map"></div>
-       <div class="facility-lists">
-          <ul class="facility-list">
-            <% @places.each do |place|%>
-              <li><%= place.name %></li>
+      <div id='map' class="map"></div>
+      <div class="facility-lists">
+        <table>
+          <tbody>
+            <%if @places.present?%>
+              <% @places.each do |place|%>
+                <tr>
+                  <td><%= place.name %></td>
+                  <td>
+                    <% if current_user %>
+                      <% if @favorites.include?(place.name) %>
+                        <%= button_to "お気に入りを外す", favorites_facilities_path(place_id: place.place_id), method: :delete, remote: true, class: 'remove-favorite button favorite-btn favorited-color' %>
+                      <% else %>
+                        <%= button_to "お気に入りに追加", favorites_facilities_path(place_id: place.place_id), method: :post, remote: true, class: 'add-favorite button favorite-btn base-color' %>
+                      <% end %>
+                    <% end %>   
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
-          </ul>  
-       </div>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

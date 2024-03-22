@@ -1,4 +1,7 @@
 <div class="prof-warapper">
+  <div>
+    <%= render 'shared/flash_message', class: "flash" %>
+  </div>
   <div class="prof-container">
     <div class="back-contents">
       <div class="back-content">
@@ -37,5 +40,27 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="favorite-container">
+    <table class="favorite-contents">
+      <h2>お気に入り一覧</h2>
+      <% if @favorites.present? %>
+        <tbody>
+          <% @favorites.each do |favorite| %>
+            <tr>
+              <td><h5><%= favorite.facility.name %></h5></td>
+              <td><%= favorite.facility.address %></td>
+              <% if current_user %>
+                <td>
+                  <% if favorite.facility.favorited_by?(current_user) %>
+                    <%= button_to "削除する",  favorites_facilities_path(place_id: favorite.facility.place_id), method: :delete, class: 'button destroy-btn' %>
+                  <% end %>
+                </td>
+              <% end %>
+            </li>
+          <% end %>
+        </tbody>
+      <% end %>
+    </table>  
   </div>
 </div>

@@ -8,6 +8,8 @@ RSpec.describe 'Users', type: :system do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let(:guest_user) { create(:user, name: 'ゲスト') }
+  let(:facility) { create(:facility) }
+  let!(:favorite) { create(:favorite, user: user, facility: facility) }
 
   describe '詳細ページのテスト' do
     context 'ログインしており、プロフィールの所有者である場合' do
@@ -59,6 +61,25 @@ RSpec.describe 'Users', type: :system do
           expect(page).to have_no_link('編集する', href: edit_user_path(user))
         end
       end
+
+      it 'お気に入り登録した施設が表示されること' do
+        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content(facility.name)
+        expect(page).to have_content(facility.address)
+      end
+
+      it '削除ボタンが表示され、ボタンを押すと削除されていること' do
+        within '.favorite-contents' do
+          expect(page).to have_button('削除する')
+
+          click_link_or_button '削除する'
+
+          expect(page).to have_current_path user_path(user), ignore_query: true
+
+          visit current_path
+          expect(page).to have_no_content(favorite.facility.name)
+        end
+      end
     end
 
     context 'ユーザーがログインしていない場合' do
@@ -78,6 +99,18 @@ RSpec.describe 'Users', type: :system do
 
       it '編集ボタンが表示されないこと' do
         expect(page).to have_no_link('編集する', href: edit_user_path(user))
+      end
+
+      it 'お気に入り登録した施設が表示されること' do
+        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content(facility.name)
+        expect(page).to have_content(facility.address)
+      end
+
+      it '削除ボタンが表示されないこと' do
+        within '.favorite-contents' do
+          expect(page).to have_no_button('削除する')
+        end
       end
     end
 
@@ -99,6 +132,18 @@ RSpec.describe 'Users', type: :system do
 
       it '編集ボタンが表示されないこと' do
         expect(page).to have_no_link('編集する', href: edit_user_path(user))
+      end
+
+      it 'お気に入り登録した施設が表示されること' do
+        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content(facility.name)
+        expect(page).to have_content(facility.address)
+      end
+
+      it '削除ボタンが表示されないこと' do
+        within '.favorite-contents' do
+          expect(page).to have_no_button('削除する')
+        end
       end
     end
   end

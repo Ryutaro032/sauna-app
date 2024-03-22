@@ -1,7 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
-  def show; end
+  def show
+    if @user
+      @favorites = @user.favorites.includes(:facility)
+    elsif current_user
+      @favorites = current_user.favorites.includes(:facility)
+    end
+  end
 
   def edit; end
 

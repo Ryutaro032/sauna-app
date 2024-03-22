@@ -17,6 +17,15 @@ Documentation:
 Layout/LineLength:
   Max: 150
 
+Metrics/AbcSize:
+  Max: 30 
+
+Metrics/MethodLength:
+  Max: 25
+
+Lint/EmptyConditionalBody:
+  Enabled: false
+
 AllCops:
   Exclude:
     - 'db/**/*'
@@ -55,3 +64,7 @@ RSpec/Rails/InferredSpecType:
 
 Style/ClassAndModuleChildren:
   Enabled: false
+
+RSpec/VerifiedDoubleReference:
+  Exclude:
+    - 'spec/**/*_spec.rb'
