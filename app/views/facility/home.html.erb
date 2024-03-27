@@ -7,6 +7,14 @@
     <div class="slide-img"></div>
   </div>
   <div class="header-inner">
+    <form>
+      <div class="search-form">
+        <%= form_with url: facility_index_path, local: true, method: :get do |f| %>
+          <%= f.search_field :word, class: "search-field", id: "list_search_field",  placeholder: "キーワードを入力" %>
+          <%= f.submit "検索", class: "search-btn", id: "list-search-btn" %>
+        <% end %>
+      </div>
+    </form>
   </div>
   <div class="scroll-container">
     <div class="chevron"></div>
@@ -14,4 +22,5 @@
     <div class="chevron"></div>
     <span class="scroll-text">Scroll down</span>
   </div>
+  <div class="area-search-container"></div>
 </div>

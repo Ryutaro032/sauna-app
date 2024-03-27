@@ -1,6 +1,6 @@
 .mainpage-header-container{
   position: relative;
-  height: 850px;
+  /* height: 100vh; */
 }
 
 .top-img{
@@ -106,6 +106,16 @@
   white-space: nowrap;
   opacity: .25;
   animation: pulse 2s linear alternate infinite;
+}
+
+.header-inner{
+  position: absolute;
+  top: 320px;
+  right: 600px;
+}
+
+.area-search-container{
+  height: 400px;
 }
 
 @keyframes anime {
