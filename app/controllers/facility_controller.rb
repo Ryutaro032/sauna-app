@@ -7,7 +7,7 @@ class FacilityController < ApplicationController
       render :home
     end
   end
-  
+
   def index
     search_places
     render :index
@@ -20,11 +20,11 @@ class FacilityController < ApplicationController
   end
 
   def search_places
-    if params[:word].present?
-      @client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
-      @places = @client.spots_by_query("#{params[:word]},サウナ", language: 'ja', type: '"point_of_interest", "establishment","spa"')
-      gon.places = @places
-      @favorites = current_user.facilities.pluck(:name) if user_signed_in?
-    end
+    return if params[:word].blank?
+
+    @client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
+    @places = @client.spots_by_query("#{params[:word]},サウナ", language: 'ja', type: '"point_of_interest", "establishment","spa"')
+    gon.places = @places
+    @favorites = current_user.facilities.pluck(:name) if user_signed_in?
   end
 end
