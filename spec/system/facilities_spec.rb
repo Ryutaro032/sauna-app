@@ -5,6 +5,71 @@ RSpec.describe 'Facilities', :js, type: :system do
     driven_by(:rack_test)
   end
 
+  describe '#home' do
+    let(:user) { create(:user) }
+
+    context 'ユーザーがログインしている場合' do
+      before do
+        sign_in(user)
+      end
+  
+      context 'トップページ画面について' do
+        it 'トップページが表示されること' do
+          visit root_path
+          expect(page).to have_http_status(:ok)
+        end
+  
+        it 'キーワード検索ができ、リストページに結果とお気に入りボタンが表示されること' do
+          visit root_path
+  
+          fill_in 'キーワードを入力', with: '池袋'
+          click_button '検索'
+  
+          visit facility_index_path(word: '池袋')
+          expect(page).to have_http_status(:ok)
+          expect(page).to have_content('池袋')
+  
+          expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
+          expect(page).to have_no_css('tr:first-child .remove-favorite')
+  
+          find('tr:first-child .add-favorite').click
+  
+          expect(page).to have_css('tr:first-child .remove-favorite', visible: :all)
+          expect(page).to have_no_css('tr:first-child .add-favorite')
+  
+          find('tr:first-child .remove-favorite').click
+  
+          expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
+          expect(page).to have_no_css('tr:first-child .remove-favorite')
+        end
+      end
+    end
+
+    context 'ユーザーがログインしていない場合' do
+      before do
+        sign_out(user)
+      end
+
+      it 'トップページが表示されること' do
+        visit root_path
+        expect(page).to have_http_status(:ok)
+      end
+
+      it 'キーワード検索ができ、リストページに結果が表示され、お気に入りボタンが表示されないこと' do
+        visit root_path
+
+        fill_in 'キーワードを入力', with: '池袋'
+        click_button '検索'
+
+        
+        expect(page).to have_http_status(:ok)
+        expect(page).to have_content('池袋')
+
+        expect(page).to have_no_css('tr .favorite-btn')
+      end
+    end
+  end
+
   describe 'index' do
     let(:user) { create(:user) }
 
