@@ -8,7 +8,7 @@ RSpec.describe 'Facilities', type: :request do
       expect(response).to have_http_status(:ok)
     end
 
-    context 'ログイン' do
+    context 'ログインしている場合' do
       let(:user) { create(:user) }
 
       before do
@@ -26,13 +26,20 @@ RSpec.describe 'Facilities', type: :request do
       end
     end
 
-    context 'ログインなし' do
-      it 'Google Place APIを使用して場所を検索し、' do
+    context 'ログインしていない場合' do
+      let(:user) { create(:user) }
+
+      before do
+        sign_out(user)
+      end
+
+      it 'Google Place APIを使用して場所を検索でき、お気に入りが表示されないこと' do
         VCR.use_cassette('google_places_api_request') do
           get facility_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('池袋')
           expect(assigns(:places)).not_to be_empty
+          expect(assigns(:favorites)).to be_nil
         end
       end
     end
