@@ -4,8 +4,8 @@
   margin: auto;
   margin-top: 150px;
 }
-.search-form{
-  text-align: center;
+.search-contents{
+  margin-left: 300px;
 }
 .list-contents{
   display: flex;

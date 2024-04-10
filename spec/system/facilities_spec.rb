@@ -1,12 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'Facilities', :js, type: :system do
+RSpec.describe 'Facilities', js: true, type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   describe 'ホーム画面のテストについて' do
     let(:user) { create(:user) }
+    let!(:prefecture) { create(:prefecture, name: "東京都") }
 
     context 'ユーザーがログインしている場合' do
       before do
@@ -16,7 +17,7 @@ RSpec.describe 'Facilities', :js, type: :system do
       context 'トップページ画面について' do
         it 'トップページが表示されること' do
           visit root_path
-          expect(page).to have_http_status(:ok)
+          expect(page).to have_content("サウナログ")
         end
 
         it 'キーワード検索ができ、リストページに結果とお気に入りボタンが表示されること' do
@@ -26,7 +27,6 @@ RSpec.describe 'Facilities', :js, type: :system do
           click_link_or_button '検索'
 
           visit facility_index_path(word: '池袋')
-          expect(page).to have_http_status(:ok)
           expect(page).to have_content('池袋')
 
           expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
@@ -42,6 +42,17 @@ RSpec.describe 'Facilities', :js, type: :system do
           expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
           expect(page).to have_no_css('tr:first-child .remove-favorite')
         end
+
+        it '都道府県の検索ができること' do
+          visit root_path
+
+          expect(page).to have_selector("#prefecture_select option[value='#{prefecture.id}']")
+          find("#prefecture_select").find("option[value='#{prefecture.id}']").select_option
+
+          click_link_or_button '検索'
+  
+          expect(page).to have_content("サウナログ")
+        end
       end
     end
 
@@ -52,7 +63,7 @@ RSpec.describe 'Facilities', :js, type: :system do
 
       it 'トップページが表示されること' do
         visit root_path
-        expect(page).to have_http_status(:ok)
+        expect(page).to have_content("サウナログ")
       end
 
       it 'キーワード検索ができ、リストページに結果が表示され、お気に入りボタンが表示されないこと' do
@@ -61,9 +72,7 @@ RSpec.describe 'Facilities', :js, type: :system do
         fill_in 'キーワードを入力', with: '池袋'
         click_link_or_button '検索'
 
-        expect(page).to have_http_status(:ok)
         expect(page).to have_content('池袋')
-
         expect(page).to have_no_css('tr .favorite-btn')
       end
     end
@@ -71,17 +80,29 @@ RSpec.describe 'Facilities', :js, type: :system do
 
   describe '検索リスト表示画面のテストについて' do
     let(:user) { create(:user) }
+    let!(:prefecture) { create(:prefecture, name: "東京都") }
 
     context '検索結果の表示について' do
       it 'リストページが表示されること' do
         visit facility_index_path
-        expect(page).to have_http_status(:ok)
+        expect(page).to have_content("サウナログ")
       end
 
       it 'キーワード検索を行い、表示されること' do
         visit facility_index_path(word: '池袋')
-        expect(page).to have_http_status(:ok)
+        expect(page).to have_content("サウナログ")
         expect(page).to have_content('池袋')
+      end
+
+      it '都道府県の検索ができること' do
+        visit facility_index_path
+
+        expect(page).to have_selector("#prefecture_select option[value='#{prefecture.id}']")
+        find("#prefecture_select").find("option[value='#{prefecture.id}']").select_option
+
+        click_link_or_button '検索'
+
+        expect(page).to have_content("サウナログ")
       end
     end
 

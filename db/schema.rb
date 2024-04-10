@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_03_21_095327) do
+ActiveRecord::Schema.define(version: 2024_03_29_112843) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 2024_03_21_095327) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.integer "prefecture_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["prefecture_id"], name: "index_cities_on_prefecture_id"
+  end
+
   create_table "facilities", force: :cascade do |t|
     t.string "name"
     t.string "address"
@@ -60,6 +68,13 @@ ActiveRecord::Schema.define(version: 2024_03_21_095327) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "prefectures", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_prefectures_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email", default: "", null: false
@@ -77,6 +92,7 @@ ActiveRecord::Schema.define(version: 2024_03_21_095327) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cities", "prefectures"
   add_foreign_key "favorites", "facilities"
   add_foreign_key "favorites", "users"
 end

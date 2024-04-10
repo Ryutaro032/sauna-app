@@ -20,11 +20,8 @@ class FacilityController < ApplicationController
   end
 
   def search_places
-    return if params[:word].blank?
-
-    @client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
-    @places = @client.spots_by_query("#{params[:word]},サウナ", language: 'ja', type: '"point_of_interest", "establishment","spa"')
-    gon.places = @places
+    @places = Facility.search_places(params)
+    gon.places = @places if @places.present?
     @favorites = current_user.facilities.pluck(:name) if user_signed_in?
   end
 end
