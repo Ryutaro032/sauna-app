@@ -8,6 +8,12 @@ orbs:
   # See the Ruby orb documentation here: https://circleci.com/developer/orbs/orb/circleci/ruby
   ruby: circleci/ruby@2.1.1
 
+services:
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
@@ -46,6 +52,7 @@ jobs:
       - image: cimg/ruby:3.0.6-node
         environment:
           RAILS_ENV: 'test'
+          SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
       - image: circleci/mysql:8.0
         name: "db"
         command: mysqld --default-authentication-plugin=mysql_native_password
