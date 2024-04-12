@@ -68,7 +68,8 @@ jobs:
           command: bundle exec rspec
 
 workflows:
-    jobs:
-      - build
-      - rubocop
-      - rspec
+  version: 2
+  jobs:
+    - build
+    - rubocop
+    - rspec
