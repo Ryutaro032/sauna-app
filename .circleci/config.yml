@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@2.1.1
-   browser-tools: circleci/browser-tools@1.4.8
+  browser-tools: circleci/browser-tools@1.4.8
 
 services:
   chrome:
