@@ -6,6 +6,7 @@ require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'vcr'
+require 'capybara/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -30,6 +31,9 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ActionDispatch::TestProcess::FixtureFile
@@ -76,17 +80,24 @@ RSpec.configure do |config|
     end
   end
 
-  VCR.configure do |config|
-    config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-    config.hook_into :webmock
-    config.configure_rspec_metadata!
-    config.allow_http_connections_when_no_cassette = true
-    config.default_cassette_options = {
+  VCR.configure do |vcr_c|
+    vcr_c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+    vcr_c.hook_into :webmock
+    vcr_c.configure_rspec_metadata!
+    vcr_c.allow_http_connections_when_no_cassette = true
+    vcr_c.default_cassette_options = {
       record: :new_episodes
     }
   end
 
   config.before(:each, type: :system) do
-    driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+    driven_by :rack_test
+  end
+
+  config.before(:each, :js, type: :system) do
+    driven_by :selenium_chrome_headless
+    Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    Capybara.server_port = 4444
+    Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
   end
 end

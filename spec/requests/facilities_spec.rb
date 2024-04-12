@@ -5,7 +5,7 @@ RSpec.describe 'Facilities', type: :request do
   shared_examples 'リスト表示に関するテストについて' do
     let(:prefecture) { create(:prefecture) }
     let(:city) { prefecture.cities.first }
-    
+
     it 'リストページが表示されること' do
       get facility_index_path
       expect(response).to have_http_status(:ok)

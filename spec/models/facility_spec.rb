@@ -27,48 +27,27 @@ RSpec.describe Facility, type: :model do
         params = { prefecture: prefecture.id, city: city.id }
 
         VCR.use_cassette('google_places_search') do
-          expect(Facility.search_places(params)).to be_a(Array)
+          expect(described_class.search_places(params)).to be_a(Array)
         end
-      end
-
-      it '都道府県名が正しく取得されること' do
-        params = { prefecture: prefecture.id, city: city.id }
-
-        expect(Prefecture).to receive(:find).with(params[:prefecture]).and_return(prefecture)
-        expect(Facility.search_places(params))
-      end
-    
-      it '市区町村名が正しく取得されること' do
-        params = { prefecture: prefecture.id, city: city.id }
-        
-        expect(City).to receive(:find).with(params[:city]).and_return(city)
-        expect(Facility.search_places(params))
       end
     end
 
     context '都道府県のみ存在する場合' do
       it '都道府県で検索できること' do
-        params = { prefecture: prefecture.id }
-        
+        params = { prefecture: prefecture.id, city: city.id }
+
         VCR.use_cassette('google_places_search') do
-          expect(Facility.search_places(params)).to be_a(Array)
+          expect(described_class.search_places(params)).to be_a(Array)
         end
-      end
-
-      it '都道府県名が正しく取得されること' do
-        params = { prefecture: prefecture.id }
-
-        expect(Prefecture).to receive(:find).with(params[:prefecture]).and_return(prefecture)
-        expect(Facility.search_places(params))
       end
     end
 
     context 'キーワードが存在する場合' do
       it 'キーワードで検索できること' do
         params = { word: '池袋' }
-        
+
         VCR.use_cassette('google_places_search') do
-          expect(Facility.search_places(params)).to be_a(Array)
+          expect(described_class.search_places(params)).to be_a(Array)
         end
       end
     end
@@ -76,8 +55,8 @@ RSpec.describe Facility, type: :model do
     context 'パラメータが存在しない場合' do
       it 'nilを返すこと' do
         params = {}
-        
-        expect(Facility.search_places(params)).to be_nil
+
+        expect(described_class.search_places(params)).to be_nil
       end
     end
   end

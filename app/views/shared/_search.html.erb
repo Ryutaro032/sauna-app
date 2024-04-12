@@ -1,7 +1,7 @@
 <form>
   <div class="search-form">
     <%= form_with url: facility_index_path, method: :get do |f| %>
-      <%= f.collection_select :prefecture, Prefecture.all, :id, :name, { prompt: "都道府県を選択" }, { id: "prefecture_select", class: "search-field" } %>
+      <%= f.collection_select :prefecture, Prefecture.all, :id, :name, { prompt: "都道府県を選択" }, { id: "prefecture_select", class: "search-field"} %>
       <%= f.select :city, [], include_blank: "ーーーーーーーーーーーー", class: "default-city-select search-field" %>
       <% Prefecture.all.each do |prefecture| %>
         <template id="city-select<%= prefecture.id %>">

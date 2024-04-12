@@ -4,7 +4,7 @@ let stringToHTML = function(str){
   return dom;
 };
 
-document.addEventListener('turbolinks:load', function(){
+document.addEventListener('DOMContentLoaded', function(){
   let prefecture = document.querySelector('#prefecture_select');
   let cityContainer = document.querySelector('#city');
 
