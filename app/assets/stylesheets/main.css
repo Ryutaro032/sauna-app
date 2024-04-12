@@ -80,7 +80,6 @@ header{
   color: #fff;
 }
 
-
 .header-logo{
   width: 75px;
   border-radius: 50%;
@@ -105,7 +104,7 @@ header{
 }
 
 .search-form{
-  text-align: center;
+  display: flex;
 }
 
 .search-field{

@@ -1,28 +1,20 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/orb-intro/
 orbs:
-  # See the Ruby orb documentation here: https://circleci.com/developer/orbs/orb/circleci/ruby
   ruby: circleci/ruby@2.1.1
+  browser-tools: circleci/browser-tools@1.4.8
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
+services:
+  chrome:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - 4444:4444
+
 jobs:
   build:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
     docker:
-      # Specify the version you desire here
-      # See: https://circleci.com/developer/images/image/cimg/ruby
       - image: cimg/ruby:3.0.6
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
     steps:
-      # Checkout the code as the first step.
       - checkout
       - run:
           name: Which bundler?
@@ -46,6 +38,7 @@ jobs:
       - image: cimg/ruby:3.0.6-node
         environment:
           RAILS_ENV: 'test'
+          SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
       - image: circleci/mysql:8.0
         name: "db"
         command: mysqld --default-authentication-plugin=mysql_native_password
@@ -54,13 +47,19 @@ jobs:
 
     steps:
       - checkout
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run:
+          name: Check install
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            google-chrome --version
+            chromedriver --version
       - save_cache:
           paths:
             - ./vendor/bundle
@@ -76,8 +75,6 @@ jobs:
           name: Run RSpec
           command: bundle exec rspec
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.

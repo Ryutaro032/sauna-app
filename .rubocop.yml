@@ -26,6 +26,12 @@ Metrics/MethodLength:
 Lint/EmptyConditionalBody:
   Enabled: false
 
+CyclomaticComplexity:
+  Max: 15
+
+PerceivedComplexity:
+  Max: 20
+
 AllCops:
   Exclude:
     - 'db/**/*'
