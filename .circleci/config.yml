@@ -68,11 +68,9 @@ jobs:
           command: bundle exec rspec
 
 workflows:
-  version: 2
-  jobs:
-    build:
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
       - build
-    rubocop:
       - rubocop
-    rspec:
       - rspec
