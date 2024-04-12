@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@2.1.1
+  browser-tools: circleci/browser-tools@x.y
 
 services:
   chrome:
@@ -46,12 +47,18 @@ jobs:
 
     steps:
       - checkout
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
 
       - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+          command: |
+            google-chrome --version
+            chromedriver --version
+          name: Check install
       - save_cache:
           paths:
             - ./vendor/bundle

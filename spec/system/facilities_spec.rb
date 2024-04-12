@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Facilities', :js, type: :system do
-
   describe 'ホーム画面のテストについて' do
     let(:user) { create(:user) }
     let!(:prefecture) { create(:prefecture, name: '東京都') }
