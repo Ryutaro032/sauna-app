@@ -14,7 +14,7 @@
             <%if @places.present?%>
               <% @places.each do |place|%>
                 <tr>
-                  <td><%= place.name %></td>
+                  <td class="facility-name"><%= place.name %></td>
                   <td>
                     <% if current_user %>
                       <% if @favorites.include?(place.name) %>

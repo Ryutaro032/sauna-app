@@ -210,34 +210,32 @@ td{
 }
 
 @media screen and (max-width: 480px){
-  /* スマートフォンサイズのスタイルをこちらに追加します */
-
   body{
-    font-size: 0.9rem; /* フォントサイズをさらに小さく */
-    line-height: 1.2; /* 行間をさらに狭める */
+    font-size: 0.9rem;
+    line-height: 1.2
   }
 
   .header-left h2{
-    margin-left: 15px; /* ヘッダーのタイトルのマージンを少なく */
-    margin-top: 20px; /* ヘッダーのタイトルのマージンを少なく */
+    margin-left: 15px;
+    margin-top: 20px;
   }
 
   .header-logo{
-    width: 50px; /* ロゴのサイズを小さく */
+    width: 50px;
   }
 
   .search-field{
-    width: 150px; /* 検索フィールドの幅をさらに小さく */
-    padding: 8px 10px; /* パディングを少なく */
+    width: 150px;
+    padding: 8px 10px;
   }
 
   .search-btn,
   .destroy-btn{
-    padding: 6px 12px; /* ボタンのパディングを少なく */
+    padding: 6px 12px;
   }
 
   .footer-container{
-    height: auto; /* フッターの高さを自動調整 */
+    height: auto;
   }
 }
 
