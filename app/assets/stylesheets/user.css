@@ -123,3 +123,37 @@
 .favorite-contents li{
   display: flex;
 }
+
+@media screen and (max-width: 959px){
+  .user-container{
+    margin: 150px 0px 10px 0px;
+  }
+
+  .prof-warapper{
+    margin: 80px 10px 15px 10px;
+  }
+
+  .prof-container{
+    margin-top: 150px;
+  }
+
+  .prof-contents{
+    width: 90%;
+  }
+
+  .edit-contents{
+    margin-top: 150px;
+  }
+
+  .edit-contents form{
+    width: 70%;
+  }
+
+  .field input{
+    width: 60%;
+  }
+
+  .favorite-contents{
+    height: auto;
+  }
+}
