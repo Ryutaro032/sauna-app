@@ -60,6 +60,7 @@ header{
 
 .header-left{
   display: flex;
+  margin-top: 20px;
   padding-left: 30px;
 }
 
@@ -173,3 +174,70 @@ td{
     opacity: 0;
   }
 }
+
+@media screen and (max-width: 959px){
+  body{
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .header-left{
+    padding-left: 15px;
+  }
+
+  .header-right ul{
+    padding-right: 15px;
+  }
+
+  .search-field{
+    width: 200px;
+  }
+
+  .search-btn,
+  .destroy-btn{
+    padding: 8px 15px;
+  }
+
+  .back-contents{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-inner{
+    top: 250px;
+    right: 200px;
+  }
+}
+
+@media screen and (max-width: 480px){
+  /* スマートフォンサイズのスタイルをこちらに追加します */
+
+  body{
+    font-size: 0.9rem; /* フォントサイズをさらに小さく */
+    line-height: 1.2; /* 行間をさらに狭める */
+  }
+
+  .header-left h2{
+    margin-left: 15px; /* ヘッダーのタイトルのマージンを少なく */
+    margin-top: 20px; /* ヘッダーのタイトルのマージンを少なく */
+  }
+
+  .header-logo{
+    width: 50px; /* ロゴのサイズを小さく */
+  }
+
+  .search-field{
+    width: 150px; /* 検索フィールドの幅をさらに小さく */
+    padding: 8px 10px; /* パディングを少なく */
+  }
+
+  .search-btn,
+  .destroy-btn{
+    padding: 6px 12px; /* ボタンのパディングを少なく */
+  }
+
+  .footer-container{
+    height: auto; /* フッターの高さを自動調整 */
+  }
+}
+

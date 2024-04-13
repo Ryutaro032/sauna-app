@@ -52,8 +52,9 @@
 
 .header-inner{
   position: absolute;
-  top: 320px;
-  right: 300px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
 
 @keyframes anime {
@@ -72,4 +73,16 @@
   100% {
     opacity: 0;
   }
+}
+
+@media screen and (max-width: 959px){
+  .header-inner {
+    width: 85%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+}
+
+@media screen and (max-width: 480px){
 }
