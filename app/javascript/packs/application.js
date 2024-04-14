@@ -9,9 +9,13 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap";
 import "../stylesheets/application.scss";
+import './nav';
 import './prefecture';
 import './search';
+import ('jquery')
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// window.$ = jQuery;

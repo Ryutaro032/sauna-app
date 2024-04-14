@@ -75,6 +75,10 @@ header{
   padding-top: 30px;
 }
 
+.header-lists{
+  display: block;
+}
+
 .header-list{
   margin: 20px 30px 20px 10px;
   font-size: 20px;
@@ -166,6 +170,57 @@ td{
   animation: fadeOut 2s ease forwards;
 }
 
+nav{
+  display: none;
+  margin-top: 15px;
+}
+
+.nav-toggle{
+  width: 60px;
+  height: 60px;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-bar{
+  height: 5px;
+  width: 40px;
+  margin: 5px 10px;
+  border-radius: 2px;
+  background-color: #fa0;
+  transition: 1s;
+}
+
+.nav-wrapper{
+  position: fixed;
+  top: 60px;
+  right: -200px;
+  height: 100%;
+  width: 200px;
+  background-color: black;
+  transition: 300ms;
+}
+
+.nav-wrapper.open {
+  right: 0;
+}
+
+.nav-toggle.open span:nth-child(1){
+  transform: translateY(15px) rotate(-45deg);
+}
+
+.nav-toggle.open span:nth-child(2){
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3){
+  transform: translateY(-13px) rotate(45deg);
+}
+
+
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -207,21 +262,34 @@ td{
 @media screen and (max-width: 480px){
   body{
     font-size: 0.9rem;
-    line-height: 1.2
+    line-height: 1.2;
   }
 
-  .header-left h2{
+  main{
+    width: 100%;
+  }
+
+  .header-left{
     margin-left: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .header-logo{
     width: 50px;
   }
 
+  nav{
+    display: block;
+  }
+
+  .header-lists{
+    display: none;
+  }
+
   .search-field{
-    width: 150px;
+    width: 90%;
     padding: 8px 10px;
+    margin: 10px 0 ;
   }
 
   .search-btn,
@@ -229,8 +297,17 @@ td{
     padding: 6px 12px;
   }
 
-  .footer-container{
-    height: auto;
+  .search-form{
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-left h5{
+    font-size: 0.8rem;
+  }
+
+  .footer-right p{
+    font-size: 0.6rem;
   }
 }
 
