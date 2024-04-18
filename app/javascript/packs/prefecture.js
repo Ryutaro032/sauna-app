@@ -5,22 +5,29 @@ let stringToHTML = function(str){
 };
 
 document.addEventListener('DOMContentLoaded', function(){
+  initializeCitySelection();
+});
+
+document.addEventListener('turbolinks:load', function(){
+  initializeCitySelection();
+});
+
+function initializeCitySelection(){
   let prefecture = document.querySelector('#prefecture_select');
   let cityContainer = document.querySelector('#city');
 
-  let defaultCitySelect = `
-    <select name="city" id="city" class="search-field">
-      <option value>ーーーーーーーーーーーー</option>
-    </select>`;
+  if(prefecture && cityContainer){
+    prefecture.addEventListener('change', function(){
+      let prefectureId = prefecture.value;
 
-  prefecture.addEventListener('change', function(){
-    let prefectureId = prefecture.value;
-
-    if(prefectureId === ''){
-      cityContainer.innerHTML = defaultCitySelect;
-    }else{
-      let selectedTemplate = document.querySelector(`#city-select${prefectureId}`);
-      cityContainer.innerHTML = selectedTemplate.innerHTML;
-    }
-  });
-});
+      if(prefectureId === ''){
+        cityContainer.innerHTML = '';
+      }else{
+        let selectedTemplate = document.querySelector(`#city-select${prefectureId}`);
+        if(selectedTemplate){
+          cityContainer.innerHTML = selectedTemplate.innerHTML;
+        }
+      }
+    });
+  }
+}

@@ -14,13 +14,13 @@
             <%if @places.present?%>
               <% @places.each do |place|%>
                 <tr>
-                  <td><%= place.name %></td>
+                  <td class="facility-name"><%= place.name %></td>
                   <td>
                     <% if current_user %>
                       <% if @favorites.include?(place.name) %>
-                        <%= button_to "お気に入りを外す", favorites_facilities_path(place_id: place.place_id), method: :delete, remote: true, class: 'remove-favorite button favorite-btn favorited-color' %>
+                        <%= button_to "お気に入りを外す", favorites_facilities_path(place_id: place.place_id), method: :delete, remote: true, class: 'remove-favorite button favorite-btn favorited-color', html: { 'data-turbolinks': false } %>
                       <% else %>
-                        <%= button_to "お気に入りに追加", favorites_facilities_path(place_id: place.place_id), method: :post, remote: true, class: 'add-favorite button favorite-btn base-color' %>
+                        <%= button_to "お気に入りに追加", favorites_facilities_path(place_id: place.place_id), method: :post, remote: true, class: 'add-favorite button favorite-btn base-color', html: { 'data-turbolinks': false } %>
                       <% end %>
                     <% end %>   
                   </td>

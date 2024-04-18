@@ -19,7 +19,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   opacity: 0;
   animation: anime 30s 0s infinite;
@@ -52,8 +52,9 @@
 
 .header-inner{
   position: absolute;
-  top: 320px;
-  right: 300px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
 
 @keyframes anime {
@@ -71,5 +72,11 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .header-inner {
+    width: 65%;
   }
 }

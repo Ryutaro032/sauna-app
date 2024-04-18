@@ -1,8 +1,54 @@
-<div class="prof-warapper">
+<div class="user-warapper">
   <div>
     <%= render 'shared/flash_message', class: "flash" %>
   </div>
   <div class="prof-container">
+    <div class="prof-contents">
+      <div class="profile-card">
+        <div class="profile-card__inner">
+          <div class="user-icon">
+            <% if @user.present? && @user.icon_image.attached?  %>
+              <%= image_tag @user.icon_image, alt: "ユーザーアイコン" %>
+            <% else %>
+              <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
+            <% end %>
+          </div>
+          <div class="profile-content">
+            <span class="profile-name"><%= @user.name %></span>
+            <span class="profile-intro"><%= @user.my_rule %></span>
+            <span class="btn-contents">
+              <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
+                <button class="button prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link edit-prof" %></button>
+              <% end %>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="favorite-contents">
+        <h2 class="heading">お気に入り一覧</h2>
+        <div class="favorite-content">
+          <% if @favorites.present? %>
+            <table>
+              <tbody>
+                <% @favorites.each do |favorite| %>
+                  <tr>
+                    <td><h5><%= favorite.facility.name %></h5></td>
+                    <td><p><%= favorite.facility.address %></p></td>
+                    <td>
+                      <% if current_user %>
+                        <% if favorite.facility.favorited_by?(current_user) %>
+                          <%= button_to "削除する",  favorites_facilities_path(place_id: favorite.facility.place_id), method: :delete, class: 'button destroy-btn' %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div> 
+      </div> 
+    </div>
     <div class="back-contents">
       <div class="back-content">
         <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
@@ -14,53 +60,5 @@
         <% end %>
       </div>
     </div>
-    <table class="prof-contents">
-      <h2>Myプロフィール</h2>
-      <tbody class="prof-content">
-        <tr>
-          <th></th>
-           <th class="prof-name">ユーザー名</th>
-           <th>Myルール</th>
-        </tr>
-        <tr>
-          <td>
-            <% if @user.present? && @user.icon_image.attached?  %>
-              <%= image_tag @user.icon_image, class: "user-icon", alt: "ユーザーアイコン", size: "200x200" %>
-            <% else %>
-              <%= image_tag src='default.png', class: "user-icon", alt: "ユーザーアイコン", size: "200x200" %>
-            <% end %>
-          </td>
-          <td><p><%= @user.name %></p></td>
-          <td><textarea class="prof-rule-textarea" disabled><%= @user.my_rule %></textarea></td>
-           <td class="btn-contents">
-            <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
-              <button class="button prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link edit-prof" %></button>
-            <% end %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="favorite-container">
-    <table class="favorite-contents">
-      <h2>お気に入り一覧</h2>
-      <% if @favorites.present? %>
-        <tbody>
-          <% @favorites.each do |favorite| %>
-            <tr>
-              <td><h5><%= favorite.facility.name %></h5></td>
-              <td><%= favorite.facility.address %></td>
-              <% if current_user %>
-                <td>
-                  <% if favorite.facility.favorited_by?(current_user) %>
-                    <%= button_to "削除する",  favorites_facilities_path(place_id: favorite.facility.place_id), method: :delete, class: 'button destroy-btn' %>
-                  <% end %>
-                </td>
-              <% end %>
-            </li>
-          <% end %>
-        </tbody>
-      <% end %>
-    </table>  
   </div>
 </div>
