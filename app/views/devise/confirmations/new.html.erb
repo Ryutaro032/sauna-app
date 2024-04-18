@@ -1,5 +1,5 @@
-<div class="user-container">
-  <h2>確認メールの再送信</h2>
+<div class="user-warapper">
+  <h2 class="heading">確認メールの再送信</h2>
 
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
