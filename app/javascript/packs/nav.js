@@ -1,8 +1,17 @@
-$(function() {
-  $(".nav-toggle").click(function(){
-      $(".nav-toggle,.nav-wrapper").toggleClass("open");
+$(document).ready(function() {
+  toggleNav();
+
+  $(document).on('turbolinks:load', function() {
+    toggleNav();
   });
-  $("nav-toggle").click(function(){
-      $(".nav-toggle,.span").toggleClass("open");
-  });
+
+  function toggleNav() {
+    $(".nav-toggle").click(function() {
+      $(".nav-toggle, .nav-wrapper").toggleClass("open");
+    });
+
+    $(".span").click(function() {
+      $(".nav-toggle, .span").toggleClass("open");
+    });
+  }
 });
