@@ -19,6 +19,8 @@
 
 .facility-lists{
   margin-left: 40px;
+  height: 500px;
+  overflow: auto;
 }
 
 .facility-lists td{
@@ -27,7 +29,7 @@
 }
 
 .facility-name{
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .map {
