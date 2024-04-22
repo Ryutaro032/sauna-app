@@ -60,7 +60,40 @@ function markerEvent(i){
     infoWindow[i].open(map, marker[i]);
   });
 };
+
+function listClickHandler(lat, lng){
+  centerStore(lat, lng);
+
+  markerData.forEach((data, key) => {
+    if(data['lat'] == lat && data['lng'] == lng){
+      infoWindow[key].open(map, marker[key]);
+    };
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  facilitySelection();
+});
+
+document.addEventListener('turbolinks:load', function(){
+  facilitySelection();
+});
+
+function facilitySelection(){
+  const listItems = document.querySelectorAll('.list-item');
+
+  listItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const lat = this.getAttribute('data-lat');
+      const lng = this.getAttribute('data-lng');
+
+      listClickHandler(lat, lng);
+    });
+  });
+}
+
 window.initMap = initMap;
 window.centerStore = centerStore;
 window.allStoreMarker = allStoreMarker;
 window.markerEvent = markerEvent;
+window.listClickHandler = listClickHandler;
