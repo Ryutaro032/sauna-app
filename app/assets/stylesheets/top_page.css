@@ -53,8 +53,14 @@
 .header-inner{
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translate(-50%,-50%);
+}
+
+.header-inner-text{
+  color: #fff;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
 @keyframes anime {
@@ -78,5 +84,15 @@
 @media screen and (max-width: 1024px){
   .header-inner {
     width: 65%;
+  }
+
+  .header-inner-text{
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 540px){
+  .header-inner-text{
+    font-size: 0.8rem;
   }
 }
