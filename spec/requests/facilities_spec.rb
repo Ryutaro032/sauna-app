@@ -48,7 +48,7 @@ RSpec.describe 'Facilities', type: :request do
         sign_out(user)
       end
 
-      it 'Google Place APIを使用して場所を検索でき、お気に入りが表示されないこと' do
+      it 'キーワードで場所を検索でき、お気に入りが表示されないこと' do
         VCR.use_cassette('google_places_search') do
           get facility_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
@@ -58,7 +58,7 @@ RSpec.describe 'Facilities', type: :request do
         end
       end
 
-      it '都道府県と市区町村で検索し、施設がお気に入りされているか確認できること' do
+      it '都道府県と市区町村で検索でき、施設がお気に入りが表示されないこと' do
         VCR.use_cassette('google_places_search') do
           params = { prefecture: prefecture.id, city: city.id }
           get facility_index_path, params: params
