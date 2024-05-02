@@ -1,0 +1,12 @@
+<div class="user-warapper">
+  <p><%= @email %>!</p>
+
+  <% if @resource.try(:unconfirmed_email?) %>
+    <p>メールアドレスが以下に変更されました。<br><%= @resource.unconfirmed_email %></p>
+  <% else %>
+    <p>メールアドレスが以下に変更されました。<br><%= @resource.email %>.</p>
+  <% end %>
+  <div class="back-contents">
+    <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
+  </div>
+</div>

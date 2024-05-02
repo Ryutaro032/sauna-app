@@ -1,0 +1,13 @@
+FactoryBot.define do
+  factory :prefecture do
+    sequence(:name) { Faker::Address.unique.state }
+
+    transient do
+      cities_count { 3 }
+    end
+
+    after(:create) do |prefecture, evaluator|
+      create_list(:city, evaluator.cities_count, prefecture: prefecture)
+    end
+  end
+end

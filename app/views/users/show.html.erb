@@ -1,0 +1,64 @@
+<div class="user-warapper">
+  <div>
+    <%= render 'shared/flash_message', class: "flash" %>
+  </div>
+  <div class="prof-container">
+    <div class="prof-contents">
+      <div class="profile-card">
+        <div class="profile-card__inner">
+          <div class="user-icon">
+            <% if @user.present? && @user.icon_image.attached?  %>
+              <%= image_tag @user.icon_image, alt: "ユーザーアイコン" %>
+            <% else %>
+              <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
+            <% end %>
+          </div>
+          <div class="profile-content">
+            <span class="profile-name"><%= @user.name %></span>
+            <span class="profile-intro"><%= @user.my_rule %></span>
+            <span class="btn-contents">
+              <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
+                <button class="button prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link edit-prof" %></button>
+              <% end %>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="favorite-contents">
+        <h2 class="heading">お気に入り一覧</h2>
+        <div class="favorite-content">
+          <% if @favorites.present? %>
+            <table>
+              <tbody>
+                <% @favorites.each do |favorite| %>
+                  <tr>
+                    <td><h5><%= favorite.facility.name %></h5></td>
+                    <td><p><%= favorite.facility.address %></p></td>
+                    <td>
+                      <% if current_user %>
+                        <% if favorite.facility.favorited_by?(current_user) %>
+                          <%= button_to "削除する",  favorites_facilities_path(place_id: favorite.facility.place_id), method: :delete, class: 'button destroy-btn' %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div> 
+      </div> 
+    </div>
+    <div class="back-contents">
+      <div class="back-content">
+        <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
+      </div>
+      <div class="account-content">
+        <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
+          <p>👇Eメール・パスワードの編集はこちら👇</p>
+          <button class="button base-color"><%= link_to"アカウントを編集する",edit_user_registration_path, class: "link edit-ac" %></button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

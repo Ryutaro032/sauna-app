@@ -1,0 +1,41 @@
+<div class="header-container">
+  <header>
+    <div class="header-left">
+      <%= image_tag 'sauna-logo.png', alt:'ロゴ', class: "img header-logo"%>
+      <h2 class="heading"><%= link_to 'サウナログ',root_path, class: "link", 'data-turbolinks': false %></h2>
+    </div>
+    <div class="header-right">
+      <nav>
+        <div class="nav-toggle">
+          <span class="nav-bar"></span>
+          <span class="nav-bar"></span>
+          <span class="nav-bar"></span>
+        </div>
+      </nav>
+      <div class="nav-wrapper">
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to 'マイページ', user_path(current_user), class: "header-list link heading" %></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "header-list link heading" %></li>
+          <% else %>
+            <li><%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: "header-list link heading"%></li>
+            <li><%= link_to "ログイン", new_user_session_path, class: "header-list link heading" %></li>
+            <li><%= link_to "新規登録", new_user_registration_path, class: "header-list link heading" %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="header-lists">
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to 'マイページ', user_path(current_user), class: "header-list link heading" %></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "header-list link heading" %></li>
+          <% else %>
+            <li><%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: "header-list link heading"%></li>
+            <li><%= link_to "ログイン", new_user_session_path, class: "header-list link heading" %></li>
+            <li><%= link_to "新規登録", new_user_registration_path, class: "header-list link heading" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </header>
+</div>

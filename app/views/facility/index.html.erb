@@ -1,0 +1,38 @@
+<div class="facilityーlist-warapper">
+  <div class="facility-list-container">
+    <div>
+      <%= render 'shared/flash_message' %>
+    </div>
+    <div class="search-contents">
+      <%= render 'shared/search' %>
+    </div>
+    <div class="list-contents">
+      <div id='map' class="map"></div>
+      <div class="facility-lists">
+        <table>
+          <tbody>
+            <%if @places.present?%>
+              <% @places.each do |place|%>
+                <tr>
+                  <td class="facility-name">
+                    <span class="list-item" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"><%= place.name %></span>
+                  </td>
+                  <td>
+                    <% if current_user %>
+                      <% if @favorites.include?(place.name) %>
+                        <%= button_to "お気に入りを外す", favorites_facilities_path(place_id: place.place_id), method: :delete, remote: true, class: 'remove-favorite button favorite-btn favorited-color', html: { 'data-turbolinks': false } %>
+                      <% else %>
+                        <%= button_to "お気に入りに追加", favorites_facilities_path(place_id: place.place_id), method: :post, remote: true, class: 'add-favorite button favorite-btn base-color', html: { 'data-turbolinks': false } %>
+                      <% end %>
+                    <% end %>   
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY']%>&callback=initMap" async defer></script>

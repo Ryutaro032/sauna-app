@@ -1,0 +1,48 @@
+<div class="user-warapper">
+  <h2 class="heading">アカウント情報</h2>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :password %> <i>(変更したくない場合は空白のままにしてください)</i><br />
+      <%= f.password_field :password, autocomplete: "new-password" %>
+      <% if @minimum_password_length %>
+        <br />
+        <em><%= @minimum_password_length %> 文字以上</em>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_password %> <i>(現在のパスワード)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password" %>
+    </div>
+
+    <div class="back-contents">
+      <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
+      <div class="actions">
+        <%= f.submit "更新する", class: "button base-color" %>
+        <%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: :are_you_sure, turbo_confirm: :are_you_sure }, method: :delete, class: "button destroy-btn"%>
+      </div>
+    </div>
+  <% end %>
+</div>
