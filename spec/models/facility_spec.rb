@@ -24,9 +24,10 @@ RSpec.describe Facility, type: :model do
   describe 'self.search_places' do
     context '都道府県と市区町村が存在する場合' do
       it '都道府県と市区町村で検索できること' do
-        params = { prefecture: prefecture.id, city: city.id }
+        # params = { prefecture: prefecture.id, city: city.id }
+        params = { prefecture_id: prefecture.id, city_id: city.id }
 
-        VCR.use_cassette('google_places_search') do
+        VCR.use_cassette('google_api_search') do
           expect(described_class.search_places(params)).to be_a(Array)
         end
       end
@@ -34,9 +35,9 @@ RSpec.describe Facility, type: :model do
 
     context '都道府県のみ存在する場合' do
       it '都道府県で検索できること' do
-        params = { prefecture: prefecture.id, city: city.id }
+        params = { prefecture_id: prefecture.id }
 
-        VCR.use_cassette('google_places_search') do
+        VCR.use_cassette('google_api_search') do
           expect(described_class.search_places(params)).to be_a(Array)
         end
       end
