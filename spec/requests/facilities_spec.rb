@@ -19,7 +19,7 @@ RSpec.describe 'Facilities', type: :request do
       end
 
       it 'Google Place APIを使用して場所を検索し、施設がお気に入りされているか確認できること' do
-        VCR.use_cassette('google_places_search') do
+        VCR.use_cassette('google_api_search') do
           get facility_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('池袋')
@@ -29,8 +29,8 @@ RSpec.describe 'Facilities', type: :request do
       end
 
       it '都道府県と市区町村で検索し、施設がお気に入りされているか確認できること' do
-        VCR.use_cassette('google_places_search') do
-          params = { prefecture: prefecture.id, city: city.id }
+        VCR.use_cassette('google_api_search') do
+          params = { prefecture_id: prefecture.id, city_id: city.id }
           get facility_index_path, params: params
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(prefecture.name)
@@ -49,7 +49,7 @@ RSpec.describe 'Facilities', type: :request do
       end
 
       it 'キーワードで場所を検索でき、お気に入りが表示されないこと' do
-        VCR.use_cassette('google_places_search') do
+        VCR.use_cassette('google_api_search') do
           get facility_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('池袋')
@@ -59,8 +59,8 @@ RSpec.describe 'Facilities', type: :request do
       end
 
       it '都道府県と市区町村で検索でき、施設がお気に入りが表示されないこと' do
-        VCR.use_cassette('google_places_search') do
-          params = { prefecture: prefecture.id, city: city.id }
+        VCR.use_cassette('google_api_search') do
+          params = { prefecture_id: prefecture.id, city_id: city.id }
           get facility_index_path, params: params
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(prefecture.name)
