@@ -14,7 +14,7 @@ document.addEventListener('turbolinks:load', function(){
 
 function initializeCitySelection(){
   let prefecture = document.querySelector('#prefecture_select');
-  let cityContainer = document.querySelector('#city');
+  let cityContainer = document.querySelector('#city_id');
 
   if(prefecture && cityContainer){
     prefecture.addEventListener('change', function(){

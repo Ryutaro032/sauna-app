@@ -9,12 +9,12 @@ class Facility < ApplicationRecord
   end
 
   def self.search_places(params)
-    if params[:prefecture].present? && params[:city].present?
-      prefecture_name = Prefecture.find(params[:prefecture])&.name
-      city_name = City.find(params[:city])&.name
+    if params[:prefecture_id].present? && params[:city_id].present?
+      prefecture_name = Prefecture.find(params[:prefecture_id])&.name
+      city_name = City.find(params[:city_id])&.name
       query = "#{prefecture_name} #{city_name},サウナ"
-    elsif params[:prefecture].present?
-      prefecture_name = Prefecture.find(params[:prefecture])&.name
+    elsif params[:prefecture_id].present?
+      prefecture_name = Prefecture.find(params[:prefecture_id])&.name
       query = "#{prefecture_name},サウナ"
     elsif params[:word].present?
       query = "#{params[:word]},サウナ"
