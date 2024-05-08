@@ -47,14 +47,14 @@ jobs:
     docker:
       - image: cimg/ruby:3.0.6-node
         environment:
-          RAILS_ENV: 'test'
-          MYSQL_HOST: '%'
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
       - image: circleci/mysql:8.0
         name: "db"
-        command: mysqld --default-authentication-plugin=mysql_native_password -d
+        command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_USERNAME: 'root'
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           MYSQL_DATABASE: 'sauna-app'
 
     steps:
