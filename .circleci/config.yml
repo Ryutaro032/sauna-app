@@ -22,7 +22,8 @@ jobs:
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_USERNAME: 'root'
-          MYSQL_DATABASE: sauna-app
+          MYSQL_PASSWORD: 'password'
+          MYSQL_DATABASE: 'sauna-app'
 
     steps:
       - checkout
