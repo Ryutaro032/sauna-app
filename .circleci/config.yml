@@ -14,12 +14,22 @@ jobs:
   build:
     docker:
       - image: cimg/ruby:3.0.6
+        environment:
+            RAILS_ENV: test
+            MYSQL_HOST: 127.0.0.1
+            MYSQL_USERNAME: 'root'
+            MYSQL_PASSWORD: ''
+      - image: circleci/mysql:8.0
+
     steps:
       - checkout
       - run:
           name: Which bundler?
           command: bundle -v
       - ruby/install-deps
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
   
   rubocop:
     docker:
@@ -38,7 +48,7 @@ jobs:
       - image: cimg/ruby:3.0.6-node
         environment:
           RAILS_ENV: 'test'
-          MYSQL_ROOT_HOST: '%'
+          MYSQL_HOST: '%'
           MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
           SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
       - image: circleci/mysql:8.0
@@ -66,11 +76,6 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      
-      - run: |
-          until nc -z localhost 3306; do
-            sleep 1
-          done
 
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
