@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :prefecture do
-    sequence(:name) { Faker::Address.unique.state }
+    name { Faker::Address.unique.city }
 
     transient do
       cities_count { 3 }

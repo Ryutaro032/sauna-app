@@ -43,7 +43,7 @@ jobs:
         name: "db"
         command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_HOST: 127.0.0.1
 
     steps:
       - checkout
