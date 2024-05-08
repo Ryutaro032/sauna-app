@@ -10,11 +10,11 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['MYSQL_DATABASE'] || 'sauna-app' %>
+  database: <%= ENV['MYSQL_DATABASE'] %>
 
 test:
   <<: *default
-  database: <%= ENV['MYSQL_DATABASE'] || 'sauna-app' %>
+  database: <%= ENV['MYSQL_DATABASE'] %>
 
 production:
   <<: *default
