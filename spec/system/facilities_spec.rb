@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Facilities', :js, type: :system do
   describe 'ホーム画面のテストについて' do
     let(:user) { create(:user) }
-    let!(:prefecture) { create(:prefecture, name: '東京都') }
+    let!(:prefecture) { create(:prefecture) }
 
     context 'ユーザーがログインしている場合' do
       before do
@@ -76,7 +76,7 @@ RSpec.describe 'Facilities', :js, type: :system do
 
   describe '検索リスト表示画面のテストについて' do
     let(:user) { create(:user) }
-    let!(:prefecture) { create(:prefecture, name: '東京都') }
+    let!(:prefecture) { create(:prefecture) }
 
     context '検索結果の表示について' do
       it 'リストページが表示されること' do
