@@ -48,7 +48,6 @@ jobs:
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Database setup
-      - run: cp -v config/database.ci.yml config/database.yml
       - run: bundle exec rails db:create
       - run: bundle exec rails db:schema:load
       - run:
@@ -64,6 +63,15 @@ jobs:
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $TEST_FILES
+
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      - store_artifacts:
+          path: tmp/screenshots
+          destination: test-screenshots
   
   rubocop:
     docker:
