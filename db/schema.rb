@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2024_03_29_112843) do
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2024_03_29_112843) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb3", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -34,21 +34,21 @@ ActiveRecord::Schema.define(version: 2024_03_29_112843) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "cities", force: :cascade do |t|
+  create_table "cities", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
-    t.integer "prefecture_id", null: false
+    t.bigint "prefecture_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["prefecture_id"], name: "index_cities_on_prefecture_id"
   end
 
-  create_table "facilities", force: :cascade do |t|
+  create_table "facilities", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.float "latitude"
@@ -58,9 +58,9 @@ ActiveRecord::Schema.define(version: 2024_03_29_112843) do
     t.string "place_id"
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "facility_id", null: false
+  create_table "favorites", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "facility_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["facility_id", "user_id"], name: "index_favorites_on_facility_id_and_user_id", unique: true
@@ -68,14 +68,14 @@ ActiveRecord::Schema.define(version: 2024_03_29_112843) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "prefectures", force: :cascade do |t|
+  create_table "prefectures", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_prefectures_on_name", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
