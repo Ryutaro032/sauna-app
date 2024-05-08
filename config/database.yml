@@ -4,7 +4,7 @@ default: &default
   collation: utf8_general_ci
   pool: 5
   username: <%= ENV['MYSQL_USERNAME'] %>
-  password: ""
+  password:
   host: <%= ENV['MYSQL_HOST'] %>
   socket: /tmp/mysql.sock
 
