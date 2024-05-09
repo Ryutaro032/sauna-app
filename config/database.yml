@@ -14,7 +14,6 @@ development:
 
 test:
   <<: *default
-  socket: /var/lib/mysql/mysql.sock
   database: <%= ENV['MYSQL_DATABASE'] %>
 
 production:
