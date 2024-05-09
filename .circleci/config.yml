@@ -16,9 +16,9 @@ jobs:
       - image: cimg/ruby:3.0.6
         environment:
             RAILS_ENV: test
-            MYSQL_HOST: 127.0.0.1
+            MYSQL_HOST: localhost
             TZ: "Japan"
-      - image: circleci/mysql:8.0.21
+      - image: circleci/mysql:8.0
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_USERNAME: 'root'
