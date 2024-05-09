@@ -3,9 +3,8 @@ default: &default
   encoding: utf8
   collation: utf8_general_ci
   pool: 5
-  username: <%= ENV['MYSQL_USERNAME'] %>
-  password: <%= ENV['MYSQL_PASSWORD'] %>
-  host: <%= ENV['MYSQL_HOST'] %>
+  username: root
+  password: password
   socket: /tmp/mysql.sock
 
 development:
@@ -14,6 +13,9 @@ development:
 
 test:
   <<: *default
+  username: <%= ENV['MYSQL_USERNAME'] || 'root' %>
+  password: <%= ENV['MYSQL_PASSWORD'] || 'password' %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   database: <%= ENV['MYSQL_DATABASE'] %>
 
 production:
