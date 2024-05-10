@@ -45,8 +45,6 @@ jobs:
         command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_HOST: "127.0.0.1"
-    pre:
-      - sudo service mysql start
 
     steps:
       - checkout
@@ -56,6 +54,8 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
+            
+      - run: sudo service mysql start
 
       - run:
           name: Check install
