@@ -45,6 +45,8 @@ jobs:
         command: mysqld --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_HOST: "127.0.0.1"
+    pre:
+      - sudo service mysql start
 
     steps:
       - checkout
