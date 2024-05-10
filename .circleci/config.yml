@@ -54,8 +54,10 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
             - v1-dependencies-
-            
-      - run: sudo service mysql start
+
+      - run:
+          name: Waiting for MySQL to be ready
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
 
       - run:
           name: Check install
@@ -67,6 +69,8 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      
+      - run: mv config/database.ci.yml config/database.yml 
 
       - run:
           name: yarn Install
