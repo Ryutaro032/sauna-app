@@ -11,8 +11,10 @@ RSpec.describe 'ApplicationController', type: :request do
       end
 
       it 'emailパラメータを許可しないこと' do
-        post user_registration_path, params: { user: { email: 'test@example.com', password: 'password', password_confirmation: 'password' } }
-        expect(User.last).to be_nil
+        guest_user = User.guest
+        post user_registration_path, params: { user: { email: '', password: 'password', password_confirmation: 'password' } }
+        expect(User.count).to eq(1)
+        expect(User.find_by(email: 'guest@example.com')).to eq(guest_user)
       end
     end
   end

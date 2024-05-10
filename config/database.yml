@@ -3,18 +3,23 @@ default: &default
   encoding: utf8
   collation: utf8_general_ci
   pool: 5
-  username: <%= ENV['MYSQL_USERNAME'] || 'root' %>
-  password: <%= ENV['MYSQL_PASSWORD'] || '' %>
-  host: <%= ENV['MYSQL_HOST'] || 'localhost' %>
+  port: 3306
+  username: root
+  password: password
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   socket: /tmp/mysql.sock
+  database: <%= ENV['MYSQL_DATABASE'] %>
 
 development:
   <<: *default
-  database: <%= ENV['MYSQL_DATABASE'] || 'sauna-app' %>
+  database: <%= ENV['MYSQL_DATABASE'] %>
 
 test:
   <<: *default
-  database: <%= ENV['MYSQL_DATABASE'] || 'sauna-app' %>
+  username: <%= ENV['MYSQL_USERNAME'] || 'root' %>
+  password: <%= ENV['MYSQL_PASSWORD'] || 'password' %>
+  database: <%= ENV['MYSQL_DATABASE'] %>
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   <<: *default
