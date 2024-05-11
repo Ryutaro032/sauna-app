@@ -25,3 +25,7 @@ cities_list.each do |prefecture, city|
   prefecture = Prefecture.find_by(name: prefecture)
   prefecture.cities.create(name: city)
 end
+
+Dir.glob(File.join(Rails.root, 'db', 'seeds', '*.rb')) do |file|
+  load(file)
+end
