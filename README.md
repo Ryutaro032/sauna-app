@@ -29,18 +29,26 @@
 ## 環境
 * Ruby 3.0.6
 * Rails 6.1.7
-* SQLite3 1.4
+* MySQL 8.3.0
 * Puma 5.0
-* Webpacker 5.0
+* Webpacker 5.4.4
 * Turbolinks 5
 * Bootsnap 1.4.4
 
 ## テスト
 Circle CIを使用して、以下のテストが自動化されています。
 
-* RSpec
 * RuboCop
 * Build
+
+このアプリケーションはRSpecを使用してテストされています。また、VCRとWebMockを組み合わせて外部APIへのリクエストをモックしています。
+テストの実行方法は以下の通りです。
+
+    ```
+     $ bundle exec rspec
+    ```
+
+このコマンドにより、RSpecによるテストが実行され、VCRとWebMockによって外部APIへのリクエストがモックされます。
 
 ## インストール
 1. リポジトリをクローンします。
@@ -77,6 +85,42 @@ Circle CIを使用して、以下のテストが自動化されています。
 ## ER図
 
   ![](./sauna-app.drawio.svg)
+
+## デプロイ
+
+このアプリケーションは、Herokuを使用して簡単にデプロイできます。
+
+1. Herokuにログインします。
+
+2. 新しいアプリケーションを作成します。
+
+    ```
+    $ heroku create <アプリケーション名>
+    ```
+
+3. Herokuにデプロイします。
+
+    ```
+    $ git push heroku main
+    ```
+
+4. データベースをセットアップします。
+
+    ```
+    $ heroku run rails db:migrate
+    $ heroku run rails db:seed:production_seed1
+    $ heroku run rails db:seed:production_seed2
+    $ heroku run rails db:seed:production_seed3
+    
+    ```
+
+5. アプリケーションを開きます。
+
+    ```
+    $ heroku open
+    ```
+
+これで、アプリケーションがHerokuにデプロイされ、利用できるようになります。
 
 ## ライセンス
 
