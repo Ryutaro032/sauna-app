@@ -19,7 +19,6 @@ test:
   username: <%= ENV['MYSQL_USERNAME'] || 'root' %>
   password: <%= ENV['MYSQL_PASSWORD'] || 'password' %>
   database: <%= ENV['MYSQL_DATABASE'] %>
-  socket: /var/run/mysqld/mysqld.sock
 
 production:
   <<: *default
