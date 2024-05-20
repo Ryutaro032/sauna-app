@@ -1,5 +1,6 @@
-class FacilityController < ApplicationController
+class FacilitiesController < ApplicationController
   def home
+    @posts = Post.all.order(created_at: :desc)
     search_places
     if @places.present?
       render :index

@@ -20,6 +20,10 @@ class Facility < ApplicationRecord
       query = "#{params[:word]},サウナ"
     end
 
+    if params[:place_name].present?
+      query = params[:place_name]
+    end
+
     return nil if query.blank?
 
     client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
