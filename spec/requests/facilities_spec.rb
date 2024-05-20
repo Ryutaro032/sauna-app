@@ -7,7 +7,7 @@ RSpec.describe 'Facilities', type: :request do
     let(:city) { prefecture.cities.first }
 
     it 'リストページが表示されること' do
-      get facility_index_path
+      get facilities_index_path
       expect(response).to have_http_status(:ok)
     end
 
@@ -20,7 +20,7 @@ RSpec.describe 'Facilities', type: :request do
 
       it 'Google Place APIを使用して場所を検索し、施設がお気に入りされているか確認できること' do
         VCR.use_cassette('google_api_search') do
-          get facility_index_path, params: { word: '池袋' }
+          get facilities_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('池袋')
           expect(assigns(:places)).not_to be_empty
@@ -31,7 +31,7 @@ RSpec.describe 'Facilities', type: :request do
       it '都道府県と市区町村で検索し、施設がお気に入りされているか確認できること' do
         VCR.use_cassette('google_api_search') do
           params = { prefecture_id: prefecture.id, city_id: city.id }
-          get facility_index_path, params: params
+          get facilities_index_path, params: params
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(prefecture.name)
           expect(response.body).to include(city.name)
@@ -50,7 +50,7 @@ RSpec.describe 'Facilities', type: :request do
 
       it 'キーワードで場所を検索でき、お気に入りが表示されないこと' do
         VCR.use_cassette('google_api_search') do
-          get facility_index_path, params: { word: '池袋' }
+          get facilities_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('池袋')
           expect(assigns(:places)).not_to be_empty
@@ -61,7 +61,7 @@ RSpec.describe 'Facilities', type: :request do
       it '都道府県と市区町村で検索でき、施設がお気に入りが表示されないこと' do
         VCR.use_cassette('google_api_search') do
           params = { prefecture_id: prefecture.id, city_id: city.id }
-          get facility_index_path, params: params
+          get facilities_index_path, params: params
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(prefecture.name)
           expect(response.body).to include(city.name)
@@ -80,13 +80,19 @@ RSpec.describe 'Facilities', type: :request do
       expect(response).to have_http_status(:ok)
       expect(response).to render_template(:home)
     end
+
+    it "投稿が20件表示されること" do
+      create_list(:post, 25)
+      get root_path
+      expect(assigns(:posts).count).to eq(20)
+    end
   end
 
   describe '#index' do
     include_examples 'リスト表示に関するテストについて'
 
     it 'キーワードがない場合、リダイレクトされること' do
-      get facility_index_path
+      get facilities_index_path
       expect(response).to have_http_status(:ok)
       expect(response).to render_template(:index)
     end

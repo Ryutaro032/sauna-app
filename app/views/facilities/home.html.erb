@@ -23,7 +23,7 @@
             <div class="user-info">
               <div class="user-icon">
                 <% if post.user.present? && post.user.icon_image.attached?  %>
-                  <%= image_tag @user.icon_image, alt: "ユーザーアイコン" %>
+                  <%= image_tag post.user.icon_image, alt: "ユーザーアイコン" %>
                 <% else %>
                   <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
                 <% end %>

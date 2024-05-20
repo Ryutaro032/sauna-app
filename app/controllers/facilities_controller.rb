@@ -1,6 +1,6 @@
 class FacilitiesController < ApplicationController
   def home
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.all.order(created_at: :desc).limit(20)
     search_places
     if @places.present?
       render :index
