@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :favorites, dependent: :destroy
   has_many :facilities, through: :favorites
+  has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :email, uniqueness: true

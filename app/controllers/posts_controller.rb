@@ -1,0 +1,32 @@
+class PostsController < ApplicationController
+  before_action :authenticate_user!
+
+  def new
+    place_id = params[:place_id]
+    @client = google_places_client
+    place_details = @client.spot(place_id, language: 'ja')
+    @post = Post.new(name: place_details.name)
+  end
+
+  def create
+    @post = current_user.posts.new(review_params)
+    @post.user_id = current_user.id
+    @post.name = params[:post][:name]
+    if @post.save
+      flash[:success] = I18n.t('flash.review.success')
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def google_places_client
+    ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
+  end
+
+  def review_params
+    params.require(:post).permit(:title, :review, :name)
+  end
+end

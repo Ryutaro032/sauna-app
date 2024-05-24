@@ -18,6 +18,8 @@ class Facility < ApplicationRecord
       query = "#{prefecture_name},サウナ"
     elsif params[:word].present?
       query = "#{params[:word]},サウナ"
+    elsif params[:place_name].present?
+      query = params[:place_name]
     end
 
     return nil if query.blank?
