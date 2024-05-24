@@ -4,6 +4,7 @@ RSpec.describe 'Facilities', :js, type: :system do
   describe 'ホーム画面のテストについて' do
     let(:user) { create(:user) }
     let!(:prefecture) { create(:prefecture) }
+    let!(:post) { create(:post, created_at: 2.hours.ago) }
 
     context 'ユーザーがログインしている場合' do
       before do
@@ -22,7 +23,7 @@ RSpec.describe 'Facilities', :js, type: :system do
           fill_in 'キーワードを入力', with: '池袋'
           click_link_or_button '検索'
 
-          visit facility_index_path(word: '池袋')
+          visit facilities_index_path(word: '池袋')
           expect(page).to have_content('池袋')
 
           expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
@@ -72,6 +73,21 @@ RSpec.describe 'Facilities', :js, type: :system do
         expect(page).to have_no_css('tr .favorite-btn')
       end
     end
+
+    context "displays a list of posts with user information" do
+      it '.review-container' do
+        visit root_path
+  
+        within first('.post-item') do
+          expect(page).to have_selector(".user-icon")
+          expect(page).to have_content(post.name)
+          expect(page).to have_link(post.name, href: facilities_index_path(place_name: post.name))
+          expect(page).to have_content(post.title)
+          expect(page).to have_content(post.review)
+          expect(page).to have_content("約2時間前")
+        end
+      end
+    end
   end
 
   describe '検索リスト表示画面のテストについて' do
@@ -80,18 +96,18 @@ RSpec.describe 'Facilities', :js, type: :system do
 
     context '検索結果の表示について' do
       it 'リストページが表示されること' do
-        visit facility_index_path
+        visit facilities_index_path
         expect(page).to have_content('サウナログ')
       end
 
       it 'キーワード検索を行い、表示されること' do
-        visit facility_index_path(word: '池袋')
+        visit facilities_index_path(word: '池袋')
         expect(page).to have_content('サウナログ')
         expect(page).to have_content('池袋')
       end
 
       it '都道府県の検索ができること' do
-        visit facility_index_path
+        visit facilities_index_path
 
         expect(page).to have_css("#prefecture_select option[value='#{prefecture.id}']")
         find_by_id('prefecture_select').find("option[value='#{prefecture.id}']").select_option
@@ -109,7 +125,7 @@ RSpec.describe 'Facilities', :js, type: :system do
 
       describe 'お気に入り追加について' do
         before do
-          visit facility_index_path(word: '池袋')
+          visit facilities_index_path(word: '池袋')
         end
 
         it 'お気に入り追加/削除が表示され、切り替えが正しく動作すること' do
