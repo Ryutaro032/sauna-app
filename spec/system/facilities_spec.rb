@@ -74,17 +74,17 @@ RSpec.describe 'Facilities', :js, type: :system do
       end
     end
 
-    context "displays a list of posts with user information" do
-      it '.review-container' do
+    context '施設のレビューの表示について' do
+      it 'レビューが表示されること' do
         visit root_path
-  
+
         within first('.post-item') do
-          expect(page).to have_selector(".user-icon")
+          expect(page).to have_css('.user-icon')
           expect(page).to have_content(post.name)
           expect(page).to have_link(post.name, href: facilities_index_path(place_name: post.name))
           expect(page).to have_content(post.title)
           expect(page).to have_content(post.review)
-          expect(page).to have_content("約2時間前")
+          expect(page).to have_content('約2時間前')
         end
       end
     end

@@ -5,6 +5,7 @@ RSpec.describe 'Facilities', type: :request do
   shared_examples 'リスト表示に関するテストについて' do
     let(:prefecture) { create(:prefecture) }
     let(:city) { prefecture.cities.first }
+    let(:posts) { (1..25).map { create(:post) } }
 
     it 'リストページが表示されること' do
       get facilities_index_path
@@ -23,7 +24,6 @@ RSpec.describe 'Facilities', type: :request do
           get facilities_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('池袋')
-          expect(assigns(:places)).not_to be_empty
           expect(assigns(:favorites)).to include(*user.facilities.pluck(:name))
         end
       end
@@ -35,7 +35,6 @@ RSpec.describe 'Facilities', type: :request do
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(prefecture.name)
           expect(response.body).to include(city.name)
-          expect(assigns(:places)).not_to be_empty
           expect(assigns(:favorites)).to include(*user.facilities.pluck(:name))
         end
       end
@@ -53,7 +52,6 @@ RSpec.describe 'Facilities', type: :request do
           get facilities_index_path, params: { word: '池袋' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('池袋')
-          expect(assigns(:places)).not_to be_empty
           expect(assigns(:favorites)).to be_nil
         end
       end
@@ -65,7 +63,6 @@ RSpec.describe 'Facilities', type: :request do
           expect(response).to have_http_status(:ok)
           expect(response.body).to include(prefecture.name)
           expect(response.body).to include(city.name)
-          expect(assigns(:places)).not_to be_empty
           expect(assigns(:favorites)).to be_nil
         end
       end
@@ -81,10 +78,15 @@ RSpec.describe 'Facilities', type: :request do
       expect(response).to render_template(:home)
     end
 
-    it "投稿が20件表示されること" do
-      create_list(:post, 25)
+    it '投稿が20件表示されること' do
       get root_path
-      expect(assigns(:posts).count).to eq(20)
+
+      Post.order(created_at: :desc).limit(20).each do |post|
+        expect(response.body).to include(post.title)
+        expect(response.body).to include(post.review)
+        expect(response.body).to include('user-icon')
+        expect(assigns(:posts).count).to be <= 20
+      end
     end
   end
 

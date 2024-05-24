@@ -7,3 +7,13 @@ ja:
     review:
       success: 'レビューを投稿しました'
       error: 'レビューの投稿ができませんでした'
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            title:
+              blank: "タイトルを入力してください"
+              too_long: "タイトルは40文字以内で入力してください"
+            review:
+              too_long: "レビュー内容は400文字以内で入力してください"

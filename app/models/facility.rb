@@ -18,9 +18,7 @@ class Facility < ApplicationRecord
       query = "#{prefecture_name},サウナ"
     elsif params[:word].present?
       query = "#{params[:word]},サウナ"
-    end
-
-    if params[:place_name].present?
+    elsif params[:place_name].present?
       query = params[:place_name]
     end
 

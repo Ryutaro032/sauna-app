@@ -1,8 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
 
-  validates :title, presence: { message: "タイトルを入力してください" }, 
-            length: { maximum: 40, message: "タイトルは40文字以内で入力してください" }
-  
-  validates :review, length: { maximum: 400, message: "レビュー内容は400文字以内で入力してください" }
+  validates :title, presence: { message: I18n.t('activerecord.errors.models.post.attributes.title.blank') },
+                    length: { maximum: 40, message: I18n.t('activerecord.errors.models.post.attributes.title.too_long') }
+  validates :review, length: { maximum: 400, message: I18n.t('activerecord.errors.models.post.attributes.review.too_long') }
 end
