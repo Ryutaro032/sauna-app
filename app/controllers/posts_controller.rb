@@ -18,7 +18,6 @@ class PostsController < ApplicationController
       flash[:success] = I18n.t('flash.review.success')
       redirect_to root_path
     else
-      flash[:error] = I18n.t('flash.review.error')
       render :new
     end
   end
