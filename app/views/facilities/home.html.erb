@@ -1,0 +1,48 @@
+<div class="mainpage-header-container">
+  <div class="slide">
+    <div class="slide-img"></div>
+    <div class="slide-img"></div>
+    <div class="slide-img"></div>
+    <div class="slide-img"></div>
+    <div class="slide-img"></div>
+  </div>
+  <div class="header-inner">
+    <p class="header-inner-text">
+      全国のサウナ施設をキーワードや都道府県、市区町村で検索ができる！<br>
+      気に入ったサウナをお気に入りに保存！<br>
+      自分だけのサウナリストを作ろう！
+    </p>
+    <%= render 'shared/search' %>
+  </div>
+</div>
+<div class="review-container">
+  <div>
+    <%= render 'shared/flash_message' %>
+  </div>
+  <div class="review-contents">
+    <ul>
+      <% @posts.each do |post| %>
+        <li class="post-item">
+          <div class="user-info">
+            <div class="user-icon">
+              <% if post.user.present? && post.user.icon_image.attached?  %>
+                <%= image_tag post.user.icon_image, alt: "ユーザーアイコン" %>
+              <% else %>
+                <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
+              <% end %>
+            </div>
+            <div class="user-name"><%= post.user.name %></div>
+          </div>
+          <div class="post-content">
+            <div class="post-place-name">
+              <%= link_to post.name, facilities_index_path(place_name: post.name), class: "post-place-name" %>
+            </div>
+            <h3 class="post-title"><%= post.title %></h3>
+            <p class="post-review"><%= post.review %></p>
+          </div>
+          <div class="post-time"><%= time_ago_in_words(post.created_at) %>前</div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

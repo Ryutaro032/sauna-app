@@ -37,6 +37,30 @@
   width: 600px;
 }
 
+.review-button{
+  font-size: 25px;
+  text-shadow: 1px 1px #fa0, -1px 1px 0 #fa0,1px -1px 0 #fa0,-1px -1px 0 #fa0;
+  position: relative;
+}
+
+.speech-bubble{
+  display: none;
+  width: 200px;
+  font-size: 12px;
+  position: absolute;
+  right: 30px;
+  padding: 11px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: rgb(147, 78, 28);
+  font-weight: bold;
+  z-index: 100;
+}
+
+.review-button:hover + .speech-bubble{
+  display: block;
+}
+
 @media screen and (max-width: 1024px){
   .search-contents{
     width: 100%;

@@ -151,6 +151,11 @@
   overflow:auto;
 }
 
+.current-user-review{
+  height: 300px;
+  overflow: auto;
+}
+
 @media screen and (max-width: 1024px){
   .user-warapper{
     margin: 150px 0px 10px 0px;

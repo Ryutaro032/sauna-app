@@ -26,6 +26,12 @@
                       <% end %>
                     <% end %>   
                   </td>
+                  <td>
+                    <% if current_user %>
+                      <%= link_to "+", new_post_path(place_id: place.place_id), class: "link review-button" %>
+                      <p class="speech-bubble">新しいレビューを投稿する</p>
+                    <% end %> 
+                  </td>
                 </tr>
               <% end %>
             <% end %>

@@ -8,8 +8,8 @@ Rails.application.routes.draw do
     get 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
 
-  root 'facility#home'
-  get 'facility/index'
+  root 'facilities#home'
+  get 'facilities/index'
 
   resources :facilities do
     post 'favorites', to: 'favorites#create', on: :collection
@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :edit, :update]
+  resources :posts, only: [:new, :create, :destroy]
 end

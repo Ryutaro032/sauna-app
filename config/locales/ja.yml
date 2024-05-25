@@ -3,4 +3,19 @@ ja:
     create:
       success: '施設をお気に入りに登録しました'
     destroy:
-      success: 'お気に入りから削除しました'
+      favorite:
+        success: 'お気に入りから削除しました'
+      post:
+        success: '投稿を削除しました'
+    review:
+      success: 'レビューを投稿しました'
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            title:
+              blank: "タイトルを入力してください"
+              too_long: "タイトルは40文字以内で入力してください"
+            review:
+              too_long: "レビュー内容は400文字以内で入力してください"

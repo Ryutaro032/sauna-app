@@ -242,6 +242,11 @@ nav{
   transform: translateY(-13px) rotate(45deg);
 }
 
+.error-message{
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
 
 @keyframes fadeOut {
   from {

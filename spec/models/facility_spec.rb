@@ -52,6 +52,17 @@ RSpec.describe Facility, type: :model do
       end
     end
 
+    context 'when place_name is present' do
+      it 'searches by place name' do
+        params = { place_name: 'Tokyo Tower' }
+
+        VCR.use_cassette('google_api_search') do
+          result = described_class.search_places(params)
+          expect(result).to be_a(Array)
+        end
+      end
+    end
+
     context 'パラメータが存在しない場合' do
       it 'nilを返すこと' do
         params = {}
