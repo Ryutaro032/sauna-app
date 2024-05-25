@@ -50,4 +50,23 @@ RSpec.describe 'Posts', type: :request do
       expect(response).to render_template(:new)
     end
   end
+
+  describe "DELETE #destroy" do
+    let!(:post_to_delete) { create(:post, user: user) }
+
+    before do
+      sign_in user
+    end
+
+    it "deletes the post and redirects to the user's profile page" do
+      expect do
+        delete post_path(post_to_delete)
+      end.to change(Post, :count).by(-1)
+
+      expect(response).to redirect_to(user_path(user))
+
+      expect(Post.exists?(post_to_delete.id)).to be_falsey
+      expect(Post.exists?(new_post.id)).to be_truthy
+    end
+  end
 end
