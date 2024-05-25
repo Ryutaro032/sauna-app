@@ -7,9 +7,6 @@ RSpec.describe 'Posts', :js, type: :system do
 
   before do
     sign_in user
-    # allow_any_instance_of(GooglePlaces::Client).to receive(:spot).and_return(
-    #   Struct.new(name: post.name)
-    # )
     mock_place = Struct.new(:name).new(post.name)
     allow(mock_client).to receive(:spot).and_return(mock_place)
     allow(GooglePlaces::Client).to receive(:new).and_return(mock_client)
