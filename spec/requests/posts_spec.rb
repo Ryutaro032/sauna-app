@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
   let(:user) { create(:user) }
-  let(:new_post) { create(:post) }
   let(:place_name) { 'サウナ&ホテル かるまる池袋店' }
   let(:mock_client) { instance_double(GooglePlaces::Client) }
   let(:mock_place) { Struct.new(:name).new(place_name) }
@@ -51,22 +50,23 @@ RSpec.describe 'Posts', type: :request do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe '#destroy' do
+    let(:new_post) { create(:post) }
     let!(:post_to_delete) { create(:post, user: user) }
 
     before do
       sign_in user
     end
 
-    it "deletes the post and redirects to the user's profile page" do
+    it '自身の投稿が削除でき、ユーザーページにリダイレクトできること' do
       expect do
         delete post_path(post_to_delete)
       end.to change(Post, :count).by(-1)
 
       expect(response).to redirect_to(user_path(user))
 
-      expect(Post.exists?(post_to_delete.id)).to be_falsey
-      expect(Post.exists?(new_post.id)).to be_truthy
+      expect(Post.where(id: post_to_delete.id)).not_to exist
+      expect(Post.where(id: new_post.id)).to exist
     end
   end
 end

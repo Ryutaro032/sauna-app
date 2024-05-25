@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
-  let(:updated_user) { { user: { name: 'New Name', my_rule: 'a' * 100 } } }
   let(:facility) { create(:facility) }
   let!(:favorite) { create(:favorite, user: user, facility: facility) }
   let!(:user_post) { create(:post, user: user) }
@@ -48,15 +47,15 @@ RSpec.describe 'Users', type: :request do
         expect(response.body).to include('削除する')
       end
 
-      it "投稿内容が表示されること" do
+      it '自身の投稿のみが表示されること' do
+        expect(assigns(:user_reviews)).to include(user_post)
+        expect(assigns(:user_reviews)).not_to include(other_post)
+      end
+
+      it '投稿内容が表示されること' do
         expect(response.body).to include user_post.name
         expect(response.body).to include user_post.title
         expect(response.body).to include user_post.review
-      end
-
-      it "自身の投稿のみが表示されること" do
-        expect(assigns(:user_reviews)).to include(user_post)
-        expect(assigns(:user_reviews)).not_to include(other_post)
       end
     end
 
@@ -125,6 +124,8 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe '#update' do
+    let(:updated_user) { { user: { name: 'New Name', my_rule: 'a' * 100 } } }
+
     context 'ユーザーが認証されている場合' do
       before do
         sign_in user

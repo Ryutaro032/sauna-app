@@ -87,11 +87,11 @@ RSpec.describe 'Users', type: :system do
         within '.post-item' do
           click_on '削除'
         end
-    
-        expect(page).not_to have_content(user_review.name)
-        expect(page).not_to have_content(user_review.title)
-        expect(page).not_to have_content(user_review.review)
-        expect(page).not_to have_css('.post-time')
+
+        expect(page).to have_no_content(user_review.name)
+        expect(page).to have_no_content(user_review.title)
+        expect(page).to have_no_content(user_review.review)
+        expect(page).to have_no_css('.post-time')
       end
     end
 
