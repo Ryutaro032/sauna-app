@@ -20,6 +20,13 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    @post = current_user.posts.find(params[:id])
+    @post.destroy
+    flash[:success] = I18n.t('flash.destroy.post.success')
+    redirect_to user_path(current_user)
+  end
+
   private
 
   def google_places_client

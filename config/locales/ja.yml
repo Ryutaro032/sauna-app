@@ -3,10 +3,12 @@ ja:
     create:
       success: '施設をお気に入りに登録しました'
     destroy:
-      success: 'お気に入りから削除しました'
+      favorite:
+        success: 'お気に入りから削除しました'
+      post:
+        success: '投稿を削除しました'
     review:
       success: 'レビューを投稿しました'
-      error: 'レビューの投稿ができませんでした'
   activerecord:
     errors:
       models:

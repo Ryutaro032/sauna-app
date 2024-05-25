@@ -6,6 +6,7 @@ RSpec.describe 'Users', type: :system do
   let(:guest_user) { create(:user, name: 'ゲスト') }
   let(:facility) { create(:facility) }
   let!(:favorite) { create(:favorite, user: user, facility: facility) }
+  let!(:user_review) { create(:post, user: user) }
 
   describe '詳細ページのテスト' do
     context 'ログインしており、プロフィールの所有者である場合' do
@@ -75,6 +76,22 @@ RSpec.describe 'Users', type: :system do
           visit current_path
           expect(page).to have_no_content(favorite.facility.name)
         end
+      end
+
+      it '自身の投稿が表示され、削除ボタンを押下すると削除されること' do
+        expect(page).to have_content(user_review.name)
+        expect(page).to have_content(user_review.title)
+        expect(page).to have_content(user_review.review)
+        expect(page).to have_css('.post-time')
+
+        within '.post-item' do
+          click_on '削除'
+        end
+
+        expect(page).to have_no_content(user_review.name)
+        expect(page).to have_no_content(user_review.title)
+        expect(page).to have_no_content(user_review.review)
+        expect(page).to have_no_css('.post-time')
       end
     end
 
