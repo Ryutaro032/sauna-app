@@ -16,6 +16,7 @@
   padding: 15px;
   background: #f5f8fa;
   border: 2px solid #e1e8ed;
+  position: relative;
 }
 
 .post-item:last-child {
@@ -64,4 +65,45 @@
 .post-place-name {
   color: #1da1f2;
   font-size: 14px;
+}
+
+.like-section {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+
+.like-button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.like-btn {
+  font-size: 20px;
+}
+
+.unlike-button {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.unlike-btn {
+  font-size: 20px;
+}
+
+.like-count{
+  padding: 8px;
+  font-size: 1.0rem;
 }
