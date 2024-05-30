@@ -15,7 +15,7 @@ Documentation:
   Enabled: false
 
 Layout/LineLength:
-  Max: 150
+  Max: 180
 
 Metrics/AbcSize:
   Max: 30 
@@ -63,7 +63,7 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/ExampleLength:
-  Max: 15
+  Max: 25
 
 RSpec/Rails/InferredSpecType:
   Enabled: false

@@ -2,27 +2,25 @@ class ReviewLikesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_post
 
-  protect_from_forgery :except => [:post,:destroy]
+  protect_from_forgery except: %i[post destroy]
 
   def create
-    if user_signed_in?
-      @post.review_likes.create(user: current_user)
-      respond_to do |format|
-        format.js
-      end
-    end
-  end
+    return unless user_signed_in?
 
-  def destroy
-    like = @post.review_likes.find_by(user: current_user)
-    if like
-      like.destroy
-    end
+    @post.review_likes.create(user: current_user)
     respond_to do |format|
       format.js
     end
   end
 
+  def destroy
+    like = @post.review_likes.find_by(user: current_user)
+    like&.destroy
+
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
 
