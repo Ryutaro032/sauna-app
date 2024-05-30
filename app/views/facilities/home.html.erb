@@ -41,6 +41,9 @@
             <p class="post-review"><%= post.review %></p>
           </div>
           <div class="post-time"><%= time_ago_in_words(post.created_at) %>前</div>
+          <div class="like-section" id="like_buttons_<%= post.id %>">
+            <%= render 'review_likes/review_like', post: post %>
+          </div>
         </li>
       <% end %>
     </ul>

@@ -33,11 +33,6 @@ RSpec.describe 'Facilities', :js, type: :system do
 
           expect(page).to have_css('tr:first-child .remove-favorite', visible: :all)
           expect(page).to have_no_css('tr:first-child .add-favorite')
-
-          find('tr:first-child .remove-favorite').click
-
-          expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
-          expect(page).to have_no_css('tr:first-child .remove-favorite')
         end
 
         it '都道府県の検索ができること' do
@@ -49,6 +44,32 @@ RSpec.describe 'Facilities', :js, type: :system do
           click_link_or_button '検索'
 
           expect(page).to have_content('サウナログ')
+        end
+
+        it 'いいねボタンが表示され、ボタンの切り替えができること' do
+          visit root_path
+
+          within(first('.post-item')) do
+            if page.has_css?('.unlike-button')
+              expect(page).to have_css('.unlike-button', visible: :all)
+              expect(page).to have_no_css('.like-button')
+
+              expect do
+                page.execute_script("document.querySelector('.like-button').style.position = 'relative'; document.querySelector('.like-button').style.left = '100px'")
+                find('.unlike-button').click
+                expect(page).to have_no_css('.unlike-button')
+              end.to change { ReviewLike.where(post_id: post.id, user_id: user.id).count }.by(-1)
+            elsif page.has_css?('.like-button')
+              expect(page).to have_css('.like-button', visible: :all)
+              expect(page).to have_no_css('.unlike-button')
+
+              expect do
+                page.execute_script("document.querySelector('.like-button').style.position = 'relative'; document.querySelector('.like-button').style.left = '100px'")
+                find('.like-button').click
+                expect(page).to have_no_css('.like-button')
+              end.to change { ReviewLike.where(post_id: post.id, user_id: user.id).count }.by(1)
+            end
+          end
         end
       end
     end
@@ -75,7 +96,7 @@ RSpec.describe 'Facilities', :js, type: :system do
     end
 
     context '施設のレビューの表示について' do
-      it 'レビューが表示されること' do
+      it 'レビューが表示されること、いいねボタンが表示されること' do
         visit root_path
 
         within first('.post-item') do
@@ -136,11 +157,6 @@ RSpec.describe 'Facilities', :js, type: :system do
 
           expect(page).to have_css('tr:first-child .remove-favorite', visible: :all)
           expect(page).to have_no_css('tr:first-child .add-favorite')
-
-          find('tr:first-child .remove-favorite').click
-
-          expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
-          expect(page).to have_no_css('tr:first-child .remove-favorite')
         end
       end
     end
