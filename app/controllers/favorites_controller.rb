@@ -21,7 +21,7 @@ class FavoritesController < ApplicationController
         @facilities = Facility.all
         @favorite = current_user.favorites.create(facility: @facility)
         gon.places = @facilities
-        flash[:success] = I18n.t('flash.create.success')
+        flash[:success] = I18n.t('flash.favorite.create.success')
         redirect_back fallback_location: root_path
       end
     end
@@ -35,7 +35,7 @@ class FavoritesController < ApplicationController
 
     return unless @favorite.destroy
 
-    flash[:success] = I18n.t('flash.destroy.favorite.success')
+    flash[:success] = I18n.t('flash.favorite.destroy.success')
     redirect_back fallback_location: root_path
   end
 end

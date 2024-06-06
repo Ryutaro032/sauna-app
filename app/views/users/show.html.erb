@@ -21,32 +21,43 @@
                 <button class="button prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link edit-prof" %></button>
               <% end %>
             </span>
-            <div class="review-contents current-user-review">
-              <ul>
-                <% if @user_reviews.present? %>
-                  <% @user_reviews.each do |user_review| %>
-                    <li class="post-item">
-                      <div class="post-content">
-                        <div class="post-place-name">
-                          <%= link_to user_review.name, facilities_index_path(place_name: user_review.name), class: "post-place-name" %>
-                        </div>
-                        <h3 class="post-title"><%= user_review.title %></h3>
-                        <p class="post-review"><%= user_review.review %></p>
-                        <div class="post-time"><%= time_ago_in_words(user_review.created_at) %>前</div>
-                      </div>
-                      <% if current_user && current_user == user_review.user %>
-                        <%= button_to '削除', post_path(user_review.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'button destroy-btn' %>
-                      <% end %>
-                    </li>
-                  <% end %>
-                <% end %>
-              </ul>
-            </div>
+            
           </div>
         </div>
       </div>
-      <div class="favorite-contents">
-        <h2 class="heading">お気に入り一覧</h2>
+    </div>
+  </div>
+  <div class="tab-container">
+    <ul class="tabs">
+      <li class="tab tab-active" data-tab="reviews">レビュー</li>
+      <li class="tab" data-tab="favorites">お気に入り</li>
+      <li class="tab" data-tab="visited-places">行ってみたいリスト</li>
+    </ul>
+    <div class="tab-content">
+      <div id="reviews" class="tabbox box-show">
+        <div class="review-content">
+          <ul>
+            <% if @user_reviews.present? %>
+              <% @user_reviews.each do |user_review| %>
+                <li class="post-item">
+                  <div class="post-content">
+                    <div class="post-place-name">
+                      <%= link_to user_review.name, facilities_index_path(place_name: user_review.name), class: "post-place-name" %>
+                    </div>
+                    <h3 class="post-title"><%= user_review.title %></h3>
+                    <p class="post-review"><%= user_review.review %></p>
+                    <div class="post-time"><%= time_ago_in_words(user_review.created_at) %>前</div>
+                  </div>
+                  <% if current_user && current_user == user_review.user %>
+                    <%= button_to '削除', post_path(user_review.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'button destroy-btn' %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <div id="favorites" class="tabbox">
         <div class="favorite-content">
           <% if @favorites.present? %>
             <table>
@@ -58,7 +69,7 @@
                     <td>
                       <% if current_user %>
                         <% if favorite.facility.favorited_by?(current_user) %>
-                          <%= button_to "削除する",  favorites_facilities_path(place_id: favorite.facility.place_id), method: :delete, class: 'button destroy-btn' %>
+                          <%= button_to "削除する",  favorites_facilities_path(facility_id: favorite.facility.place_id), method: :delete, class: 'button destroy-btn' %>
                         <% end %>
                       <% end %>
                     </td>
@@ -67,10 +78,11 @@
               </tbody>
             </table>
           <% end %>
-        </div> 
-      </div> 
+        </div>
+      </div>
     </div>
-    <div class="back-contents">
+  </div>
+  <div class="back-contents">
       <div class="back-content">
         <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
       </div>
@@ -81,5 +93,4 @@
         <% end %>
       </div>
     </div>
-  </div>
 </div>

@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     @post.name = params[:post][:name]
     if @post.save
-      flash[:success] = I18n.t('flash.review.success')
+      flash[:success] = I18n.t('flash.post.review.success')
       redirect_to root_path
     else
       render :new
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
   def destroy
     @post = current_user.posts.find(params[:id])
     @post.destroy
-    flash[:success] = I18n.t('flash.destroy.post.success')
+    flash[:success] = I18n.t('flash.post.destroy.success')
     redirect_to user_path(current_user)
   end
 

@@ -13,6 +13,7 @@ import '@fortawesome/fontawesome-free/js/all';
 import "../stylesheets/application.scss";
 import './nav';
 import './prefecture';
+import './tab_change';
 import './search';
 
 // Rails.start()
