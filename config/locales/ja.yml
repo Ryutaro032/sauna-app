@@ -1,14 +1,15 @@
 ja:
   flash:
-    create:
-      success: '施設をお気に入りに登録しました'
-    destroy:
-      favorite:
-        success: 'お気に入りから削除しました'
-      post:
-        success: '投稿を削除しました'
-    review:
-      success: 'レビューを投稿しました'
+    favorite:
+      create:
+        success: '施設をお気に入りに登録しました'
+      destroy:
+          success: 'お気に入りから削除しました'
+    post:
+      destroy:
+          success: '投稿を削除しました'
+      review:
+        success: 'レビューを投稿しました'
   activerecord:
     errors:
       models:
