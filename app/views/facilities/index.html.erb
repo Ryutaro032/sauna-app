@@ -18,13 +18,7 @@
                     <span class="list-item" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"><%= place.name %></span>
                   </td>
                   <td>
-                    <% if current_user %>
-                      <% if @favorites.include?(place.name) %>
-                        <%= button_to "お気に入りを外す", favorites_facilities_path(place_id: place.place_id), method: :delete, remote: true, class: 'remove-favorite button favorite-btn favorited-color', html: { 'data-turbolinks': false } %>
-                      <% else %>
-                        <%= button_to "お気に入りに追加", favorites_facilities_path(place_id: place.place_id), method: :post, remote: true, class: 'add-favorite button favorite-btn base-color', html: { 'data-turbolinks': false } %>
-                      <% end %>
-                    <% end %>   
+                    <%= link_to "施設情報", facility_path(place.place_id, name: place.name, address: place.formatted_address, latitude: place.lat, longitude: place.lng) %>
                   </td>
                   <td>
                     <% if current_user %>

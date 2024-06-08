@@ -5,7 +5,7 @@ class Facility < ApplicationRecord
   has_many :users, through: :favorites
 
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    favorites.exists?(user: user)
   end
 
   def self.search_places(params)
