@@ -6,6 +6,18 @@ RSpec.describe Facility, type: :model do
   let(:prefecture) { create(:prefecture) }
   let(:city) { prefecture.cities.first }
 
+  it { should have_many(:favorites).dependent(:destroy) }
+  it { should have_many(:users).through(:favorites) }
+
+  describe 'geocodingについて' do
+    let(:facility) { Facility.new(address: '東京都, 日本') }
+
+    it '住所が変更された場合' do
+      expect(facility).to receive(:geocode)
+      facility.valid?
+    end
+  end
+
   describe '#favorited_by?' do
     context 'ユーザーがお気に入り登録をしようとした時' do
       it 'お気に入りしていない時' do
