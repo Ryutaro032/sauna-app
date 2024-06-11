@@ -1,1 +1,5 @@
-$('#favorite_buttons_<%= @facility.id %>').html("<%= j(render 'favorites/favorite', facility: @facility) %>");
+<% if request.xhr? %>
+  window.location = '<%= facility_path(@facility) %>';
+<% else %>
+  $('#favorite_buttons_<%= @facility.id %>').html("<%= j(render 'favorites/favorite', facility: @facility) %>");
+<% end %>

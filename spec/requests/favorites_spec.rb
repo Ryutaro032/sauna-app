@@ -27,10 +27,10 @@ RSpec.describe 'Favorites', type: :request do
     context 'ユーザーがログインしているとき' do
       let(:user) { create(:user) }
       let(:facility) { create(:facility) }
-      let(:favorite) { create(:favorite, user: user, facility: facility) }
 
       before do
         sign_in user
+        create(:favorite, user: user, facility: facility)
       end
 
       it 'DBからお気に入り登録が削除されること' do
@@ -39,9 +39,15 @@ RSpec.describe 'Favorites', type: :request do
         end.to change(Favorite, :count).by(-1)
       end
 
-      it '詳細ページにリダイレクトされること' do
+      it 'ajaxリクエストの場合は詳細ページにリダイレクトされること' do
+        delete favorite_facility_path(facility), xhr: true
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include("window.location = '#{facility_path(facility)}'")
+      end
+
+      it 'Ajaxリクエストでない場合はユーザー管理画面にリダイレクトされること' do
         delete favorite_facility_path(facility)
-        expect(response).to redirect_to(facility_path(facility))
+        expect(response).to redirect_to(user_path(user))
       end
     end
   end
