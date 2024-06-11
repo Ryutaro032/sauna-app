@@ -117,28 +117,28 @@ RSpec.describe 'Facilities', :js, type: :system do
           visit facilities_index_path
           expect(page).to have_content('サウナログ')
         end
-  
+
         it 'キーワード検索を行い、結果が表示できること' do
           visit facilities_index_path
-  
+
           fill_in 'キーワードを入力', with: '池袋'
           click_link_or_button '検索'
-  
+
           visit facilities_index_path(word: '池袋')
           expect(page).to have_content('サウナログ')
           expect(page).to have_css('.facility-name .list-item')
           expect(page).to have_content('施設情報')
           expect(page).to have_css('.review-button')
         end
-  
+
         it '都道府県の検索ができること' do
           visit facilities_index_path
-  
+
           expect(page).to have_css("#prefecture_select option[value='#{prefecture.id}']")
           find_by_id('prefecture_select').find("option[value='#{prefecture.id}']").select_option
-  
+
           click_link_or_button '検索'
-  
+
           expect(page).to have_content('サウナログ')
           expect(page).to have_css('.facility-name .list-item')
           expect(page).to have_content('施設情報')

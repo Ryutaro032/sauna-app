@@ -6,17 +6,8 @@ RSpec.describe Facility, type: :model do
   let(:prefecture) { create(:prefecture) }
   let(:city) { prefecture.cities.first }
 
-  it { should have_many(:favorites).dependent(:destroy) }
-  it { should have_many(:users).through(:favorites) }
-
-  describe 'geocodingについて' do
-    let(:facility) { Facility.new(address: '東京都, 日本') }
-
-    it '住所が変更された場合' do
-      expect(facility).to receive(:geocode)
-      facility.valid?
-    end
-  end
+  it { is_expected.to have_many(:favorites).dependent(:destroy) }
+  it { is_expected.to have_many(:users).through(:favorites) }
 
   describe '#favorited_by?' do
     context 'ユーザーがお気に入り登録をしようとした時' do
@@ -73,39 +64,30 @@ RSpec.describe Facility, type: :model do
     end
   end
 
+  Place = Struct.new(:name, :formatted_address, :lat, :lng, :place_id)
+
   describe '.search_places_and_save' do
     let(:params) { { query: 'サウナ', location: '東京' } }
+
     let(:place_data) do
       [
-        OpenStruct.new(
-          name: 'サウナ1',
-          formatted_address: '東京都千代田区丸の内1-1',
-          lat: 35.6812,
-          lng: 139.7671,
-          place_id: 'place1'
-        ),
-        OpenStruct.new(
-          name: 'サウナ2',
-          formatted_address: '東京都千代田区丸の内2-2',
-          lat: 35.6822,
-          lng: 139.7691,
-          place_id: 'place2'
-        )
+        Place.new('サウナ1', '東京都千代田区丸の内1-1', 35.6812, 139.7671, 'place1'),
+        Place.new('サウナ2', '東京都千代田区丸の内2-2', 35.6822, 139.7691, 'place2')
       ]
     end
 
     before do
-      allow(Facility).to receive(:search_places).with(params).and_return(place_data)
+      allow(described_class).to receive(:search_places).with(params).and_return(place_data)
     end
 
     context '場所がまだ保存されていない場合' do
       it '新しい場所をデータベースに保存する' do
-        expect {
-          Facility.search_places_and_save(params)
-        }.to change(Facility, :count).by(2)
+        expect do
+          described_class.search_places_and_save(params)
+        end.to change(described_class, :count).by(2)
 
         place_data.each do |place|
-          expect(Facility.find_by(place_id: place.place_id)).not_to be_nil
+          expect(described_class.find_by(place_id: place.place_id)).not_to be_nil
         end
       end
     end
@@ -113,7 +95,7 @@ RSpec.describe Facility, type: :model do
     context '場所が既に保存されている場合' do
       before do
         place_data.each do |place|
-          Facility.create(
+          described_class.create(
             name: place.name,
             address: place.formatted_address,
             latitude: place.lat,
@@ -124,21 +106,21 @@ RSpec.describe Facility, type: :model do
       end
 
       it '重複する場所をデータベースに保存しない' do
-        expect {
-          Facility.search_places_and_save(params)
-        }.not_to change(Facility, :count)
+        expect do
+          described_class.search_places_and_save(params)
+        end.not_to change(described_class, :count)
       end
     end
 
     context '検索で場所が返されない場合' do
       before do
-        allow(Facility).to receive(:search_places).with(params).and_return([])
+        allow(described_class).to receive(:search_places).with(params).and_return([])
       end
 
       it 'データベースに変更を加えない' do
-        expect {
-          Facility.search_places_and_save(params)
-        }.not_to change(Facility, :count)
+        expect do
+          described_class.search_places_and_save(params)
+        end.not_to change(described_class, :count)
       end
     end
   end

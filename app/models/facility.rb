@@ -34,15 +34,16 @@ class Facility < ApplicationRecord
 
     places.each do |place|
       existing_facility = Facility.find_by(place_id: place.place_id)
-      unless existing_facility
-        Facility.create(
-          name: place.name,
-          address: place.formatted_address,
-          latitude: place.lat,
-          longitude: place.lng,
-          place_id: place.place_id,
-        )
-      end
+      next if existing_facility
+
+      Facility.create(
+        name: place.name,
+        address: place.formatted_address,
+        latitude: place.lat,
+        longitude: place.lng,
+        place_id: place.place_id
+      )
+      
     end
   end
 end

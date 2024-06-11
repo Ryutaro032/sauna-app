@@ -96,11 +96,11 @@ RSpec.describe 'Facilities', type: :request do
     end
   end
 
-  describe "#show" do
+  describe '#show' do
     let!(:facility) { create(:facility) }
 
-    context "施設が保存されている場合" do
-      it "施設情報を取得できること" do
+    context '施設が保存されている場合' do
+      it '施設情報を取得できること' do
         get facility_path(facility.id)
         expect(response).to have_http_status(:success)
         expect(response.body).to include(facility.name)
