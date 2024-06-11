@@ -27,4 +27,22 @@ class Facility < ApplicationRecord
     client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
     client.spots_by_query(query, language: 'ja', type: '"point_of_interest", "establishment","spa"')
   end
+
+  def self.search_places_and_save(params)
+    places = search_places(params)
+    return nil if places.blank?
+
+    places.each do |place|
+      existing_facility = Facility.find_by(place_id: place.place_id)
+      unless existing_facility
+        Facility.create(
+          name: place.name,
+          address: place.formatted_address,
+          latitude: place.lat,
+          longitude: place.lng,
+          place_id: place.place_id,
+        )
+      end
+    end
+  end
 end

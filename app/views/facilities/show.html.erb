@@ -4,15 +4,15 @@
       <%= render 'shared/flash_message' %>
     </div>
     <div>
-      <h1><%= @place_details.name %></h1>
-      <p><%= @place_details.formatted_address %></p>
+      <h1><%= @facility.name %></h1>
+      <p><%= @facility.address %></p>
     </div>
   </div>
   <% if current_user %>
     <% if @facility.favorited_by?(current_user) %>
       <%= button_to "お気に入りから削除", favorite_facility_path(@facility), method: :delete, class: "button" %>
     <% else %>
-      <%= button_to "お気に入りに追加", favorite_facility_path(facility: { name: @facility.name, address: @facility.address, latitude: @facility.latitude, longitude: @facility.longitude, place_id: @facility.place_id }), method: :post, class: "button base-color" %>
+      <%= button_to "お気に入りに追加", favorite_facility_path(id: @facility.id), method: :post, class: "button base-color" %>
     <% end %>
   <% end %>
 </div>

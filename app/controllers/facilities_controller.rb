@@ -15,18 +15,7 @@ class FacilitiesController < ApplicationController
   end
 
   def show
-    place_details
-    @facility = Facility.find_by(name: @place_details.name, address: @place_details.formatted_address)
-
-    if @facility.nil?
-      @facility = Facility.create(
-        name: @place_details.name,
-        address: @place_details.formatted_address,
-        latitude: @place_details.lat,
-        longitude: @place_details.lng,
-        place_id: @place_details.place_id
-      )
-    end
+    @facility = Facility.find_by(id: params[:id])
   end
 
   private
@@ -37,14 +26,7 @@ class FacilitiesController < ApplicationController
 
   def search_places
     @places = Facility.search_places(params)
+    @save_places = Facility.search_places_and_save(params)
     gon.places = @places if @places.present?
-    # @favorites = current_user.facilities.pluck(:name) if user_signed_in?
-    # @visited_places = current_user.visited_places.pluck(:name) if user_signed_in?
-  end
-
-  def place_details
-    place_id = params[:id]
-    @client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
-    @place_details = @client.spot(place_id, language: 'ja')
   end
 end

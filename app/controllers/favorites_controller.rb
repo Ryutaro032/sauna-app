@@ -2,7 +2,7 @@ class FavoritesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @facility = Facility.find_by(place_id: params[:facility][:place_id])
+    @facility = Facility.find_by(id: params[:facility_id])
 
     return unless user_signed_in?
 
