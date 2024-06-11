@@ -185,18 +185,18 @@ RSpec.describe 'Facilities', :js, type: :system do
       it 'お気に入りボタンが表示され、切り替えができること' do
         visit facility_path(facility.id)
 
-        expect(page).to have_button("お気に入りに追加")
-        expect(page).to have_no_button("お気に入りから削除")
+        expect(page).to have_button('お気に入りに追加')
+        expect(page).to have_no_button('お気に入りから削除')
 
         page.execute_script("document.querySelector('.header-container').remove();")
 
-        click_button "お気に入りに追加"
-        expect(page).to have_button("お気に入りから削除")
-        expect(page).to have_no_button("お気に入りに追加")
+        click_link_or_button 'お気に入りに追加'
+        expect(page).to have_button('お気に入りから削除')
+        expect(page).to have_no_button('お気に入りに追加')
 
-        click_button "お気に入りから削除"
-        expect(page).to have_button("お気に入りに追加")
-        expect(page).to have_no_button("お気に入りから削除")
+        click_link_or_button 'お気に入りから削除'
+        expect(page).to have_button('お気に入りに追加')
+        expect(page).to have_no_button('お気に入りから削除')
       end
     end
 
@@ -208,7 +208,7 @@ RSpec.describe 'Facilities', :js, type: :system do
       it 'お気に入りボタンが表示されないこと' do
         visit facility_path(facility.id)
 
-        expect(page).to have_no_button("お気に入りに追加")
+        expect(page).to have_no_button('お気に入りに追加')
       end
     end
   end

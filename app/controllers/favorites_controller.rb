@@ -6,7 +6,7 @@ class FavoritesController < ApplicationController
     current_user.favorites.create(facility: facility)
     flash[:success] = I18n.t('flash.favorite.create.success')
     respond_to do |format|
-      format.html { redirect_to facility_path(facility)}
+      format.html { redirect_to facility_path(facility) }
       format.js
     end
   end
