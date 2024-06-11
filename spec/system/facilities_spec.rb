@@ -17,7 +17,7 @@ RSpec.describe 'Facilities', :js, type: :system do
           expect(page).to have_content('サウナログ')
         end
 
-        it 'キーワード検索ができ、リストページに結果とお気に入りボタンが表示されること' do
+        it 'キーワード検索ができ、リストページに結果が表示されること' do
           visit root_path
 
           fill_in 'キーワードを入力', with: '池袋'
@@ -25,14 +25,6 @@ RSpec.describe 'Facilities', :js, type: :system do
 
           visit facilities_index_path(word: '池袋')
           expect(page).to have_content('池袋')
-
-          expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
-          expect(page).to have_no_css('tr:first-child .remove-favorite')
-
-          find('tr:first-child .add-favorite').click
-
-          expect(page).to have_css('tr:first-child .remove-favorite', visible: :all)
-          expect(page).to have_no_css('tr:first-child .add-favorite')
         end
 
         it '都道府県の検索ができること' do
@@ -84,14 +76,13 @@ RSpec.describe 'Facilities', :js, type: :system do
         expect(page).to have_content('サウナログ')
       end
 
-      it 'キーワード検索ができ、リストページに結果が表示され、お気に入りボタンが表示されないこと' do
+      it 'キーワード検索ができ、リストページに結果が表示されること' do
         visit root_path
 
         fill_in 'キーワードを入力', with: '池袋'
         click_link_or_button '検索'
 
         expect(page).to have_content('池袋')
-        expect(page).to have_no_css('tr .favorite-btn')
       end
     end
 
@@ -114,49 +105,44 @@ RSpec.describe 'Facilities', :js, type: :system do
   describe '検索リスト表示画面のテストについて' do
     let(:user) { create(:user) }
     let!(:prefecture) { create(:prefecture) }
-
-    context '検索結果の表示について' do
-      it 'リストページが表示されること' do
-        visit facilities_index_path
-        expect(page).to have_content('サウナログ')
-      end
-
-      it 'キーワード検索を行い、表示されること' do
-        visit facilities_index_path(word: '池袋')
-        expect(page).to have_content('サウナログ')
-        expect(page).to have_content('池袋')
-      end
-
-      it '都道府県の検索ができること' do
-        visit facilities_index_path
-
-        expect(page).to have_css("#prefecture_select option[value='#{prefecture.id}']")
-        find_by_id('prefecture_select').find("option[value='#{prefecture.id}']").select_option
-
-        click_link_or_button '検索'
-
-        expect(page).to have_content('サウナログ')
-      end
-    end
+    let(:facility) { create(:facility) }
 
     context 'ユーザーがログインしている場合' do
       before do
         sign_in(user)
       end
 
-      describe 'お気に入り追加について' do
-        before do
-          visit facilities_index_path(word: '池袋')
+      context '検索結果の表示について' do
+        it 'リストページが表示されること' do
+          visit facilities_index_path
+          expect(page).to have_content('サウナログ')
         end
 
-        it 'お気に入り追加/削除が表示され、切り替えが正しく動作すること' do
-          expect(page).to have_css('tr:first-child .add-favorite', visible: :all)
-          expect(page).to have_no_css('tr:first-child .remove-favorite')
+        it 'キーワード検索を行い、結果が表示できること' do
+          visit facilities_index_path
 
-          find('tr:first-child .add-favorite').click
+          fill_in 'キーワードを入力', with: '池袋'
+          click_link_or_button '検索'
 
-          expect(page).to have_css('tr:first-child .remove-favorite', visible: :all)
-          expect(page).to have_no_css('tr:first-child .add-favorite')
+          visit facilities_index_path(word: '池袋')
+          expect(page).to have_content('サウナログ')
+          expect(page).to have_css('.facility-name .list-item')
+          expect(page).to have_content('施設情報')
+          expect(page).to have_css('.review-button')
+        end
+
+        it '都道府県の検索ができること' do
+          visit facilities_index_path
+
+          expect(page).to have_css("#prefecture_select option[value='#{prefecture.id}']")
+          find_by_id('prefecture_select').find("option[value='#{prefecture.id}']").select_option
+
+          click_link_or_button '検索'
+
+          expect(page).to have_content('サウナログ')
+          expect(page).to have_css('.facility-name .list-item')
+          expect(page).to have_content('施設情報')
+          expect(page).to have_css('.review-button')
         end
       end
     end
@@ -166,8 +152,25 @@ RSpec.describe 'Facilities', :js, type: :system do
         sign_out(user)
       end
 
-      it 'お気に入り追加/削除ボタンが表示されないこと' do
-        expect(page).to have_no_css('tr, favorite-btn')
+      it '投稿ボタンが表示されないこと' do
+        visit facilities_index_path
+
+        fill_in 'キーワードを入力', with: '池袋'
+        click_link_or_button '検索'
+
+        visit facilities_index_path(word: '池袋')
+        expect(page).to have_content('サウナログ')
+        expect(page).to have_css('.facility-name .list-item')
+        expect(page).to have_content('施設情報')
+        expect(page).to have_no_css('.review-button')
+      end
+    end
+
+    context '施設の詳細ページへの遷移について' do
+      it '施設の詳細ページへのアクセスに成功する' do
+        visit facility_path(facility.id)
+        expect(page).to have_content facility.name
+        expect(page).to have_content facility.address
       end
     end
   end

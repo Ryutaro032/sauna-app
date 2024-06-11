@@ -11,12 +11,16 @@ Rails.application.routes.draw do
   root 'facilities#home'
   get 'facilities/index'
 
-  resources :facilities do
-    post 'favorites', to: 'favorites#create', on: :collection
-    delete 'favorites', to: 'favorites#destroy', on: :collection
+  resources :facilities, only: [:show] do
+    member do
+      post 'favorite', to: 'favorites#create'
+      delete 'favorite', to: 'favorites#destroy'
+    end
   end
 
   resources :users, only: [:show, :edit, :update]
+
+  resources :favorites, only: [:create, :destroy]
   
   resources :posts, only: [:new, :create, :destroy] do
     resource :review_like, only: [:create, :destroy]

@@ -2,40 +2,28 @@ class FavoritesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    place_id = params[:place_id]
-    @client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
-    place_details = @client.spot(place_id, language: 'ja')
-    existing_favorite = current_user.facilities.find_by(name: place_details.name)
-    if existing_favorite
+    @facility = Facility.find_by(id: params[:facility_id])
 
-    else
-      @facility = Facility.new(
-        name: place_details.name,
-        address: place_details.formatted_address,
-        latitude: place_details.lat,
-        longitude: place_details.lng,
-        place_id: place_details.place_id
-      )
+    return unless user_signed_in?
 
-      if @facility.save
-        @facilities = Facility.all
-        @favorite = current_user.favorites.create(facility: @facility)
-        gon.places = @facilities
-        flash[:success] = I18n.t('flash.favorite.create.success')
-        redirect_back fallback_location: root_path
-      end
+    if @facility
+      current_user.favorite_facilities << @facility
+      flash[:success] = I18n.t('flash.favorite.create.success')
     end
+
+    redirect_to facility_path(params[:id])
   end
 
   def destroy
-    @facility = Facility.find_by(place_id: params[:place_id])
-    @favorite = current_user.favorites.find_by(facility: @facility)
+    @facility = Facility.find_by(id: params[:id])
 
-    return if @favorite.nil?
+    return unless user_signed_in?
 
-    return unless @favorite.destroy
+    if @facility && current_user.favorite_facilities.include?(@facility)
+      current_user.favorite_facilities.delete(@facility)
+      flash[:success] = I18n.t('flash.favorite.destroy.success')
+    end
 
-    flash[:success] = I18n.t('flash.favorite.destroy.success')
-    redirect_back fallback_location: root_path
+    redirect_to facility_path(@facility.place_id, name: @facility.name, address: @facility.address, latitude: @facility.latitude, longitude: @facility.longitude)
   end
 end

@@ -14,6 +14,10 @@ class FacilitiesController < ApplicationController
     render :index
   end
 
+  def show
+    @facility = Facility.find_by(id: params[:id])
+  end
+
   private
 
   def facility_params
@@ -22,7 +26,7 @@ class FacilitiesController < ApplicationController
 
   def search_places
     @places = Facility.search_places(params)
+    @save_places = Facility.search_places_and_save(params)
     gon.places = @places if @places.present?
-    @favorites = current_user.facilities.pluck(:name) if user_signed_in?
   end
 end

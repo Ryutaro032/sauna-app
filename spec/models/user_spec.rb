@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
   describe 'アソシエーションについて' do
     it { is_expected.to have_many(:favorites).dependent(:destroy) }
     it { is_expected.to have_many(:facilities).through(:favorites) }
+    it { is_expected.to have_one_attached(:icon_image) }
   end
 
   describe 'バリデーションについて' do
