@@ -165,12 +165,50 @@ RSpec.describe 'Facilities', :js, type: :system do
         expect(page).to have_no_css('.review-button')
       end
     end
+  end
 
-    context '施設の詳細ページへの遷移について' do
-      it '施設の詳細ページへのアクセスに成功する' do
+  describe '施設の詳細ページについて' do
+    let(:user) { create(:user) }
+    let(:facility) { create(:facility) }
+
+    it '施設の詳細ページへのアクセスに成功する' do
+      visit facility_path(facility.id)
+      expect(page).to have_content facility.name
+      expect(page).to have_content facility.address
+    end
+
+    context 'ユーザーがログインしている場合' do
+      before do
+        sign_in(user)
+      end
+
+      it 'お気に入りボタンが表示され、切り替えができること' do
         visit facility_path(facility.id)
-        expect(page).to have_content facility.name
-        expect(page).to have_content facility.address
+
+        expect(page).to have_button("お気に入りに追加")
+        expect(page).to have_no_button("お気に入りから削除")
+
+        page.execute_script("document.querySelector('.header-container').remove();")
+
+        click_button "お気に入りに追加"
+        expect(page).to have_button("お気に入りから削除")
+        expect(page).to have_no_button("お気に入りに追加")
+
+        click_button "お気に入りから削除"
+        expect(page).to have_button("お気に入りに追加")
+        expect(page).to have_no_button("お気に入りから削除")
+      end
+    end
+
+    context 'ユーザーがログインしていない場合' do
+      before do
+        sign_out(user)
+      end
+
+      it 'お気に入りボタンが表示されないこと' do
+        visit facility_path(facility.id)
+
+        expect(page).to have_no_button("お気に入りに追加")
       end
     end
   end
