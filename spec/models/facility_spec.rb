@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+Place = Struct.new(:name, :formatted_address, :lat, :lng, :place_id)
+
 RSpec.describe Facility, type: :model do
   let(:user) { create(:user) }
   let(:facility) { create(:facility) }
@@ -63,8 +65,6 @@ RSpec.describe Facility, type: :model do
       end
     end
   end
-
-  Place = Struct.new(:name, :formatted_address, :lat, :lng, :place_id)
 
   describe '.search_places_and_save' do
     let(:params) { { query: 'サウナ', location: '東京' } }

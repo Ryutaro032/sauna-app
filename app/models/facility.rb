@@ -43,7 +43,6 @@ class Facility < ApplicationRecord
         longitude: place.lng,
         place_id: place.place_id
       )
-      
     end
   end
 end
