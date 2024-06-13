@@ -2,7 +2,7 @@ ja:
   flash:
     favorite:
       create:
-        success: '施設をお気に入りに登録しました'
+        success: 'お気に入りに登録しました'
       destroy:
           success: 'お気に入りから削除しました'
     post:

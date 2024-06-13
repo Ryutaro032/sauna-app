@@ -60,13 +60,13 @@ RSpec.describe 'Users', type: :system do
       end
 
       it 'お気に入り登録した施設が表示されること' do
-        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content('お気に入り')
         expect(page).to have_content(facility.name)
         expect(page).to have_content(facility.address)
       end
 
       it '削除ボタンが表示され、ボタンを押すと削除されていること' do
-        within '.favorite-contents' do
+        within '.favorite-content' do
           expect(page).to have_button('削除する')
 
           click_link_or_button '削除する'
@@ -115,13 +115,13 @@ RSpec.describe 'Users', type: :system do
       end
 
       it 'お気に入り登録した施設が表示されること' do
-        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content('お気に入り')
         expect(page).to have_content(facility.name)
         expect(page).to have_content(facility.address)
       end
 
       it '削除ボタンが表示されないこと' do
-        within '.favorite-contents' do
+        within '.favorite-content' do
           expect(page).to have_no_button('削除する')
         end
       end
@@ -148,13 +148,13 @@ RSpec.describe 'Users', type: :system do
       end
 
       it 'お気に入り登録した施設が表示されること' do
-        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content('お気に入り')
         expect(page).to have_content(facility.name)
         expect(page).to have_content(facility.address)
       end
 
       it '削除ボタンが表示されないこと' do
-        within '.favorite-contents' do
+        within '.favorite-content' do
           expect(page).to have_no_button('削除する')
         end
       end
