@@ -1,4 +1,68 @@
-.facility-detail-warappwer{
-  text-align: center;
+.facility-info-warappwer{
   margin: 150px 0px 20px 0px;
+}
+
+.facility-info-container{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.facility-info-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.facility-info-head-left h2{
+  margin: 0;
+}
+
+.facility-info-head-right{
+  display: flex;
+  align-items: center;
+}
+
+.facility-icon{
+  width: 300px;
+  height: 200px;
+}
+
+.facility-info-contents{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.facility-info-contents th,
+.facility-info-contents td{
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.facility-info-contents th{
+  background-color: #f4f4f4;
+}
+
+.facility-info-content th{
+  background-color: #ff8c00;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.facility-info td{
+  width: 1%;
+}
+
+.facility-info-content td{
+  padding: 10px;
+  text-align: center;
+}
+
+.facility-info-content td[colspan="2"]{
+  text-align: center;
 }

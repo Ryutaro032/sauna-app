@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_07_150600) do
+ActiveRecord::Schema.define(version: 2024_06_16_125344) do
 
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
@@ -56,6 +56,24 @@ ActiveRecord::Schema.define(version: 2024_06_07_150600) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "place_id"
+    t.string "facility_icon"
+    t.integer "min_price"
+    t.integer "max_price"
+    t.text "free_text"
+    t.boolean "outdoor_bath"
+    t.boolean "rest_area"
+    t.boolean "aufguss"
+    t.boolean "auto_louver"
+    t.boolean "self_louver"
+    t.string "sauna_mat"
+    t.string "bath_towel"
+    t.string "face_towel"
+    t.string "in_house_wear"
+    t.boolean "work_space"
+    t.boolean "in_house_rest_area"
+    t.boolean "restaurant"
+    t.boolean "wifi"
+    t.boolean "comics"
   end
 
   create_table "favorites", charset: "utf8mb3", force: :cascade do |t|
@@ -66,6 +84,17 @@ ActiveRecord::Schema.define(version: 2024_06_07_150600) do
     t.index ["facility_id"], name: "index_favorites_on_facility_id"
     t.index ["user_id", "facility_id"], name: "index_favorites_on_user_id_and_facility_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "opening_hours", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "facility_id", null: false
+    t.integer "day_of_week", null: false
+    t.time "opening_time"
+    t.time "closing_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "holiday"
+    t.index ["facility_id"], name: "index_opening_hours_on_facility_id"
   end
 
   create_table "posts", charset: "utf8mb3", force: :cascade do |t|
@@ -114,6 +143,7 @@ ActiveRecord::Schema.define(version: 2024_06_07_150600) do
   add_foreign_key "cities", "prefectures"
   add_foreign_key "favorites", "facilities"
   add_foreign_key "favorites", "users"
+  add_foreign_key "opening_hours", "facilities"
   add_foreign_key "posts", "users"
   add_foreign_key "review_likes", "posts"
   add_foreign_key "review_likes", "users"
