@@ -2,14 +2,17 @@ ja:
   flash:
     favorite:
       create:
-        success: 'お気に入りに登録しました'
+          success: 'お気に入りに登録しました'
       destroy:
           success: 'お気に入りから削除しました'
     post:
       destroy:
           success: '投稿を削除しました'
       review:
-        success: 'レビューを投稿しました'
+          success: 'レビューを投稿しました'
+    facility:
+      edit:
+          success: '施設情報が更新されました。'
   activerecord:
     errors:
       models:
@@ -20,3 +23,8 @@ ja:
               too_long: "タイトルは40文字以内で入力してください"
             review:
               too_long: "レビュー内容は400文字以内で入力してください"
+        facility:
+          attributes:
+            free_text:
+              too_long: '1200文字以内で入力してください'
+            price: '金額は0以上の値にしてください'

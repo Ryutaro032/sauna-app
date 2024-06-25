@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root 'facilities#home'
   get 'facilities/index'
 
-  resources :facilities, only: [:show] do
+  resources :facilities, only: [:show, :edit, :update] do
     member do
       post 'favorite', to: 'favorites#create'
       delete 'favorite', to: 'favorites#destroy'

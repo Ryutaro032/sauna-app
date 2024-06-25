@@ -1,0 +1,159 @@
+<div class="facility-info-warappwer">
+  <div>
+    <%= render 'shared/error_message', obj: @facility %>
+  </div>
+  <div class="facility-info-container">
+    <div class="facility-info-head">
+      <div class="facility-info-head-left">
+        <h2><%= @facility.name %></h2>
+        <p><%= @facility.address %></p>
+      </div>
+    </div>
+    <%= form_with model: @facility do |form| %>
+      <table class="facility-info-contents">
+        <thead>
+          <tr>
+            <th colspan="2">🟧基本情報</th>
+          </tr>
+        </thead>
+        <tbody class="facility-info-content">
+          <tr class="field">
+            <td colspan="2">
+              <% if @facility.facility_icon.attached?  %>
+                <%= image_tag @facility.facility_icon, alt: "施設イメージ" %>
+                <%=form.file_field :facility_icon %>
+              <% else %>
+                画像は登録されていません。
+                <%=form.file_field :facility_icon %>
+              <% end %>
+            </td>
+          </tr>
+          <tr class="field">
+            <td><%= form.label :price, "料金" %></td>
+            <td>
+              <%= form.number_field :min_price, min: 0, value: @facility.min_price || 0 %>
+              〜
+              <%= form.number_field :max_price, min: 0, value: @facility.max_price || 0 %>
+            </td>
+          </tr>
+          <tr>
+            <td><%= form.label :opening_hours, "営業時間" %></td>
+            <td>
+              <% days_of_week = %w[日曜日 月曜日 火曜日 水曜日 木曜日 金曜日 土曜日] %>
+              <% days_of_week.each_with_index do |day, i| %>
+                <%= form.fields_for :opening_hours, @facility.opening_hours.find { |oh| oh.day_of_week == i } do |oh_form| %>
+                  <div class="opening-hour-fields">
+                    <span><%= oh_form.label :day_of_week, day %></span>
+                    <span><%= oh_form.hidden_field :day_of_week, value: i %></span>
+                    <span>
+                      <%= oh_form.check_box :holiday, { class: 'holiday-checkbox', data: { index: i } } %>
+                      <%= oh_form.label :holiday, "定休日" %>
+                    </span>
+                    <div class="time-fields" id="time-fields-<%= i %>">
+                      <span>
+                        <%= oh_form.time_select :opening_time, include_blank: true, ignore_date: true %> 
+                        〜 
+                        <%= oh_form.time_select :closing_time, include_blank: true, ignore_date: true %>
+                      </span>
+                    </div>
+                    <span><%= oh_form.check_box :_destroy %> <%= oh_form.label :_destroy, "削除" %></span>
+                  </div>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="facility-info-contents">
+        <thead>
+          <tr>
+            <th colspan="6">🟧サウナ設備</th>
+          </tr>
+        </thead>
+        <tbody class="facility-info-content">
+          <tr class="facility-info">
+            <td><%= form.label :aufguss, "ロウリュ（アウフグース)" %></td>
+            <td><%= form.check_box :aufguss %></td>
+            <td><%= form.label :auto_louver, "オートロウリュ" %></td>
+            <td><%= form.check_box :auto_louver %></td>
+          </tr>
+          <tr class="facility-info">
+            <td><%= form.label :self_louver, "セルフロウリュ" %></td>
+            <td><%= form.check_box :self_louver %></td>
+          </tr>
+          <tr class="facility-info">
+            <td><%= form.label :rest_area, "休憩スペース（整いスペース）" %></td>
+            <td><%= form.check_box :rest_area %></td>
+            <td><%= form.label :outdoor_bath, "外気浴" %></td>
+            <td><%= form.check_box :outdoor_bath %></td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="4">🟧タオル・館内着・サウナマット</th>
+          </tr>
+        </thead>
+        <tbody class="facility-info-content">
+          <tr class="facility-info">
+            <td><%= form.label :sauna_mat, "サウナマット" %></td>
+            <td>
+              <%= form.select :sauna_mat, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']], { include_blank: true, selected: @facility.sauna_mat }) %>
+            </td>
+            <td><%= form.label :in_house_wear, "館内着" %></td>
+            <td>
+              <%= form.select :in_house_wear, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']], { include_blank: true, selected: @facility.in_house_wear }) %>
+            </td>
+          </tr>
+          <tr class="facility-info">
+            <td><%= form.label :bath_towel, "バスタオル" %></td>
+            <td>
+              <%= form.select :bath_towel, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']], { include_blank: true, selected: @facility.bath_towel }) %>
+            </td>
+            <td><%= form.label :face_towel, "フェイスタオル" %></td>
+            <td>
+              <%= form.select :face_towel, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']], { include_blank: true, selected: @facility.face_towel }) %>
+            </td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="6">🟧館内設備</th>
+          </tr>
+        </thead>
+        <tbody class="facility-info-content">
+          <tr class="facility-info">
+            <td><%= form.label :work_space, "作業スペース" %></td>
+            <td><%= form.check_box :work_space %></td>
+            <td><%= form.label  :wifi, "Wi-Fi" %></td>
+            <td><%= form.check_box :wifi %></td>
+          </tr>
+          <tr class="facility-info">
+            <td><%= form.label :comics, "漫画" %></td>
+            <td><%= form.check_box :comics %></td>
+            <td><%= form.label :in_house_rest_area, "休憩スペース" %></td>
+            <td><%= form.check_box :in_house_rest_area %></td>
+          </tr>
+          <tr class="facility-info">
+            <td><%= form.label :restaurant, "食事処" %></td>
+            <td><%= form.check_box :restaurant %></td>
+          </tr>
+        </body>
+      </table>
+      <table class="facility-info-contents">
+        <thead>
+          <tr>
+            <th colspan="6">🟧その他の情報</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 100%;"><%= form.text_area :free_text,rows: 15, col: 40, style: 'width: 100%;' %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="actions">
+        <%= form.submit class: "button base-color"%>
+      </div>
+    <% end %>
+  </div>
+</div>

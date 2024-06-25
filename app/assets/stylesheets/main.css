@@ -150,6 +150,10 @@ header{
   font-size: 22px;
 }
 
+.edit-btn{
+  font-size: 1rem;
+}
+
 table{
   text-align: center;
 }
