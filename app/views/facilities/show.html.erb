@@ -12,6 +12,9 @@
           <div class="favorite" id="favorite_buttons_<%= @facility.id %>">
             <%= render 'favorites/favorite', facility: @facility %>
           </div>
+          <div class="place-visit" id="place_visit_buttons_<%= @facility.id %>">
+            <%= render 'place_visits/place_visit', facility: @facility %>
+          </div>
         <% end %>
         <div>
           <%= link_to "編集する", edit_facility_path(@facility), class: "link button base-color edit-btn" %>

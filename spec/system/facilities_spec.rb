@@ -202,6 +202,27 @@ RSpec.describe 'Facilities', :js, type: :system do
         expect(page).to have_no_button('お気に入りから削除')
         expect(page).to have_content('お気に入りから削除しました')
       end
+
+      it '行きたいリストへ登録するボタンが表示され、切り替えができること' do
+        visit facility_path(facility.id)
+
+        expect(page).to have_button('行きたいリストに追加')
+        expect(page).to have_no_button('行きたいリストから削除')
+
+        page.execute_script("document.querySelector('.header-container').remove();")
+
+        click_link_or_button '行きたいリストに追加'
+        expect(page).to have_button('行きたいリストから削除')
+        expect(page).to have_no_button('行きたいリストに追加')
+        expect(page).to have_content('行きたいリストに登録しました')
+
+        page.execute_script("document.querySelector('.header-container').remove();")
+
+        click_link_or_button '行きたいリストから削除'
+        expect(page).to have_button('行きたいリストに追加')
+        expect(page).to have_no_button('行きたいリストから削除')
+        expect(page).to have_content('行きたいリストから削除しました')
+      end
     end
 
     context 'ユーザーがログインしていない場合' do
@@ -213,6 +234,12 @@ RSpec.describe 'Facilities', :js, type: :system do
         visit facility_path(facility.id)
 
         expect(page).to have_no_button('お気に入りに追加')
+      end
+
+      it '行きたいリストへの登録ボタンが表示されないこと' do
+        visit facility_path(facility.id)
+
+        expect(page).to have_no_button('行きたいリストに追加')
       end
     end
   end

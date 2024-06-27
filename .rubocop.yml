@@ -32,6 +32,11 @@ CyclomaticComplexity:
 PerceivedComplexity:
   Max: 20
 
+Rails/ActionControllerFlashBeforeRender:
+  Exclude:
+    - 'app/controllers/favorites_controller.rb'
+    - 'app/controllers/place_visits_controller.rb'
+
 AllCops:
   Exclude:
     - 'db/**/*'

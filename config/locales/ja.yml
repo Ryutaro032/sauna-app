@@ -13,6 +13,11 @@ ja:
     facility:
       edit:
           success: '施設情報が更新されました。'
+    place_visit:
+      create:
+          success: '行きたいリストに登録しました'
+      destroy:
+          success: '行きたいリストから削除しました'
   activerecord:
     errors:
       models:

@@ -15,12 +15,15 @@ Rails.application.routes.draw do
     member do
       post 'favorite', to: 'favorites#create'
       delete 'favorite', to: 'favorites#destroy'
+
+      post 'place_visit', to: 'place_visits#create'
+      delete 'place_visit', to: 'place_visits#destroy'
     end
   end
 
   resources :users, only: [:show, :edit, :update]
 
-  resources :favorites, only: [:create, :destroy]
+  # resources :favorites, only: [:create, :destroy]
   
   resources :posts, only: [:new, :create, :destroy] do
     resource :review_like, only: [:create, :destroy]

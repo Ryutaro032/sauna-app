@@ -30,7 +30,7 @@
           </tr>
           <tr class="field">
             <td><%= form.label :price, "料金" %></td>
-            <td>
+            <td class="facility-price">
               <%= form.number_field :min_price, min: 0, value: @facility.min_price || 0 %>
               〜
               <%= form.number_field :max_price, min: 0, value: @facility.max_price || 0 %>
@@ -72,7 +72,7 @@
         </thead>
         <tbody class="facility-info-content">
           <tr class="facility-info">
-            <td><%= form.label :aufguss, "ロウリュ（アウフグース)" %></td>
+            <td><%= form.label :aufguss, "ロウリュ（アウフグース）" %></td>
             <td><%= form.check_box :aufguss %></td>
             <td><%= form.label :auto_louver, "オートロウリュ" %></td>
             <td><%= form.check_box :auto_louver %></td>
