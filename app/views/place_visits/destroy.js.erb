@@ -1,0 +1,5 @@
+<% if request.xhr? %>
+  window.location = '<%= facility_path(@facility) %>';
+<% else %>
+  $('#place_visit_buttons_<%= @facility.id %>').html("<%= j(render 'place_visits/place_visit', facility: @facility) %>");
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_16_125344) do
+ActiveRecord::Schema.define(version: 2024_06_25_133455) do
 
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
@@ -97,6 +97,16 @@ ActiveRecord::Schema.define(version: 2024_06_16_125344) do
     t.index ["facility_id"], name: "index_opening_hours_on_facility_id"
   end
 
+  create_table "place_visits", charset: "utf8mb3", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "facility_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["facility_id"], name: "index_place_visits_on_facility_id"
+    t.index ["user_id", "facility_id"], name: "index_place_visits_on_user_id_and_facility_id", unique: true
+    t.index ["user_id"], name: "index_place_visits_on_user_id"
+  end
+
   create_table "posts", charset: "utf8mb3", force: :cascade do |t|
     t.string "title"
     t.text "review"
@@ -144,6 +154,8 @@ ActiveRecord::Schema.define(version: 2024_06_16_125344) do
   add_foreign_key "favorites", "facilities"
   add_foreign_key "favorites", "users"
   add_foreign_key "opening_hours", "facilities"
+  add_foreign_key "place_visits", "facilities"
+  add_foreign_key "place_visits", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "review_likes", "posts"
   add_foreign_key "review_likes", "users"

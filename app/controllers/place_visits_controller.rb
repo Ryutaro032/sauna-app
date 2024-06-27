@@ -1,10 +1,10 @@
-class FavoritesController < ApplicationController
+class PlaceVisitsController < ApplicationController
   before_action :authenticate_user!
 
   def create
     facility = Facility.find(params[:id])
-    current_user.favorites.create(facility: facility)
-    flash[:success] = I18n.t('flash.favorite.create.success')
+    current_user.place_visits.create(facility: facility)
+    flash[:success] = I18n.t('flash.place_visit.create.success')
     respond_to do |format|
       format.html { redirect_to facility_path(facility) }
       format.js
@@ -13,12 +13,12 @@ class FavoritesController < ApplicationController
 
   def destroy
     facility = Facility.find(params[:id])
-    favorite = current_user.favorites.find_by(facility: facility)
+    place_visit = current_user.place_visits.find_by(facility: facility)
 
-    if favorite
-      @facility = favorite.facility
-      favorite.destroy
-      flash[:success] = I18n.t('flash.favorite.destroy.success')
+    if place_visit
+      @facility = place_visit.facility
+      place_visit.destroy
+      flash[:success] = I18n.t('flash.place_visit.destroy.success')
     end
     respond_to do |format|
       format.html do

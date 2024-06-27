@@ -1,5 +1,6 @@
 class Facility < ApplicationRecord
   has_many :favorites, dependent: :destroy
+  has_many :place_visits, dependent: :destroy
   has_many :users, through: :favorites
   has_many :opening_hours, dependent: :destroy
   has_one_attached :facility_icon
@@ -19,6 +20,10 @@ class Facility < ApplicationRecord
 
   def favorited_by?(user)
     favorites.exists?(user: user)
+  end
+
+  def place_visited_by?(user)
+    place_visits.exists?(user: user)
   end
 
   def self.search_places(params)
