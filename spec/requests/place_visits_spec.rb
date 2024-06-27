@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Placevisits", type: :request do
+RSpec.describe 'PlaceVisits', type: :request do
   describe 'POST #create' do
     context 'ユーザーがログインしているとき' do
       let(:user) { create(:user) }
