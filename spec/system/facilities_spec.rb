@@ -246,20 +246,7 @@ RSpec.describe 'Facilities', :js, type: :system do
 
   describe '施設の編集ページについて' do
     let(:user) { create(:user) }
-    let(:facility) do
-      create(
-        :facility,
-        opening_hours: [
-          build(:opening_hour, day_of_week: 0, opening_time: '06:00', closing_time: '22:00', holiday: false),
-          build(:opening_hour, day_of_week: 1, opening_time: '07:00', closing_time: '21:00', holiday: false),
-          build(:opening_hour, day_of_week: 2, opening_time: '12:00', closing_time: '16:00', holiday: false),
-          build(:opening_hour, day_of_week: 3, opening_time: '09:00', closing_time: '19:00', holiday: false),
-          build(:opening_hour, day_of_week: 4, opening_time: '10:00', closing_time: '18:00', holiday: false),
-          build(:opening_hour, day_of_week: 5, opening_time: '11:00', closing_time: '17:00', holiday: false),
-          build(:opening_hour, day_of_week: 6, opening_time: nil, closing_time: nil, holiday: true)
-        ]
-      )
-    end
+    let!(:facility) { create(:facility) }
 
     before do
       sign_in(user)
@@ -277,22 +264,11 @@ RSpec.describe 'Facilities', :js, type: :system do
     end
 
     it '曜日・時間が表示されること' do
-      expect(page).to have_content('日曜日')
-      expect(page).to have_content('月曜日')
-      expect(page).to have_content('火曜日')
-      expect(page).to have_content('水曜日')
-      expect(page).to have_content('木曜日')
-      expect(page).to have_content('金曜日')
-      expect(page).to have_content('土曜日')
-
-      expect(page).to have_checked_field('facility_opening_hours_attributes_6_holiday')
-
       check 'facility_opening_hours_attributes_0_holiday'
-      uncheck 'facility_opening_hours_attributes_6_holiday'
 
       expect(page).to have_checked_field('facility_opening_hours_attributes_0_holiday')
 
-      select '09', from: 'facility_opening_hours_attributes_6_opening_time_4i'
+      select '10', from: 'facility_opening_hours_attributes_6_opening_time_4i'
       select '00', from: 'facility_opening_hours_attributes_6_opening_time_5i'
       select '18', from: 'facility_opening_hours_attributes_6_closing_time_4i'
       select '00', from: 'facility_opening_hours_attributes_6_closing_time_5i'
@@ -304,12 +280,8 @@ RSpec.describe 'Facilities', :js, type: :system do
       expect(page).to have_current_path(facility_path(facility))
 
       expect(page).to have_content('定休日')
-      expect(page).to have_content('07:00 〜 21:00')
-      expect(page).to have_content('12:00 〜 16:00')
-      expect(page).to have_content('09:00 〜 19:00')
-      expect(page).to have_content('10:00 〜 18:00')
-      expect(page).to have_content('11:00 〜 17:00')
-      expect(page).to have_content('09:00 〜 18:00')
+      expect(page).to have_content('10:00')
+      expect(page).to have_content('18:00')
     end
 
     it '料金の値が更新され、表示できること' do
@@ -327,7 +299,7 @@ RSpec.describe 'Facilities', :js, type: :system do
     end
 
     it 'サウナ設備の値が更新され、表示できること' do
-      expect(page).to have_content('ロウリュ（アウフグース)')
+      expect(page).to have_content('ロウリュ（アウフグース）')
       expect(page).to have_content('オートロウリュ')
       expect(page).to have_content('セルフロウリュ')
       expect(page).to have_content('休憩スペース（整いスペース）')

@@ -162,7 +162,7 @@ RSpec.describe 'Facilities', type: :request do
     context '施設の情報について' do
       before do
         sign_in user
-        get edit_facility_path(facility.id)
+        get edit_facility_path(facility)
       end
 
       it '施設の名前と住所を取得できること' do
@@ -216,7 +216,7 @@ RSpec.describe 'Facilities', type: :request do
 
   describe '#update' do
     let(:user) { create(:user) }
-    let(:facility) { create(:facility) }
+    let!(:facility) { create(:facility) }
 
     before do
       sign_in user
