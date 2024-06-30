@@ -4,9 +4,11 @@ class UsersController < ApplicationController
   def show
     if @user
       @favorites = @user.favorites.includes(:facility)
+      @place_visits = @user.place_visits.includes(:facility)
       @user_reviews = @user.posts
     elsif current_user
       @favorites = current_user.favorites.includes(:facility)
+      @place_visits = current_user.place_visits.includes(:facility)
       @user_reviews = current_user.posts
     end
   end

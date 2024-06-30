@@ -31,7 +31,7 @@
     <ul class="tabs">
       <li class="tab tab-active" data-tab="reviews">レビュー</li>
       <li class="tab" data-tab="favorites">お気に入り</li>
-      <li class="tab" data-tab="visited-places">行ってみたいリスト</li>
+      <li class="tab" data-tab="visited-places">行きたいリスト</li>
     </ul>
     <div class="tab-content">
       <div id="reviews" class="tabbox box-show">
@@ -70,6 +70,29 @@
                       <% if current_user %>
                         <% if favorite.facility.favorited_by?(current_user) %>
                           <%= button_to "削除する",  favorite_facility_path(favorite.facility), method: :delete, class: 'button destroy-btn' %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </div>
+      <div id="place_visits" class="tabbox">
+        <div class="place-visit-content">
+          <% if @place_visits.present? %>
+            <table>
+              <tbody>
+                <% @place_visits.each do |place_visit| %>
+                  <tr>
+                    <td><h5><%= place_visit.facility.name %></h5></td>
+                    <td><p><%= place_visit.facility.address %></p></td>
+                    <td>
+                      <% if current_user %>
+                        <% if place_visit.facility.place_visited_by?(current_user) %>
+                          <%= button_to "削除する",  place_visit_facility_path(place_visit.facility), method: :delete, class: 'button destroy-btn' %>
                         <% end %>
                       <% end %>
                     </td>
