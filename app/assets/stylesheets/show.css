@@ -8,9 +8,6 @@
 }
 
 .facility-info-head{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
 }
@@ -55,7 +52,7 @@
 }
 
 .facility-info td{
-  width: 1%;
+  width: 50px;
 }
 
 .facility-info-content td{
@@ -65,4 +62,36 @@
 
 .facility-info-content td[colspan="2"]{
   text-align: center;
+}
+
+.free-text{
+  height: 200px;
+}
+
+@media screen and (max-width: 540px){
+  .facility-info-container{
+    width: 100%;
+  }
+
+  .facility-info-head-left{
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .facility-info-head-left h2{
+    font-size: 1.2rem;
+  }
+
+  .facility-info-head-right{
+    margin-left: 40px;
+  }
+
+  .facility-info{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .facility-info td{
+    width: 100%;
+  }
 }

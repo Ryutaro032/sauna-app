@@ -22,21 +22,22 @@ li{
 .link{
   text-decoration: none;
   color: #fff;
-  display: block; 
+  display: block;
 }
 
-img{
-	border:0;
-}
-
-.button{
+.link-btn{
+  font-size: 1.0rem;
   border: none;
-  color: white;
+  color: #fff;
   padding: 10px 20px;
   display: inline-block;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 20px;
+}
+
+img{
+	border:0;
 }
 
 .sauna-contanier{
@@ -151,7 +152,7 @@ header{
 }
 
 .edit-btn{
-  font-size: 1rem;
+  background-color: #000;
 }
 
 table{
@@ -180,6 +181,10 @@ td{
 nav{
   display: none;
   margin-top: 15px;
+}
+
+.hidden{
+  display: none;
 }
 
 .nav-toggle{
@@ -358,6 +363,10 @@ nav{
     display: block;
   }
 
+  .hidden{
+    display: block;
+  }
+
   .nav-wrapper ul{
     display: flex;
     flex-direction: column;
@@ -394,6 +403,14 @@ nav{
   .back-contents{
     margin: 0;
     align-items: center;
+  }
+
+  .link-btn{
+    font-size: 0.7rem;
+  }
+
+  .responsive-hidden{
+    display: none;
   }
 }
 
