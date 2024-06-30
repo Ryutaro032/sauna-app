@@ -37,28 +37,16 @@
   width: 600px;
 }
 
-.review-button{
-  font-size: 25px;
-  text-shadow: 1px 1px #fa0, -1px 1px 0 #fa0,1px -1px 0 #fa0,-1px -1px 0 #fa0;
-  position: relative;
+.detail-btn{
+  font-size: 1.0rem;
+  padding: 5px 10px 5px 10px;
+  background-color: #fa0;
 }
 
-.speech-bubble{
-  display: none;
-  width: 200px;
-  font-size: 12px;
-  position: absolute;
-  right: 30px;
-  padding: 11px;
-  border-radius: 5px;
-  color: #fff;
-  background-color: rgb(147, 78, 28);
-  font-weight: bold;
-  z-index: 100;
-}
-
-.review-button:hover + .speech-bubble{
-  display: block;
+.review-btn{
+  font-size: 1.0rem;
+  padding: 5px 10px 5px 10px;
+  background-color: black;
 }
 
 @media screen and (max-width: 1024px){
@@ -99,8 +87,11 @@
     padding: 5px;
   }
 
-  .favorite-btn{
-    width: 130px;
-    font-size: 0.6rem;
+  .detail-btn{
+    width: 85px;
+  }
+
+  .review-btn{
+    width: 65px;
   }
 }

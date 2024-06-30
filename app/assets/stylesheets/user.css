@@ -55,6 +55,7 @@
 
  .profile-content{
    padding: 15px;
+   display: flex;
  }
 
  .profile-content span{
@@ -69,10 +70,13 @@
 
  .profile-intro{
   font-size: 12px;
+  border: 2px solid #867f7f;
+  width: 500px;
+  overflow: auto;
  }
 
 .prof-edit-btn{
-  background-color: #fa0;
+  background-color: #000;
 }
 
 .btn-contents{
@@ -110,15 +114,6 @@
   border-radius: 5px;
 }
 
-.edit-contents .button{
-  background-color: #fa0;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .img-contents{
   text-align: center;
 }
@@ -138,22 +133,47 @@
   border: 3px solid #fa0; 
 }
 
-.favorite-contents{
-  text-align: center;
-}
-
-.favorite-content{
+.tab-container{
   width: 100%;
-  height: 300px;
+  height: 400px;
   text-align: center;
   margin: 0 auto;
-  padding: 30px 0px 20px 70px;
-  overflow:auto;
+}
+
+.tab-table{
+  text-align: center;
+  width: 65%;
+  margin: 0 auto;
+  overflow: auto;
 }
 
 .current-user-review{
   height: 300px;
   overflow: auto;
+}
+
+.user-review-content{
+  width: 75%;
+  margin: 0 auto;
+}
+
+.user-post-item{
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: #f5f8fa;
+  border: 2px solid #e1e8ed;
+  position: relative;
+}
+
+.user-post{
+  width: 500px;
+  text-align: left;
+}
+
+.user-post-name{
+  font-size: 1.3rem;
+  width: 400px;
 }
 
 @media screen and (max-width: 1024px){
@@ -183,7 +203,7 @@
     width: 60%;
   }
 
-  .favorite-content{
+  .tab-table{
     width: 90%;
     padding: 15px 0 30px 0;
   }
@@ -198,16 +218,26 @@
     margin-top: 80px;
   }
 
-  .favorite-content tr{
+  .profile-content{
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .profile-intro{
+    width: 100%;
+    height: 150px;
+  }
+
+  .tab-table tr{
     display: flex;
     flex-direction: column;
   }
 
-  .favorite-content td h5{
+  .tab-table td h5{
     font-size: 1.2rem;
   }
 
-  .favorite-content td p{
+  .tab-table td p{
     font-size: 0.8rem;
   }
   tr{
@@ -215,6 +245,34 @@
   }
   td{
     padding: 0;
+  }
+
+  .user-post-item{
+    flex-direction: column;
+  }
+
+  .user-post{
+    width: auto;
+  }
+
+  .user-post .post-title{
+    font-size: 1.0rem;
+  }
+
+  .user-post .post-review{
+    font-size: 0.8rem;
+    height: 100px;
+    overflow: auto;
+  }
+
+  .user-post-name{
+    font-size: 1.0rem;
+  }
+
+  .user-post-bottom{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 
   .account-content p,

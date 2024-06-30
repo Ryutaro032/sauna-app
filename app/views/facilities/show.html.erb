@@ -16,8 +16,8 @@
             <%= render 'place_visits/place_visit', facility: @facility %>
           </div>
         <% end %>
-        <div>
-          <%= link_to "編集する", edit_facility_path(@facility), class: "link button base-color edit-btn" %>
+        <div class="responsive-hidden">
+          <%= link_to "編集する", edit_facility_path(@facility), class: "link link-btn edit-btn" %>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
       </tbody>
       <thead>
         <tr>
-          <th colspan="4">🟧タオル・館内着・サウナマット</th>
+          <th colspan="6">🟧タオル・館内着・サウナマット</th>
         </tr>
       </thead>
       <tbody class="facility-info-content">
@@ -204,10 +204,13 @@
         </tr>
       </thead>
       <tbody class="facility-info-content">
-        <tr class="facility-info">
-          <td><%= @facility.free_text %></td>
+        <tr>
+          <td class="free-text"><%= @facility.free_text %></td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="hidden">
+    <%= link_to "編集する", edit_facility_path(@facility), class: "link link-btn edit-btn" %>
   </div>
 </div>

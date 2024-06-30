@@ -104,7 +104,7 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_content(user_review.review)
         expect(page).to have_css('.post-time')
 
-        within '.post-item' do
+        within '.user-post-item' do
           click_on '削除'
         end
 

@@ -128,7 +128,7 @@ RSpec.describe 'Facilities', :js, type: :system do
           expect(page).to have_content('サウナログ')
           expect(page).to have_css('.facility-name .list-item')
           expect(page).to have_content('施設情報')
-          expect(page).to have_css('.review-button')
+          expect(page).to have_css('.review-btn')
         end
 
         it '都道府県の検索ができること' do
@@ -142,7 +142,7 @@ RSpec.describe 'Facilities', :js, type: :system do
           expect(page).to have_content('サウナログ')
           expect(page).to have_css('.facility-name .list-item')
           expect(page).to have_content('施設情報')
-          expect(page).to have_css('.review-button')
+          expect(page).to have_css('.review-btn')
         end
       end
     end
@@ -162,7 +162,7 @@ RSpec.describe 'Facilities', :js, type: :system do
         expect(page).to have_content('サウナログ')
         expect(page).to have_css('.facility-name .list-item')
         expect(page).to have_content('施設情報')
-        expect(page).to have_no_css('.review-button')
+        expect(page).to have_no_css('.review-btn')
       end
     end
   end
