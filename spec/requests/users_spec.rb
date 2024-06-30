@@ -5,6 +5,7 @@ RSpec.describe 'Users', type: :request do
   let(:other_user) { create(:user) }
   let(:facility) { create(:facility) }
   let!(:favorite) { create(:favorite, user: user, facility: facility) }
+  let!(:place_visit) { create(:place_visit, user: user, facility: facility) }
   let!(:user_post) { create(:post, user: user) }
   let!(:other_post) { create(:post, user: other_user) }
 
@@ -41,6 +42,18 @@ RSpec.describe 'Users', type: :request do
 
       it 'お気に入り登録した施設の住所が表示されること' do
         expect(response.body).to include favorite.facility.address
+      end
+
+      it '行きたいリストの施設が表示されること' do
+        expect(assigns(:place_visits)).to include place_visit
+      end
+
+      it '行きたいリストに登録した施設名が表示されること' do
+        expect(response.body).to include place_visit.facility.name
+      end
+
+      it '行きたいリストに登録した施設の住所が表示されること' do
+        expect(response.body).to include place_visit.facility.address
       end
 
       it '削除ボタンが表示されること' do
@@ -91,6 +104,18 @@ RSpec.describe 'Users', type: :request do
 
       it 'お気に入り登録した施設の住所が表示されること' do
         expect(response.body).to include favorite.facility.address
+      end
+
+      it '行きたいリストの施設が表示されること' do
+        expect(assigns(:place_visits)).to include place_visit
+      end
+
+      it '行きたいリストに登録した施設名が表示されること' do
+        expect(response.body).to include place_visit.facility.name
+      end
+
+      it '行きたいリストに登録した施設の住所が表示されること' do
+        expect(response.body).to include place_visit.facility.address
       end
 
       it '削除ボタンが表示されないこと' do
