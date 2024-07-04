@@ -1,0 +1,7 @@
+<% if current_user %>
+  <% if @facility.place_visited_by?(current_user) %>
+    <%= button_to "行きたいリストから削除", place_visit_facility_path(@facility), method: :delete, class: "link-btn" %>
+  <% else %>
+    <%= button_to "行きたいリストに追加", place_visit_facility_path(id: @facility.id), method: :post, class: "link-btn base-color" %>
+  <% end %>
+<% end %>

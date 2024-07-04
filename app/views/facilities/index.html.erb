@@ -13,26 +13,22 @@
           <tbody>
             <%if @places.present?%>
               <% @places.each do |place|%>
-                <tr>
-                  <td class="facility-name">
-                    <span class="list-item" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"><%= place.name %></span>
-                  </td>
-                  <td>
-                    <% if current_user %>
-                      <% if @favorites.include?(place.name) %>
-                        <%= button_to "お気に入りを外す", favorites_facilities_path(place_id: place.place_id), method: :delete, remote: true, class: 'remove-favorite button favorite-btn favorited-color', html: { 'data-turbolinks': false } %>
-                      <% else %>
-                        <%= button_to "お気に入りに追加", favorites_facilities_path(place_id: place.place_id), method: :post, remote: true, class: 'add-favorite button favorite-btn base-color', html: { 'data-turbolinks': false } %>
-                      <% end %>
-                    <% end %>   
-                  </td>
-                  <td>
-                    <% if current_user %>
-                      <%= link_to "+", new_post_path(place_id: place.place_id), class: "link review-button" %>
-                      <p class="speech-bubble">新しいレビューを投稿する</p>
-                    <% end %> 
-                  </td>
-                </tr>
+                <% facility = Facility.find_by(name: place.name, address: place.formatted_address) %>
+                  <% if facility %>
+                  <tr>
+                    <td class="facility-name">
+                      <span class="list-item" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"><%= place.name %></span>
+                    </td>
+                    <td class="facility-detail" >
+                      <%= link_to "施設情報", facility_path(facility.id), class: "link link-btn detail-btn" %>
+                    </td>
+                    <td>
+                      <% if current_user %>
+                        <%= link_to "投稿", new_post_path(place_id: place.place_id), class: "link link-btn review-btn" %>
+                      <% end %> 
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
             <% end %>
           </tbody>

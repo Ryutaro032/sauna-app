@@ -7,8 +7,11 @@ class User < ApplicationRecord
   has_one_attached :icon_image
 
   has_many :favorites, dependent: :destroy
+  has_many :favorite_facilities, through: :favorites, source: :facility
   has_many :facilities, through: :favorites
   has_many :posts, dependent: :destroy
+  has_many :place_visit_facilities, through: :place_visits, source: :facility
+  has_many :place_visits, dependent: :destroy
   has_many :review_likes, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }

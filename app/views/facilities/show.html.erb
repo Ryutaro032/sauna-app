@@ -1,0 +1,216 @@
+<div class="facility-info-warappwer">
+  <div>
+    <%= render 'shared/flash_message' %>
+  </div>
+  <div class="facility-info-container">
+    <div class="facility-info-head">
+      <div class="facility-info-head-left">
+        <h2><%= @facility.name %></h2>
+      </div>
+      <div class="facility-info-head-right">
+        <% if user_signed_in? %>
+          <div class="favorite" id="favorite_buttons_<%= @facility.id %>">
+            <%= render 'favorites/favorite', facility: @facility %>
+          </div>
+          <div class="place-visit" id="place_visit_buttons_<%= @facility.id %>">
+            <%= render 'place_visits/place_visit', facility: @facility %>
+          </div>
+        <% end %>
+        <div class="responsive-hidden">
+          <%= link_to "編集する", edit_facility_path(@facility), class: "link link-btn edit-btn" %>
+        </div>
+      </div>
+    </div>
+    <table class="facility-info-contents">
+      <thead>
+        <tr>
+          <th colspan="2">🟧基本情報</th>
+        </tr>
+      </thead>
+      <tbody class="facility-info-content">
+        <tr>
+          <td colspan="2">
+            <% if @facility.facility_icon.attached?  %>
+              <%= image_tag @facility.facility_icon, alt: "施設イメージ", class: "facility-icon" %>
+            <% else %>
+              画像は登録されていません。
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>住所</td>
+          <td><p><%= @facility.address %></p></td>
+        </tr>
+        <tr>
+          <td>料金</td>
+           <% if @facility.min_price == 0 && @facility.max_price == 0 %>
+              <td>未設定</td>
+            <% else %>
+              <td><%= @facility.min_price %>〜<%= @facility.max_price %></td>
+            <% end %>
+        </tr>
+        <tr>
+          <th>曜日</th>
+          <th>営業時間</th>
+        </tr>
+        <% days_of_week = %w[日曜日 月曜日 火曜日 水曜日 木曜日 金曜日 土曜日] %>
+        <% days_of_week.each_with_index do |day, index| %>
+          <% opening_hour = @facility.opening_hours.find { |oh| oh.day_of_week == index } %>
+          <tr>
+            <td><%= day %></td>
+            <td>
+              <% if opening_hour.present? %>
+                <% if opening_hour.holiday %>
+                  定休日
+                <% else %>
+                  <%= opening_hour.opening_time.strftime("%H:%M") if opening_hour.opening_time.present? %> 〜 
+                  <%= opening_hour.closing_time.strftime("%H:%M") if opening_hour.closing_time.present? %>
+                <% end %>
+              <% else %>
+                〜
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <table class="facility-info-contents">
+      <thead>
+        <tr>
+          <th colspan="6">🟧サウナ設備</th>
+        </tr>
+      </thead>
+      <tbody class="facility-info-content">
+        <tr class="facility-info">
+          <td>ロウリュ（アウフグース）</td>
+          <td class="facility-auguss">
+            <% if @facility.aufguss %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+          <td>オートロウリュ</td>
+          <td class="facility-auto-louver">
+            <% if @facility.auto_louver %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+          <td>セルフロウリュ</td>
+          <td class="facility-self-louver">
+            <% if @facility.self_louver %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+        </tr>
+        <tr class="facility-info">
+          <td>休憩スペース（整いスペース）</td>
+          <td class="facility-rest-area">
+            <% if @facility.rest_area %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+          <td>外気浴</td>
+          <td class="facility-outdoor-bath">
+            <% if @facility.outdoor_bath %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+      <thead>
+        <tr>
+          <th colspan="6">🟧タオル・館内着・サウナマット</th>
+        </tr>
+      </thead>
+      <tbody class="facility-info-content">
+        <tr class="facility-info">
+          <td>サウナマット</td>
+          <td><%= @facility.sauna_mat %></td>
+          <td>館内着</td>
+          <td><%= @facility.in_house_wear %></td>
+        </tr class="facility-info">
+        <tr class="facility-info">
+          <td>バスタオル</td>
+          <td><%= @facility.bath_towel %></td>
+          <td>フェイスタオル</td>
+          <td><%= @facility.face_towel %></td>
+        </tr class="facility-info">
+      </tbody>
+      <thead>
+        <tr>
+          <th colspan="6">🟧館内設備</th>
+        </tr>
+      </thead>
+      <tbody class="facility-info-content">
+        <tr class="facility-info">
+          <td>作業スペース</td>
+          <td class="work-space">
+            <% if @facility.work_space %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+          <td>休憩スペース</td>
+          <td class="in-house-rest-area">
+            <% if @facility.in_house_rest_area %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+          <td>Wi-Fi</td>
+          <td class="wifi">
+            <% if @facility.wifi %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+        </tr>
+        <tr class="facility-info">
+          <td>漫画</td>
+          <td class="comics">
+            <% if @facility.comics %>
+              ○
+            <% else %>
+              
+            <% end %> 
+          </td>
+          <td>食事処</td>
+          <td class="restaurant">
+            <% if @facility.restaurant %>
+              ○
+            <% else %>
+              
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="facility-info-contents">
+      <thead>
+        <tr>
+          <th colspan="6">🟧その他の情報</th>
+        </tr>
+      </thead>
+      <tbody class="facility-info-content">
+        <tr>
+          <td class="free-text"><%= @facility.free_text %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="hidden">
+    <%= link_to "編集する", edit_facility_path(@facility), class: "link link-btn edit-btn" %>
+  </div>
+</div>

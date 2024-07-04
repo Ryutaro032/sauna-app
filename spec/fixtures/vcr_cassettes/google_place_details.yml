@@ -1,0 +1,277 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=4413%20%E7%B6%BE%E4%B9%83,%20%E8%8A%BD%E8%A1%A3%E6%9D%91,%2030%20400-1213&key=AIzaSyC0_RK9X3zEb7ZLSl0WTcSX2gX1uF6a9to&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sat, 08 Jun 2024 15:01:55 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      Content-Length:
+      - '51'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=96
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+           "results" : [],
+           "status" : "ZERO_RESULTS"
+        }
+  recorded_at: Sat, 08 Jun 2024 15:01:55 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/details/json?extensions=&fields=&key=AIzaSyC0_RK9X3zEb7ZLSl0WTcSX2gX1uF6a9to&language=ja&placeid=753
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sat, 08 Jun 2024 15:01:55 GMT
+      Expires:
+      - Sat, 08 Jun 2024 15:06:55 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      Content-Length:
+      - '134'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=42
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+           "error_message" : "Invalid request. Invalid 'placeid' parameter.",
+           "html_attributions" : [],
+           "status" : "INVALID_REQUEST"
+        }
+  recorded_at: Sat, 08 Jun 2024 15:01:55 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/details/json?extensions=&fields=&key=AIzaSyC0_RK9X3zEb7ZLSl0WTcSX2gX1uF6a9to&language=ja&placeid=non_existing_id
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sat, 08 Jun 2024 15:01:55 GMT
+      Expires:
+      - Sat, 08 Jun 2024 15:06:55 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      Content-Length:
+      - '134'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=49
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+           "error_message" : "Invalid request. Invalid 'placeid' parameter.",
+           "html_attributions" : [],
+           "status" : "INVALID_REQUEST"
+        }
+  recorded_at: Sat, 08 Jun 2024 15:01:55 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=48788%20%E5%B1%B1%E7%94%B0,%20%E7%B6%BE%E4%B9%83%E6%9D%91,%2031%20612-0841&key=AIzaSyC0_RK9X3zEb7ZLSl0WTcSX2gX1uF6a9to&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sat, 08 Jun 2024 15:03:19 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Goog-Maps-Metro-Area:
+      - Kyoto
+      Server:
+      - mafe
+      Content-Length:
+      - '2729'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=137
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: "{\n   \"results\" : \n   [\n      {\n         \"address_components\"
+        : \n         [\n            {\n               \"long_name\" : \"612-0841\",\n
+        \              \"short_name\" : \"612-0841\",\n               \"types\" :
+        \n               [\n                  \"postal_code\"\n               ]\n
+        \           },\n            {\n               \"long_name\" : \"Fukakusa Okamedani
+        Higashikyuhojicho\",\n               \"short_name\" : \"Fukakusa Okamedani
+        Higashikyuhojicho\",\n               \"types\" : \n               [\n                  \"political\",\n
+        \                 \"sublocality\",\n                  \"sublocality_level_2\"\n
+        \              ]\n            },\n            {\n               \"long_name\"
+        : \"Fushimi Ward\",\n               \"short_name\" : \"Fushimi Ward\",\n               \"types\"
+        : \n               [\n                  \"political\",\n                  \"sublocality\",\n
+        \                 \"sublocality_level_1\"\n               ]\n            },\n
+        \           {\n               \"long_name\" : \"Kyoto\",\n               \"short_name\"
+        : \"Kyoto\",\n               \"types\" : \n               [\n                  \"locality\",\n
+        \                 \"political\"\n               ]\n            },\n            {\n
+        \              \"long_name\" : \"Kyoto\",\n               \"short_name\" :
+        \"Kyoto\",\n               \"types\" : \n               [\n                  \"administrative_area_level_1\",\n
+        \                 \"political\"\n               ]\n            },\n            {\n
+        \              \"long_name\" : \"Japan\",\n               \"short_name\" :
+        \"JP\",\n               \"types\" : \n               [\n                  \"country\",\n
+        \                 \"political\"\n               ]\n            }\n         ],\n
+        \        \"formatted_address\" : \"612-0841, Japan\",\n         \"geometry\"
+        : \n         {\n            \"bounds\" : \n            {\n               \"northeast\"
+        : \n               {\n                  \"lat\" : 34.9545856,\n                  \"lng\"
+        : 135.7807408\n               },\n               \"southwest\" : \n               {\n
+        \                 \"lat\" : 34.9511677,\n                  \"lng\" : 135.7778073\n
+        \              }\n            },\n            \"location\" : \n            {\n
+        \              \"lat\" : 34.95317259999999,\n               \"lng\" : 135.7787595\n
+        \           },\n            \"location_type\" : \"APPROXIMATE\",\n            \"viewport\"
+        : \n            {\n               \"northeast\" : \n               {\n                  \"lat\"
+        : 34.9545856,\n                  \"lng\" : 135.7807408\n               },\n
+        \              \"southwest\" : \n               {\n                  \"lat\"
+        : 34.9511677,\n                  \"lng\" : 135.7778073\n               }\n
+        \           }\n         },\n         \"partial_match\" : true,\n         \"place_id\"
+        : \"ChIJv1yoiacPAWAR7YLuxvy13Ks\",\n         \"types\" : \n         [\n            \"postal_code\"\n
+        \        ]\n      }\n   ],\n   \"status\" : \"OK\"\n}"
+  recorded_at: Sat, 08 Jun 2024 15:03:19 GMT
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/place/details/json?extensions=&fields=&key=AIzaSyC0_RK9X3zEb7ZLSl0WTcSX2gX1uF6a9to&language=ja&placeid=754
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Sat, 08 Jun 2024 15:03:20 GMT
+      Expires:
+      - Sat, 08 Jun 2024 15:08:20 GMT
+      Cache-Control:
+      - public, max-age=300
+      Server:
+      - scaffolding on HTTPServer2
+      Content-Length:
+      - '134'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=60
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+           "error_message" : "Invalid request. Invalid 'placeid' parameter.",
+           "html_attributions" : [],
+           "status" : "INVALID_REQUEST"
+        }
+  recorded_at: Sat, 08 Jun 2024 15:03:20 GMT
+recorded_with: VCR 6.2.0

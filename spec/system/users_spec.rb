@@ -6,6 +6,7 @@ RSpec.describe 'Users', type: :system do
   let(:guest_user) { create(:user, name: 'ゲスト') }
   let(:facility) { create(:facility) }
   let!(:favorite) { create(:favorite, user: user, facility: facility) }
+  let!(:place_visit) { create(:place_visit, user: user, facility: facility) }
   let!(:user_review) { create(:post, user: user) }
 
   describe '詳細ページのテスト' do
@@ -60,13 +61,13 @@ RSpec.describe 'Users', type: :system do
       end
 
       it 'お気に入り登録した施設が表示されること' do
-        expect(page).to have_content('お気に入り一覧')
-        expect(page).to have_content(facility.name)
-        expect(page).to have_content(facility.address)
+        expect(page).to have_content('お気に入り')
+        expect(page).to have_content(favorite.facility.name)
+        expect(page).to have_content(favorite.facility.address)
       end
 
-      it '削除ボタンが表示され、ボタンを押すと削除されていること' do
-        within '.favorite-contents' do
+      it 'お気に入りの削除ボタンが表示され、ボタンを押すと削除されていること' do
+        within '.favorite-content' do
           expect(page).to have_button('削除する')
 
           click_link_or_button '削除する'
@@ -78,13 +79,32 @@ RSpec.describe 'Users', type: :system do
         end
       end
 
+      it '行きたいリストに登録した施設が表示されること' do
+        expect(page).to have_content('行きたいリスト')
+        expect(page).to have_content(place_visit.facility.name)
+        expect(page).to have_content(place_visit.facility.address)
+      end
+
+      it '行きたいリストの削除ボタンが表示され、ボタンを押すと削除されていること' do
+        within '.place-visit-content' do
+          expect(page).to have_button('削除する')
+
+          click_link_or_button '削除する'
+
+          expect(page).to have_current_path user_path(user), ignore_query: true
+
+          visit current_path
+          expect(page).to have_no_content(place_visit.facility.name)
+        end
+      end
+
       it '自身の投稿が表示され、削除ボタンを押下すると削除されること' do
         expect(page).to have_content(user_review.name)
         expect(page).to have_content(user_review.title)
         expect(page).to have_content(user_review.review)
         expect(page).to have_css('.post-time')
 
-        within '.post-item' do
+        within '.user-post-item' do
           click_on '削除'
         end
 
@@ -115,13 +135,25 @@ RSpec.describe 'Users', type: :system do
       end
 
       it 'お気に入り登録した施設が表示されること' do
-        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content('お気に入り')
         expect(page).to have_content(facility.name)
         expect(page).to have_content(facility.address)
       end
 
-      it '削除ボタンが表示されないこと' do
-        within '.favorite-contents' do
+      it 'お気に入りの削除ボタンが表示されないこと' do
+        within '.favorite-content' do
+          expect(page).to have_no_button('削除する')
+        end
+      end
+
+      it '行きたいリストに登録した施設が表示されること' do
+        expect(page).to have_content('行きたいリスト')
+        expect(page).to have_content(place_visit.facility.name)
+        expect(page).to have_content(place_visit.facility.address)
+      end
+
+      it '行きたいリストの削除ボタンが表示されないこと' do
+        within '.place-visit-content' do
           expect(page).to have_no_button('削除する')
         end
       end
@@ -148,13 +180,25 @@ RSpec.describe 'Users', type: :system do
       end
 
       it 'お気に入り登録した施設が表示されること' do
-        expect(page).to have_content('お気に入り一覧')
+        expect(page).to have_content('お気に入り')
         expect(page).to have_content(facility.name)
         expect(page).to have_content(facility.address)
       end
 
-      it '削除ボタンが表示されないこと' do
-        within '.favorite-contents' do
+      it 'お気に入りの削除ボタンが表示されないこと' do
+        within '.favorite-content' do
+          expect(page).to have_no_button('削除する')
+        end
+      end
+
+      it '行きたいリストに登録した施設が表示されること' do
+        expect(page).to have_content('行きたいリスト')
+        expect(page).to have_content(place_visit.facility.name)
+        expect(page).to have_content(place_visit.facility.address)
+      end
+
+      it '行きたいリストの削除ボタンが表示されないこと' do
+        within '.place-visit-content' do
           expect(page).to have_no_button('削除する')
         end
       end

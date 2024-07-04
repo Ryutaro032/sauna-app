@@ -22,21 +22,22 @@ li{
 .link{
   text-decoration: none;
   color: #fff;
-  display: block; 
+  display: block;
 }
 
-img{
-	border:0;
-}
-
-.button{
+.link-btn{
+  font-size: 1.0rem;
   border: none;
-  color: white;
+  color: #fff;
   padding: 10px 20px;
   display: inline-block;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 20px;
+}
+
+img{
+	border:0;
 }
 
 .sauna-contanier{
@@ -150,6 +151,10 @@ header{
   font-size: 22px;
 }
 
+.edit-btn{
+  background-color: #000;
+}
+
 table{
   text-align: center;
 }
@@ -176,6 +181,10 @@ td{
 nav{
   display: none;
   margin-top: 15px;
+}
+
+.hidden{
+  display: none;
 }
 
 .nav-toggle{
@@ -248,6 +257,51 @@ nav{
   margin-top: 5px;
 }
 
+.tab-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tab {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  border-left: solid 1px #CCC;
+  border-bottom: solid 1px #CCC;
+}
+
+.tab:first-child {
+  border-left: none;
+}
+
+.tab-active {
+  color: #FFF;
+  background: #fa0;
+  transition: all 0.2s ease-in-out;
+}
+
+.tabbox {
+  display: none;
+  padding: 15px;
+}
+
+.box-show {
+  display: block;
+}
+
+.tab:hover {
+  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -309,6 +363,10 @@ nav{
     display: block;
   }
 
+  .hidden{
+    display: block;
+  }
+
   .nav-wrapper ul{
     display: flex;
     flex-direction: column;
@@ -345,6 +403,14 @@ nav{
   .back-contents{
     margin: 0;
     align-items: center;
+  }
+
+  .link-btn{
+    font-size: 0.7rem;
+  }
+
+  .responsive-hidden{
+    display: none;
   }
 }
 

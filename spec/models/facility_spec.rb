@@ -1,10 +1,102 @@
 require 'rails_helper'
 
+Place = Struct.new(:name, :formatted_address, :lat, :lng, :place_id)
+
 RSpec.describe Facility, type: :model do
   let(:user) { create(:user) }
   let(:facility) { create(:facility) }
   let(:prefecture) { create(:prefecture) }
   let(:city) { prefecture.cities.first }
+
+  it { is_expected.to have_many(:favorites).dependent(:destroy) }
+  it { is_expected.to have_many(:users).through(:favorites) }
+  it { is_expected.to have_many(:opening_hours).dependent(:destroy) }
+
+  describe 'バリデーションについて' do
+    context 'max_price_greater_than_min_price' do
+      it 'max_priceがmin_priceよりも大きい場合、エラーが発生しないこと' do
+        facility.min_price = 1000
+        facility.max_price = 2000
+        expect(facility).to be_valid
+        expect(facility.errors[:base]).not_to include('正しい料金を入れてください')
+      end
+
+      it 'max_priceがmin_price以下の場合、エラーが発生すること' do
+        facility.min_price = 2000
+        facility.max_price = 1000
+        facility.valid?
+        expect(facility.errors[:base]).to include('正しい料金を入れてください')
+      end
+
+      it 'max_priceがnilの場合、エラーが発生しないこと' do
+        facility.max_price = nil
+        expect(facility).to be_valid
+        expect(facility.errors[:base]).not_to include('正しい料金を入れてください')
+      end
+
+      it 'min_priceがnilの場合、エラーが発生しないこと' do
+        facility.min_price = nil
+        expect(facility).to be_valid
+        expect(facility.errors[:base]).not_to include('正しい料金を入れてください')
+      end
+    end
+
+    context '金額が0以下の場合のバリデーションについて' do
+      it 'min_priceが0以下の場合、エラーが発生すること' do
+        facility = described_class.new(min_price: -1)
+        expect(facility).not_to be_valid
+        expect(facility.errors[:min_price]).to include('金額は0以上の値にしてください')
+      end
+
+      it 'max_priceが0以下の場合、エラーが発生すること' do
+        facility = described_class.new(max_price: -1)
+        expect(facility).not_to be_valid
+        expect(facility.errors[:max_price]).to include('金額は0以上の値にしてください')
+      end
+
+      it 'min_priceとmax_priceが0の場合、エラーが発生しないこと' do
+        facility = described_class.new(min_price: 0, max_price: 0)
+        expect(facility).to be_valid
+      end
+    end
+
+    context 'closing_time_after_opening_time' do
+      it 'closing_timeがopening_timeより時間が前の場合、エラーが発生すること' do
+        opening_hour = OpeningHour.new(day_of_week: 1, opening_time: '17:00', closing_time: '09:00')
+        facility = described_class.new(opening_hours: [opening_hour])
+        expect(facility).not_to be_valid
+        expect(facility.errors[:base]).to include('閉店時間は開店時間より後の時間に設定してください')
+      end
+
+      it 'closing_timeがopening_timeより時間が後の場合、エラーが発生しないこと' do
+        opening_hour = OpeningHour.new(day_of_week: 1, opening_time: '09:00', closing_time: '17:00')
+        facility = described_class.new(opening_hours: [opening_hour])
+        expect(facility).to be_valid
+      end
+
+      it 'holidayが選択された場合、バリデーションがスルーされること' do
+        opening_hour = OpeningHour.new(day_of_week: 1, opening_time: nil, closing_time: nil, holiday: true)
+        facility = described_class.new(opening_hours: [opening_hour])
+        expect(facility).to be_valid
+      end
+    end
+
+    context 'free_textのバリデーションについて' do
+      let(:long_text) { 'a' * 1201 }
+      let(:short_text) { 'a' * 1200 }
+
+      it '1201文字以上の場合、エラーが発生すること' do
+        facility = described_class.new(free_text: long_text)
+        expect(facility).not_to be_valid
+        expect(facility.errors[:free_text]).to include('1200文字以内で入力してください')
+      end
+
+      it '1200文字以内の場合、エラーが発生しないこと' do
+        facility = described_class.new(free_text: short_text)
+        expect(facility).to be_valid
+      end
+    end
+  end
 
   describe '#favorited_by?' do
     context 'ユーザーがお気に入り登録をしようとした時' do
@@ -52,22 +144,70 @@ RSpec.describe Facility, type: :model do
       end
     end
 
-    context 'when place_name is present' do
-      it 'searches by place name' do
-        params = { place_name: 'Tokyo Tower' }
-
-        VCR.use_cassette('google_api_search') do
-          result = described_class.search_places(params)
-          expect(result).to be_a(Array)
-        end
-      end
-    end
-
     context 'パラメータが存在しない場合' do
       it 'nilを返すこと' do
         params = {}
 
         expect(described_class.search_places(params)).to be_nil
+      end
+    end
+  end
+
+  describe '.search_places_and_save' do
+    let(:params) { { query: 'サウナ', location: '東京' } }
+
+    let(:place_data) do
+      [
+        Place.new('サウナ1', '東京都千代田区丸の内1-1', 35.6812, 139.7671, 'place1'),
+        Place.new('サウナ2', '東京都千代田区丸の内2-2', 35.6822, 139.7691, 'place2')
+      ]
+    end
+
+    before do
+      allow(described_class).to receive(:search_places).with(params).and_return(place_data)
+    end
+
+    context '場所がまだ保存されていない場合' do
+      it '新しい場所をデータベースに保存する' do
+        expect do
+          described_class.search_places_and_save(params)
+        end.to change(described_class, :count).by(2)
+
+        place_data.each do |place|
+          expect(described_class.find_by(place_id: place.place_id)).not_to be_nil
+        end
+      end
+    end
+
+    context '場所が既に保存されている場合' do
+      before do
+        place_data.each do |place|
+          described_class.create(
+            name: place.name,
+            address: place.formatted_address,
+            latitude: place.lat,
+            longitude: place.lng,
+            place_id: place.place_id
+          )
+        end
+      end
+
+      it '重複する場所をデータベースに保存しない' do
+        expect do
+          described_class.search_places_and_save(params)
+        end.not_to change(described_class, :count)
+      end
+    end
+
+    context '検索で場所が返されない場合' do
+      before do
+        allow(described_class).to receive(:search_places).with(params).and_return([])
+      end
+
+      it 'データベースに変更を加えない' do
+        expect do
+          described_class.search_places_and_save(params)
+        end.not_to change(described_class, :count)
       end
     end
   end
