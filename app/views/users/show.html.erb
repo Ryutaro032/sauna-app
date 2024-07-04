@@ -16,14 +16,14 @@
           <span class="profile-name"><%= @user.name %></span>
         </div>
       </div>
-       <div class="profile-content">
-          <div class="profile-intro"><%= @user.my_rule %></div>
-          <div class="btn-contents">
-            <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
-              <button class="link-btn prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link" %></button>
-            <% end %>
-          </div>
+      <div class="profile-content">
+        <div class="profile-intro"><%= @user.my_rule %></div>
+        <div class="btn-contents">
+          <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
+            <button class="link-btn prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link" %></button>
+          <% end %>
         </div>
+      </div>
     </div>
   </div>
   <div class="tab-container">

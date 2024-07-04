@@ -3,25 +3,37 @@
   margin: 150px 0px 20px 0px;
 }
 
-.prof-contents{
-  width: 80%;
-  margin: 0 auto;
+.prof-container {
   display: flex;
-  justify-content: space-around;
-  padding: 0px 0 30px 0;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f5f8fa;
+}
+
+.prof-contents{
+  background-color: #fff;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
 }
 
 .profile-card{
-  width: 100%;
-  max-width:400px;
+  /* width: 100%;
+  max-width:400px; */
   position: relative;
-  background: #fff;
   overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e1e8ed;
 }
 
 .profile-card:before{
   width:120%;
-  height:100px;
+  height:90px;
   content:"";
   transform:skew(15deg,10deg);
   background: #fa0;
@@ -33,18 +45,19 @@
 
  .profile-card__inner{
   position: relative;
+  display: flex;
+  align-items: center;
  }
 
  .user-icon{
   overflow: hidden;
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   border: #fff 3px solid;
   border-radius: 55px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
+  margin: 20px 15px 0 15px;
   background: #fff;
+  overflow: hidden;
  }
 
  .user-icon img{
@@ -54,8 +67,9 @@
  }
 
  .profile-content{
-   padding: 15px;
-   display: flex;
+   /* padding: 15px;
+   display: flex; */
+   padding-top: 20px;
  }
 
  .profile-content span{
@@ -64,15 +78,17 @@
 
  .profile-name{
   margin-bottom: 3px;
-  font-weight: bold;
   text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #14171a;
  }
 
  .profile-intro{
-  font-size: 12px;
-  border: 2px solid #867f7f;
-  width: 500px;
   overflow: auto;
+  font-size: 16px;
+  color: #657786;
+  margin-bottom: 20px;
  }
 
 .prof-edit-btn{
@@ -81,7 +97,7 @@
 
 .btn-contents{
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .edit-contents{
