@@ -13,16 +13,15 @@
               <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
             <% end %>
           </div>
-          <div class="profile-content">
-            <span class="profile-name"><%= @user.name %></span>
-            <span class="profile-intro"><%= @user.my_rule %></span>
-            <span class="btn-contents">
-              <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
-                <button class="button prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link edit-prof" %></button>
-              <% end %>
-            </span>
-            
-          </div>
+          <span class="profile-name"><%= @user.name %></span>
+        </div>
+      </div>
+      <div class="profile-content">
+        <div class="profile-intro"><%= @user.my_rule %></div>
+        <div class="btn-contents">
+          <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
+            <button class="link-btn prof-edit-btn"><%= link_to '編集する', edit_user_path(@user), class: "link" %></button>
+          <% end %>
         </div>
       </div>
     </div>
@@ -35,22 +34,26 @@
     </ul>
     <div class="tab-content">
       <div id="reviews" class="tabbox box-show">
-        <div class="review-content">
+        <div class="user-review-content">
           <ul>
             <% if @user_reviews.present? %>
               <% @user_reviews.each do |user_review| %>
-                <li class="post-item">
-                  <div class="post-content">
+                <li>
+                  <div class="user-post-item">
                     <div class="post-place-name">
-                      <%= link_to user_review.name, facilities_index_path(place_name: user_review.name), class: "post-place-name" %>
+                      <%= link_to user_review.name, facilities_index_path(place_name: user_review.name), class: "post-place-name user-post-name" %>
                     </div>
-                    <h3 class="post-title"><%= user_review.title %></h3>
-                    <p class="post-review"><%= user_review.review %></p>
-                    <div class="post-time"><%= time_ago_in_words(user_review.created_at) %>前</div>
+                    <div class="user-post">
+                      <h3 class="post-title"><%= user_review.title %></h3>
+                      <p class="post-review"><%= user_review.review %></p>
+                    </div>
+                     <div class="user-post-bottom">
+                        <% if current_user && current_user == user_review.user %>
+                          <%= button_to '削除', post_path(user_review.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'link-btn destroy-btn' %>
+                        <% end %>
+                        <div class="post-time"><%= time_ago_in_words(user_review.created_at) %>前</div>
+                    </div>
                   </div>
-                  <% if current_user && current_user == user_review.user %>
-                    <%= button_to '削除', post_path(user_review.id), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'button destroy-btn' %>
-                  <% end %>
                 </li>
               <% end %>
             <% end %>
@@ -60,7 +63,7 @@
       <div id="favorites" class="tabbox">
         <div class="favorite-content">
           <% if @favorites.present? %>
-            <table>
+            <table class="tab-table">
               <tbody>
                 <% @favorites.each do |favorite| %>
                   <tr>
@@ -69,7 +72,7 @@
                     <td>
                       <% if current_user %>
                         <% if favorite.facility.favorited_by?(current_user) %>
-                          <%= button_to "削除する",  favorite_facility_path(favorite.facility), method: :delete, class: 'button destroy-btn' %>
+                          <%= button_to "削除する",  favorite_facility_path(favorite.facility), method: :delete, class: 'link-btn destroy-btn' %>
                         <% end %>
                       <% end %>
                     </td>
@@ -83,7 +86,7 @@
       <div id="place_visits" class="tabbox">
         <div class="place-visit-content">
           <% if @place_visits.present? %>
-            <table>
+            <table class="tab-table">
               <tbody>
                 <% @place_visits.each do |place_visit| %>
                   <tr>
@@ -92,7 +95,7 @@
                     <td>
                       <% if current_user %>
                         <% if place_visit.facility.place_visited_by?(current_user) %>
-                          <%= button_to "削除する",  place_visit_facility_path(place_visit.facility), method: :delete, class: 'button destroy-btn' %>
+                          <%= button_to "削除する",  place_visit_facility_path(place_visit.facility), method: :delete, class: 'link-btn destroy-btn' %>
                         <% end %>
                       <% end %>
                     </td>
@@ -107,12 +110,12 @@
   </div>
   <div class="back-contents">
       <div class="back-content">
-        <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
+        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
       </div>
       <div class="account-content">
         <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>
           <p>👇Eメール・パスワードの編集はこちら👇</p>
-          <button class="button base-color"><%= link_to"アカウントを編集する",edit_user_registration_path, class: "link edit-ac" %></button>
+          <button class="link-btn base-color"><%= link_to"アカウントを編集する",edit_user_registration_path, class: "link edit-ac" %></button>
         <% end %>
       </div>
     </div>

@@ -20,7 +20,7 @@
           <tr class="field">
             <td colspan="2">
               <% if @facility.facility_icon.attached?  %>
-                <%= image_tag @facility.facility_icon, alt: "施設イメージ" %>
+                <%= image_tag @facility.facility_icon, alt: "施設イメージ", class: "facility-icon" %>
                 <%=form.file_field :facility_icon %>
               <% else %>
                 画像は登録されていません。
@@ -152,7 +152,7 @@
         </tbody>
       </table>
       <div class="actions">
-        <%= form.submit class: "button base-color"%>
+        <%= form.submit class: "link-btn base-color"%>
       </div>
     <% end %>
   </div>

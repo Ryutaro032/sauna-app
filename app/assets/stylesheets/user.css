@@ -3,25 +3,37 @@
   margin: 150px 0px 20px 0px;
 }
 
-.prof-contents{
-  width: 80%;
-  margin: 0 auto;
+.prof-container {
   display: flex;
-  justify-content: space-around;
-  padding: 0px 0 30px 0;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f5f8fa;
+}
+
+.prof-contents{
+  background-color: #fff;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
 }
 
 .profile-card{
-  width: 100%;
-  max-width:400px;
+  /* width: 100%;
+  max-width:400px; */
   position: relative;
-  background: #fff;
   overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e1e8ed;
 }
 
 .profile-card:before{
   width:120%;
-  height:100px;
+  height:90px;
   content:"";
   transform:skew(15deg,10deg);
   background: #fa0;
@@ -33,18 +45,19 @@
 
  .profile-card__inner{
   position: relative;
+  display: flex;
+  align-items: center;
  }
 
  .user-icon{
   overflow: hidden;
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   border: #fff 3px solid;
   border-radius: 55px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
+  margin: 20px 15px 0 15px;
   background: #fff;
+  overflow: hidden;
  }
 
  .user-icon img{
@@ -54,7 +67,9 @@
  }
 
  .profile-content{
-   padding: 15px;
+   /* padding: 15px;
+   display: flex; */
+   padding-top: 20px;
  }
 
  .profile-content span{
@@ -63,21 +78,26 @@
 
  .profile-name{
   margin-bottom: 3px;
-  font-weight: bold;
   text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #14171a;
  }
 
  .profile-intro{
-  font-size: 12px;
+  overflow: auto;
+  font-size: 16px;
+  color: #657786;
+  margin-bottom: 20px;
  }
 
 .prof-edit-btn{
-  background-color: #fa0;
+  background-color: #000;
 }
 
 .btn-contents{
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .edit-contents{
@@ -110,15 +130,6 @@
   border-radius: 5px;
 }
 
-.edit-contents .button{
-  background-color: #fa0;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .img-contents{
   text-align: center;
 }
@@ -138,22 +149,47 @@
   border: 3px solid #fa0; 
 }
 
-.favorite-contents{
-  text-align: center;
-}
-
-.favorite-content{
+.tab-container{
   width: 100%;
-  height: 300px;
+  height: 400px;
   text-align: center;
   margin: 0 auto;
-  padding: 30px 0px 20px 70px;
-  overflow:auto;
+}
+
+.tab-table{
+  text-align: center;
+  width: 65%;
+  margin: 0 auto;
+  overflow: auto;
 }
 
 .current-user-review{
   height: 300px;
   overflow: auto;
+}
+
+.user-review-content{
+  width: 75%;
+  margin: 0 auto;
+}
+
+.user-post-item{
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: #f5f8fa;
+  border: 2px solid #e1e8ed;
+  position: relative;
+}
+
+.user-post{
+  width: 500px;
+  text-align: left;
+}
+
+.user-post-name{
+  font-size: 1.3rem;
+  width: 400px;
 }
 
 @media screen and (max-width: 1024px){
@@ -183,7 +219,7 @@
     width: 60%;
   }
 
-  .favorite-content{
+  .tab-table{
     width: 90%;
     padding: 15px 0 30px 0;
   }
@@ -198,16 +234,26 @@
     margin-top: 80px;
   }
 
-  .favorite-content tr{
+  .profile-content{
+    width: 90%;
+    flex-direction: column;
+  }
+  
+  .profile-intro{
+    width: 100%;
+    height: 150px;
+  }
+
+  .tab-table tr{
     display: flex;
     flex-direction: column;
   }
 
-  .favorite-content td h5{
+  .tab-table td h5{
     font-size: 1.2rem;
   }
 
-  .favorite-content td p{
+  .tab-table td p{
     font-size: 0.8rem;
   }
   tr{
@@ -215,6 +261,34 @@
   }
   td{
     padding: 0;
+  }
+
+  .user-post-item{
+    flex-direction: column;
+  }
+
+  .user-post{
+    width: auto;
+  }
+
+  .user-post .post-title{
+    font-size: 1.0rem;
+  }
+
+  .user-post .post-review{
+    font-size: 0.8rem;
+    height: 100px;
+    overflow: auto;
+  }
+
+  .user-post-name{
+    font-size: 1.0rem;
+  }
+
+  .user-post-bottom{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 
   .account-content p,

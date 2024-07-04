@@ -9,8 +9,8 @@
           <% else %>
             <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
           <% end %>
-          <div><%= f.file_field :icon_image %></div>
         </div>
+        <div><%= f.file_field :icon_image %></div>
       </div>
       <div>
         <%= f.label :name, "ユーザー名" %>
@@ -21,8 +21,8 @@
         <%= f.text_area :my_rule, rows: 5, col: 40, class: "profile-intro" %>
       </div>
       <div class="back-contents">
-        <button class="button back-btn base-color"><%= link_to "⬅︎", :back %></button>
-        <%= f.submit "保存", class: "button base-color save"%>
+        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
+        <%= f.submit "保存", class: "link-btn base-color save"%>
       </div>
     <% end %>
   </div>
