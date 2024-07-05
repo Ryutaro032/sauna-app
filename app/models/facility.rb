@@ -59,7 +59,25 @@ class Facility < ApplicationRecord
         address: place.formatted_address,
         latitude: place.lat,
         longitude: place.lng,
-        place_id: place.place_id
+        place_id: place.place_id,
+        facility_icon: nil,
+        min_price: nil, 
+        max_price: nil,
+        free_text: nil,
+        outdoor_bath: nil,
+        rest_area: nil,
+        aufguss: nil,
+        auto_louver: nil,
+        self_louver: nil,
+        sauna_mat: nil,
+        bath_towel: nil,
+        face_towel: nil,
+        in_house_wear: nil,
+        work_space: nil,
+        in_house_rest_area: nil,
+        restaurant: nil,
+        wifi: nil,
+        comics: nil,
       )
     end
   end
