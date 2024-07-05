@@ -61,7 +61,7 @@ class Facility < ApplicationRecord
         longitude: place.lng,
         place_id: place.place_id,
         facility_icon: nil,
-        min_price: nil, 
+        min_price: nil,
         max_price: nil,
         free_text: nil,
         outdoor_bath: nil,
@@ -77,7 +77,7 @@ class Facility < ApplicationRecord
         in_house_rest_area: nil,
         restaurant: nil,
         wifi: nil,
-        comics: nil,
+        comics: nil
       )
     end
   end
