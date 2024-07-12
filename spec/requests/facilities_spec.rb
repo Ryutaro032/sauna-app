@@ -152,9 +152,9 @@ RSpec.describe 'Facilities', type: :request do
     end
 
     context '施設のレビューについて' do
-      it "選択した施設のレビューが表示取得できること" do
-        posts = create_list(:post, 5, facility: facility)
-        
+      it '選択した施設のレビューが表示取得できること' do
+        create_list(:post, 5, facility: facility)
+
         get facility_path(facility)
         expect(assigns(:facility_reviews)).to eq(facility.posts.order(created_at: :desc).limit(20))
       end

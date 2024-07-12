@@ -9,12 +9,12 @@ RSpec.describe 'Posts', type: :request do
       sign_in user
     end
 
-    it '投稿ページが表示できること' do 
+    it '投稿ページが表示できること' do
       get new_post_path(facility_id: facility.id)
       expect(response).to render_template(:new)
     end
 
-    it "postインスタンスが作成されること" do
+    it 'postインスタンスが作成されること' do
       get new_post_path(facility_id: facility.id)
       expect(assigns(:post)).to be_a_new(Post).with(facility_id: facility.id)
     end
@@ -40,10 +40,10 @@ RSpec.describe 'Posts', type: :request do
     end
 
     it '投稿ができない時、投稿ページに戻ること' do
-      post_params = attributes_for(:post, title: "", review: "", user_id: user.id, facility_id: facility.id)
+      post_params = attributes_for(:post, title: '', review: '', user_id: user.id, facility_id: facility.id)
       expect do
         post posts_path, params: { post: post_params }
-      end.to change(Post, :count).by(0)
+      end.not_to change(Post, :count)
 
       expect(response).to render_template(:new)
     end

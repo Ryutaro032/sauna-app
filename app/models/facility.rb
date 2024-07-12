@@ -2,7 +2,7 @@ class Facility < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :place_visits, dependent: :destroy
   has_many :users, through: :favorites
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_many :opening_hours, dependent: :destroy
   has_one_attached :facility_icon
   accepts_nested_attributes_for :opening_hours, allow_destroy: true
