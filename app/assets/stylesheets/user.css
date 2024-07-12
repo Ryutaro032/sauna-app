@@ -20,11 +20,8 @@
 }
 
 .profile-card{
-  /* width: 100%;
-  max-width:400px; */
   position: relative;
   overflow: hidden;
-
   display: flex;
   align-items: center;
   padding-bottom: 20px;
@@ -67,8 +64,6 @@
  }
 
  .profile-content{
-   /* padding: 15px;
-   display: flex; */
    padding-top: 20px;
  }
 
@@ -263,6 +258,15 @@
     padding: 0;
   }
 
+  .tab-content{
+    height: 350px;
+    overflow: auto;
+  }
+
+  .user-review-content{
+    width: 100%;
+  }
+
   .user-post-item{
     flex-direction: column;
   }
@@ -277,7 +281,7 @@
 
   .user-post .post-review{
     font-size: 0.8rem;
-    height: 100px;
+    height: 50px;
     overflow: auto;
   }
 
