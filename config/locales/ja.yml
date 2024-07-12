@@ -27,7 +27,7 @@ ja:
               blank: "タイトルを入力してください"
               too_long: "タイトルは40文字以内で入力してください"
             review:
-              too_long: "レビュー内容は400文字以内で入力してください"
+              too_long: "レビュー内容は20文字以上400文字以内で入力してください"
         facility:
           attributes:
             free_text:
