@@ -23,7 +23,10 @@
           </div>
         <% end %>
       </div>
-      <%=f.submit "投稿する", class: "link-btn base-color"%>
+      <div class="back-contents">
+        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
+        <%=f.submit "投稿する", class: "link-btn base-color"%>
+      </div>
     <% end %>
   </div>
 </div>

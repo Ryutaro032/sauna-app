@@ -41,7 +41,7 @@
     </div>
 
     <div class="actions">
-      <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
+      <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()'%></button>
       <%= f.submit "新規登録をする", class: "base-color link-btn" %>
     </div>
   <% end %>

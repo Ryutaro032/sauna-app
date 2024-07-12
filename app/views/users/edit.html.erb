@@ -21,7 +21,7 @@
         <%= f.text_area :my_rule, rows: 5, col: 40, class: "profile-intro" %>
       </div>
       <div class="back-contents">
-        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
+        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
         <%= f.submit "保存", class: "link-btn base-color save"%>
       </div>
     <% end %>
