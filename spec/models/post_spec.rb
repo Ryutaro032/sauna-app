@@ -5,6 +5,7 @@ RSpec.describe Post, type: :model do
 
   describe 'アソシエーションについて' do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:facility) }
   end
 
   describe 'バリデーションについて' do

@@ -2,14 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Posts', :js, type: :system do
   let(:user) { create(:user) }
-  let(:post) { create(:post) }
-  let(:mock_client) { instance_double(GooglePlaces::Client) }
+  let(:post) { create(:post, user: user) }
 
   before do
     sign_in user
-    mock_place = Struct.new(:name).new(post.name)
-    allow(mock_client).to receive(:spot).and_return(mock_place)
-    allow(GooglePlaces::Client).to receive(:new).and_return(mock_client)
   end
 
   context '投稿が成功する場合' do

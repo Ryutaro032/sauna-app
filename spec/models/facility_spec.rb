@@ -10,6 +10,7 @@ RSpec.describe Facility, type: :model do
 
   it { is_expected.to have_many(:favorites).dependent(:destroy) }
   it { is_expected.to have_many(:users).through(:favorites) }
+  it { is_expected.to have_many(:posts) }
   it { is_expected.to have_many(:opening_hours).dependent(:destroy) }
 
   describe 'バリデーションについて' do

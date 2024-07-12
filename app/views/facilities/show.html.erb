@@ -214,3 +214,37 @@
     <%= link_to "編集する", edit_facility_path(@facility), class: "link link-btn edit-btn" %>
   </div>
 </div>
+<div class="review-container">
+  <div class="review-contents">
+    <ul>
+      <% if @facility_reviews.present? %>
+        <% @facility_reviews.each do |facility_review| %>
+          <li>
+            <div class="post-item">
+              <div class="user-info">
+                <div class="user-icon">
+                  <% if facility_review.user.present? && facility_review.user.icon_image.attached?  %>
+                    <%= image_tag facility_review.user.icon_image, alt: "ユーザーアイコン" %>
+                  <% else %>
+                    <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
+                  <% end %>
+                </div>
+                <div class="user-name"><%= facility_review.user.name %></div>
+              </div>
+              <div class="post-content">
+                <div class="post-place-name">
+                  <%= link_to facility_review.name, facilities_index_path(place_name: facility_review.name), class: "post-place-name user-post-name" %>
+                </div>
+                <h3 class="post-title"><%= facility_review.title %></h3>
+                <p class="post-review"><%= facility_review.review %></p>
+              </div>
+              <div class="user-post-bottom">
+                <div class="post-time"><%= time_ago_in_words(facility_review.created_at) %>前</div>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

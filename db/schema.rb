@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_25_133455) do
+ActiveRecord::Schema.define(version: 2024_07_11_085701) do
 
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 2024_06_25_133455) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "facility_id"
+    t.index ["facility_id"], name: "index_posts_on_facility_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -156,6 +158,7 @@ ActiveRecord::Schema.define(version: 2024_06_25_133455) do
   add_foreign_key "opening_hours", "facilities"
   add_foreign_key "place_visits", "facilities"
   add_foreign_key "place_visits", "users"
+  add_foreign_key "posts", "facilities"
   add_foreign_key "posts", "users"
   add_foreign_key "review_likes", "posts"
   add_foreign_key "review_likes", "users"

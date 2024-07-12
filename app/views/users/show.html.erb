@@ -67,7 +67,9 @@
               <tbody>
                 <% @favorites.each do |favorite| %>
                   <tr>
-                    <td><h5><%= favorite.facility.name %></h5></td>
+                    <td>
+                      <h5><%= link_to favorite.facility.name, facility_path(favorite.facility.id), class: "post-place-name user-post-name" %></h5>
+                    </td>
                     <td><p><%= favorite.facility.address %></p></td>
                     <td>
                       <% if current_user %>
@@ -90,7 +92,9 @@
               <tbody>
                 <% @place_visits.each do |place_visit| %>
                   <tr>
-                    <td><h5><%= place_visit.facility.name %></h5></td>
+                    <td>
+                      <h5><%= link_to place_visit.facility.name, facility_path(place_visit.facility.id), class: "post-place-name user-post-name" %></h5>
+                    </td>
                     <td><p><%= place_visit.facility.address %></p></td>
                     <td>
                       <% if current_user %>
