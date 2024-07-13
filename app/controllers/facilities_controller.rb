@@ -18,6 +18,7 @@ class FacilitiesController < ApplicationController
 
   def show
     @facility = Facility.find_by(id: params[:id])
+    @facility_reviews = @facility.posts.order(created_at: :desc).limit(20)
   end
 
   def edit

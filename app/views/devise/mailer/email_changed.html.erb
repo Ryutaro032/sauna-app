@@ -7,6 +7,6 @@
     <p>メールアドレスが以下に変更されました。<br><%= @resource.email %>.</p>
   <% end %>
   <div class="back-contents">
-    <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
+    <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()'%></button>
   </div>
 </div>

@@ -2,8 +2,9 @@
   <h2>レビューを投稿する</h2>
   <div class="form">
     <%= form_with model: @post, method: :post do |f| %>
-      <div class="facility-name"><%= f.label @post.name %></div>
-      <%= f.hidden_field :name, value: @post.name %>
+      <div class="facility-name"><%= @facility.name %></div>
+      <%= f.hidden_field :facility_id, value: @facility.id %>
+      <%= f.hidden_field :name, value: @facility.name %>
       <div>
         <%= f.label :title, "タイトル" %><br>
         <%= f.text_field :title, size: 80 %>
@@ -22,7 +23,10 @@
           </div>
         <% end %>
       </div>
-      <%=f.submit "投稿する", class: "link-btn base-color"%>
+      <div class="back-contents">
+        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
+        <%=f.submit "投稿する", class: "link-btn base-color"%>
+      </div>
     <% end %>
   </div>
 </div>

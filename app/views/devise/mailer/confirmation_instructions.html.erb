@@ -5,6 +5,6 @@
 
   <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
   <div class="back-contents">
-    <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
+    <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
   </div>
 </div>

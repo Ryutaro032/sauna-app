@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :edit, :update]
-
-  # resources :favorites, only: [:create, :destroy]
   
   resources :posts, only: [:new, :create, :destroy] do
     resource :review_like, only: [:create, :destroy]

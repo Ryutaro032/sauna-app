@@ -19,7 +19,7 @@
     </div>
 
     <div class="actions back-contents">
-      <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
+      <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
       <%= f.submit "パスワードを変更する", class: "base-color link-btn" %>
       <%= render "devise/shared/links" %>
     </div>

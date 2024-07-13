@@ -67,12 +67,14 @@
               <tbody>
                 <% @favorites.each do |favorite| %>
                   <tr>
-                    <td><h5><%= favorite.facility.name %></h5></td>
+                    <td>
+                      <h5><%= link_to favorite.facility.name, facility_path(favorite.facility.id), class: "post-place-name user-post-name" %></h5>
+                    </td>
                     <td><p><%= favorite.facility.address %></p></td>
                     <td>
                       <% if current_user %>
                         <% if favorite.facility.favorited_by?(current_user) %>
-                          <%= button_to "削除する",  favorite_facility_path(favorite.facility), method: :delete, class: 'link-btn destroy-btn' %>
+                          <%= button_to "削除する",  favorite_facility_path(favorite.facility), method: :delete, data: {confirm: "本当に削除しますか？"}, class: 'link-btn destroy-btn' %>
                         <% end %>
                       <% end %>
                     </td>
@@ -90,12 +92,14 @@
               <tbody>
                 <% @place_visits.each do |place_visit| %>
                   <tr>
-                    <td><h5><%= place_visit.facility.name %></h5></td>
+                    <td>
+                      <h5><%= link_to place_visit.facility.name, facility_path(place_visit.facility.id), class: "post-place-name user-post-name" %></h5>
+                    </td>
                     <td><p><%= place_visit.facility.address %></p></td>
                     <td>
                       <% if current_user %>
                         <% if place_visit.facility.place_visited_by?(current_user) %>
-                          <%= button_to "削除する",  place_visit_facility_path(place_visit.facility), method: :delete, class: 'link-btn destroy-btn' %>
+                          <%= button_to "削除する",  place_visit_facility_path(place_visit.facility), method: :delete, data: {confirm: "本当に削除しますか？"}, class: 'link-btn destroy-btn' %>
                         <% end %>
                       <% end %>
                     </td>
@@ -110,7 +114,7 @@
   </div>
   <div class="back-contents">
       <div class="back-content">
-        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", :back %></button>
+        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
       </div>
       <div class="account-content">
         <% if user_signed_in? && @user == current_user && @user.name != "ゲスト" %>

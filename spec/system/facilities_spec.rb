@@ -145,6 +145,19 @@ RSpec.describe 'Facilities', :js, type: :system do
           expect(page).to have_css('.review-btn')
         end
       end
+
+      it '投稿ページに遷移できること' do
+        visit facilities_index_path
+
+        fill_in 'キーワードを入力', with: '池袋'
+        click_link_or_button '検索'
+
+        visit facilities_index_path(word: '池袋')
+
+        find('.link.link-btn.review-btn', match: :first).click
+
+        expect(page).to have_current_path(new_post_path, ignore_query: true)
+      end
     end
 
     context 'ユーザーがログインしていない場合' do
@@ -170,11 +183,19 @@ RSpec.describe 'Facilities', :js, type: :system do
   describe '施設の詳細ページについて' do
     let(:user) { create(:user) }
     let(:facility) { create(:facility) }
+    let!(:facility_review) { create(:post, user: user, facility: facility) }
 
     it '施設の詳細ページへのアクセスに成功する' do
       visit facility_path(facility.id)
       expect(page).to have_content(facility.name)
       expect(page).to have_content(facility.address)
+    end
+
+    it '施設の投稿が表示されること' do
+      visit facility_path(facility.id)
+      expect(page).to have_content(facility_review.name)
+      expect(page).to have_content(facility_review.title)
+      expect(page).to have_content(facility_review.review)
     end
 
     context 'ユーザーがログインしている場合' do
