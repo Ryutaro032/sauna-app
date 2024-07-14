@@ -25,6 +25,7 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
       user.name = 'ゲスト'
       user.id = 1
+      user.icon_image.attach(io: Rails.root.join('app/assets/images/guest_icon.png').open, filename: 'guest_icon.png')
     end
   end
 end
