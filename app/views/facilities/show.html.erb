@@ -33,7 +33,7 @@
             <% if @facility.facility_icon.attached?  %>
               <%= image_tag @facility.facility_icon, alt: "施設イメージ", class: "facility-icon" %>
             <% else %>
-              画像は登録されていません。
+              <%= image_tag src='sauna-default.webp', alt: "施設イメージ", class: "facility-icon" %>
             <% end %>
           </td>
         </tr>
