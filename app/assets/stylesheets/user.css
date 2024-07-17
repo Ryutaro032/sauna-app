@@ -63,6 +63,16 @@
   height: auto;
  }
 
+ .user-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.user-info {
+  text-align:  center;
+  margin-bottom: 10px;
+}
+
  .profile-content{
    padding-top: 20px;
  }
@@ -172,13 +182,17 @@
   margin: 0 auto;
 }
 
+.user-review-content li{
+  padding-bottom: 10px;
+  background: #f5f8fa;
+  border: 2px solid #e1e8ed;
+}
+
 .user-post-item{
   display: flex;
   justify-content: space-between;
   padding: 15px;
   height: 150px;
-  background: #f5f8fa;
-  border: 2px solid #e1e8ed;
   position: relative;
 }
 
@@ -267,6 +281,16 @@
     height: 350px;
     overflow: auto;
   }
+  
+  .user-icon{
+    width: 60px;
+    height: 60px;
+    margin: 20px 5px 0 0 ;
+  }
+
+  .user-name{
+    font-size: 0.8rem;
+  }
 
   .user-review-content{
     width: 100%;
@@ -285,8 +309,9 @@
   }
 
   .user-post .post-review{
-    font-size: 0.8rem;
-    height: 50px;
+    font-size: 0.7rem;
+    width: 300px;
+    height: 60px;
     overflow: auto;
   }
 
