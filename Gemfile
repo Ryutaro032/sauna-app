@@ -70,6 +70,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'gmaps4rails'
 gem 'geocoder'
+gem 'aws-sdk-s3'
 gem 'dotenv-rails'
 gem 'google_places'
 gem 'gon' 
