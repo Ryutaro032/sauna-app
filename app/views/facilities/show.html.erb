@@ -224,7 +224,11 @@
               <div class="user-info">
                 <div class="user-icon">
                   <% if facility_review.user.present? && facility_review.user.icon_image.attached?  %>
-                    <%= image_tag facility_review.user.icon_image, alt: "ユーザーアイコン" %>
+                    <% if facility_review.user.email == 'guest@example.com' %>
+                      <%= image_tag 'guest_icon.png', alt: "ゲストユーザーアイコン" %>
+                    <% else %>
+                      <%= image_tag facility_review.user.icon_image, alt: "ユーザーアイコン" %>
+                    <% end %>
                   <% else %>
                     <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
                   <% end %>
