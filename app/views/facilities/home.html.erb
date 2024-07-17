@@ -29,10 +29,10 @@
                 <% if post.user.email == 'guest@example.com' %>
                   <%= image_tag 'guest_icon.png', alt: "ゲストユーザーアイコン" %>
                 <% else %>
-                  <%= image_tag post.user.icon_image, alt: "ユーザーアイコン" %>
+                  <%= image_tag url_for(post.user.icon_image), alt: "ユーザーアイコン" %>
                 <% end %>
               <% else %>
-                <%= image_tag src='default.png', alt: "ユーザーアイコン" %>
+                <%= image_tag 'default.png', alt: "ユーザーアイコン" %>
               <% end %>
             </div>
             <div class="user-name"><%= post.user.name %></div>
