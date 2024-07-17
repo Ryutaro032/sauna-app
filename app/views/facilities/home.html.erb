@@ -39,7 +39,7 @@
           </div>
           <div class="post-content">
             <div class="post-place-name">
-              <%= link_to post.name, facilities_index_path(place_name: post.name), class: "post-place-name" %>
+              <%= link_to post.name, facility_path(post.facility.id), class: "post-place-name" %>
             </div>
             <h3 class="post-title"><%= post.title %></h3>
             <p class="post-review"><%= post.review %></p>
