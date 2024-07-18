@@ -151,8 +151,11 @@
           </tr>
         </tbody>
       </table>
-      <div class="actions">
-        <%= form.submit class: "link-btn base-color"%>
+      <div class="back-contents">
+        <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
+        <div class="actions">
+          <%= form.submit class: "link-btn base-color"%>
+        </div>
       </div>
     <% end %>
   </div>

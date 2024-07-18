@@ -45,7 +45,7 @@
                 <li>
                   <div class="user-post-item">
                     <div class="post-place-name">
-                      <%= link_to user_review.name, facilities_index_path(place_name: user_review.name), class: "post-place-name user-post-name" %>
+                      <%= link_to user_review.name, facility_path(user_review.facility.id), class: "post-place-name user-post-name" %>
                     </div>
                     <div class="user-post">
                       <h3 class="post-title"><%= user_review.title %></h3>
