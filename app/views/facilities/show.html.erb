@@ -7,6 +7,7 @@
       <div class="facility-info-head-left">
         <h2><%= @facility.name %></h2>
       </div>
+      <div id="map" class="map" data-lat="<%= @facility.latitude %>" data-lng="<%= @facility.longitude %>"></div>
       <div class="facility-info-head-right">
         <% if user_signed_in? %>
           <div class="favorite" id="favorite_buttons_<%= @facility.id %>">
@@ -253,3 +254,4 @@
 <div class="back-contents">
   <button class="link-btn back-btn base-color"><%= link_to "⬅︎", 'javascript:history.back()' %></button>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY']%> &callback=initMap" async defer></script>
