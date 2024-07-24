@@ -1,5 +1,17 @@
 .con-search{
+  display: inline-block;
+  background-color: #fa0;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
 }
 
 .con-search-form{
@@ -12,12 +24,8 @@
 
 .modal-search-contents{
   position: fixed;
-  background-image: image-url("search-title.png");
-  background-size: cover;
-  background-repeat: repeat;
   background-color: rgba(255, 255, 255, 0.8);
-  background-blend-mode: lighten;
-  width: 80%;
+  width: 90%;
   height: 350px;
   top: 50%;
   left: 50%;
@@ -39,7 +47,6 @@
 }
 
 .magnifying-glass{
-  color: #fa0;
   margin-left: 5px;
 }
 

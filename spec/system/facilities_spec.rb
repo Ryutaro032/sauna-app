@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Facilities', :js, type: :system do
   describe 'ホーム画面のテストについて' do
     let(:user) { create(:user) }
+    let(:facility) { create(:facility) }
     let!(:prefecture) { create(:prefecture) }
-    let!(:post) { create(:post, created_at: 2.hours.ago) }
+    let!(:post) { create(:post, facility: facility, user: user, created_at: 2.hours.ago) }
 
     context 'ユーザーがログインしている場合' do
       before do
@@ -21,7 +22,10 @@ RSpec.describe 'Facilities', :js, type: :system do
           visit root_path
 
           fill_in 'キーワードを入力', with: '池袋'
-          click_link_or_button '検索'
+
+          within('.search-form') do
+            click_link_or_button '検索'
+          end
 
           visit facilities_index_path(word: '池袋')
           expect(page).to have_content('池袋')
@@ -33,7 +37,9 @@ RSpec.describe 'Facilities', :js, type: :system do
           expect(page).to have_css("#prefecture_select option[value='#{prefecture.id}']")
           find_by_id('prefecture_select').find("option[value='#{prefecture.id}']").select_option
 
-          click_link_or_button '検索'
+          within('.search-form') do
+            click_link_or_button '検索'
+          end
 
           expect(page).to have_content('サウナログ')
         end
@@ -80,7 +86,10 @@ RSpec.describe 'Facilities', :js, type: :system do
         visit root_path
 
         fill_in 'キーワードを入力', with: '池袋'
-        click_link_or_button '検索'
+
+        within('.search-form') do
+          click_link_or_button '検索'
+        end
 
         expect(page).to have_content('池袋')
       end
@@ -93,7 +102,7 @@ RSpec.describe 'Facilities', :js, type: :system do
         within first('.post-item') do
           expect(page).to have_css('.user-icon')
           expect(page).to have_content(post.name)
-          expect(page).to have_link(post.name, href: facilities_index_path(place_name: post.name))
+          expect(page).to have_link(post.name, href: facility_path(facility.id))
           expect(page).to have_content(post.title)
           expect(page).to have_content(post.review)
           expect(page).to have_content('約2時間前')
@@ -122,7 +131,10 @@ RSpec.describe 'Facilities', :js, type: :system do
           visit facilities_index_path
 
           fill_in 'キーワードを入力', with: '池袋'
-          click_link_or_button '検索'
+
+          within('.search-form') do
+            click_link_or_button '検索'
+          end
 
           visit facilities_index_path(word: '池袋')
           expect(page).to have_content('サウナログ')
@@ -137,7 +149,9 @@ RSpec.describe 'Facilities', :js, type: :system do
           expect(page).to have_css("#prefecture_select option[value='#{prefecture.id}']")
           find_by_id('prefecture_select').find("option[value='#{prefecture.id}']").select_option
 
-          click_link_or_button '検索'
+          within('.search-form') do
+            click_link_or_button '検索'
+          end
 
           expect(page).to have_content('サウナログ')
           expect(page).to have_css('.facility-name .list-item')
@@ -150,7 +164,10 @@ RSpec.describe 'Facilities', :js, type: :system do
         visit facilities_index_path
 
         fill_in 'キーワードを入力', with: '池袋'
-        click_link_or_button '検索'
+
+        within('.search-form') do
+          click_link_or_button '検索'
+        end
 
         visit facilities_index_path(word: '池袋')
 
@@ -169,13 +186,52 @@ RSpec.describe 'Facilities', :js, type: :system do
         visit facilities_index_path
 
         fill_in 'キーワードを入力', with: '池袋'
-        click_link_or_button '検索'
+
+        within('.search-form') do
+          click_link_or_button '検索'
+        end
 
         visit facilities_index_path(word: '池袋')
         expect(page).to have_content('サウナログ')
         expect(page).to have_css('.facility-name .list-item')
         expect(page).to have_content('施設情報')
         expect(page).to have_no_css('.review-btn')
+      end
+    end
+  end
+
+  describe '条件検索のテストについて' do
+    let(:facility_boolean) { create(:facility, outdoor_bath: true) }
+    let(:facility_select) { create(:facility, sauna_mat: '無料（使い放題）') }
+
+    context '条件検索が機能すること' do
+      it 'チェックボックスが機能すること' do
+        visit root_path
+
+        find('.con-search .modal-search', text: '条件から探す').click
+
+        within(first('.modal-search-contents')) do
+          first('.con-search-content .search-checkbox').check('outdoor_bath')
+
+          click_link_or_button '検索'
+        end
+
+        visit facilities_index_path(outdoor_bath: '1')
+        expect(page).to have_css('.facility-name')
+      end
+
+      it 'セレクトボックスが機能すること' do
+        visit root_path
+        find('.con-search .modal-search', text: '条件から探す').click
+
+        within(first('.modal-search-contents')) do
+          first('.con-search-content .search-select').select '無料（使い放題）', from: 'sauna_mat'
+
+          click_link_or_button '検索'
+        end
+
+        visit facilities_index_path(sauna_mat: '無料（使い放題）')
+        expect(page).to have_css('.facility-name')
       end
     end
   end

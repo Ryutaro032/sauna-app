@@ -6,61 +6,45 @@ RSpec.describe 'Facilities', type: :request do
     let(:prefecture) { create(:prefecture) }
     let(:city) { prefecture.cities.first }
     let(:posts) { (1..25).map { create(:post) } }
+    let!(:facility_boolean) { create(:facility, outdoor_bath: true) }
+    let!(:facility_select) { create(:facility, sauna_mat: '無料（使い放題）') }
 
     it 'リストページが表示されること' do
       get facilities_index_path
       expect(response).to have_http_status(:ok)
     end
 
-    context 'ログインしている場合' do
-      let(:user) { create(:user) }
-
-      before do
-        sign_in(user)
-      end
-
-      it 'Google Place APIを使用して場所を検索できること' do
-        VCR.use_cassette('google_api_search') do
-          get facilities_index_path, params: { word: '池袋' }
-          expect(response).to have_http_status(:ok)
-          expect(response.body).to include('池袋')
-        end
-      end
-
-      it '都道府県と市区町村で検索できること' do
-        VCR.use_cassette('google_api_search') do
-          params = { prefecture_id: prefecture.id, city_id: city.id }
-          get facilities_index_path, params: params
-          expect(response).to have_http_status(:ok)
-          expect(response.body).to include(prefecture.name)
-          expect(response.body).to include(city.name)
-        end
+    it 'Google Place APIを使用して場所を検索できること' do
+      VCR.use_cassette('google_api_search') do
+        get facilities_index_path, params: { word: '池袋' }
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('池袋')
       end
     end
 
-    context 'ログインしていない場合' do
-      let(:user) { create(:user) }
+    it '都道府県と市区町村で検索できること' do
+      VCR.use_cassette('google_api_search') do
+        params = { prefecture_id: prefecture.id, city_id: city.id }
+        get facilities_index_path, params: params
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(prefecture.name)
+        expect(response.body).to include(city.name)
+      end
+    end
 
-      before do
-        sign_out(user)
+    context '条件検索について' do
+      it '真偽値を取得して検索できること' do
+        params = { outdoor_bath: '1' }
+        get facilities_index_path, params: params
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(facility_boolean.name)
       end
 
-      it 'キーワードで場所を検索できること' do
-        VCR.use_cassette('google_api_search') do
-          get facilities_index_path, params: { word: '池袋' }
-          expect(response).to have_http_status(:ok)
-          expect(response.body).to include('池袋')
-        end
-      end
-
-      it '都道府県と市区町村で検索できること' do
-        VCR.use_cassette('google_api_search') do
-          params = { prefecture_id: prefecture.id, city_id: city.id }
-          get facilities_index_path, params: params
-          expect(response).to have_http_status(:ok)
-          expect(response.body).to include(prefecture.name)
-          expect(response.body).to include(city.name)
-        end
+      it 'セレクトボックスの値を取得して検索できること' do
+        params = { sauna_mat: '無料（使い放題）' }
+        get facilities_index_path, params: params
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(facility_select.name)
       end
     end
   end

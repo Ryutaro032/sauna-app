@@ -14,12 +14,6 @@
       </nav>
       <div class="nav-wrapper">
         <ul>
-          <li>
-            <div class="con-search header-list">
-              <p class="modal-search heading">条件から探す<i class="fa-solid fa-magnifying-glass magnifying-glass"></i></p>
-              <%= render 'shared/conditional_search' %>
-            </div>
-          </li>
           <li><%= link_to "施設一覧", facilities_index_path(word: '東京'), class: "header-list link heading" %></li>
           <% if user_signed_in? %>
             <li><%= link_to 'マイページ', user_path(current_user), class: "header-list link heading" %></li>
@@ -33,12 +27,6 @@
       </div>
       <div class="header-lists">
         <ul>
-          <li>
-            <div class="con-search header-list">
-              <p class="modal-search heading">条件から探す<i class="fa-solid fa-magnifying-glass magnifying-glass"></i></p>
-              <%= render 'shared/conditional_search' %>
-            </div>
-          </li>
           <li><%= link_to "施設一覧", facilities_index_path(word: '東京'), class: "header-list link heading" %></li>
           <% if user_signed_in? %>
             <li><%= link_to 'マイページ', user_path(current_user), class: "header-list link heading" %></li>

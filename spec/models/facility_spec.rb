@@ -212,4 +212,108 @@ RSpec.describe Facility, type: :model do
       end
     end
   end
+
+  describe 'self.conditional_search' do
+    let(:facility_boolean) { create(:facility, outdoor_bath: true, rest_area: true, aufguss: true, auto_louver: true, self_louver: true) }
+    let(:facility_select) { create(:facility, sauna_mat: '無料（使い放題）', bath_towel: '無料（使い放題）', face_towel: '無料（使い放題）', in_house_wear: '無料（使い放題）') }
+    let(:facility_boolean2) { create(:facility, work_space: true, in_house_rest_area: true, restaurant: true, wifi: true, comics: true) }
+
+    it 'outdoor_bathの真偽値が取得できること' do
+      params = { outdoor_bath: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean)
+      expect(results).not_to include(facility)
+    end
+
+    it 'rest_areaの真偽値が取得できること' do
+      params = { rest_area: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean)
+      expect(results).not_to include(facility)
+    end
+
+    it 'aufgussの真偽値が取得できること' do
+      params = { aufguss: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean)
+      expect(results).not_to include(facility)
+    end
+
+    it 'auto_louverの真偽値が取得できること' do
+      params = { auto_louver: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean)
+      expect(results).not_to include(facility)
+    end
+
+    it 'self_louverの真偽値が取得できること' do
+      params = { self_louver: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean)
+      expect(results).not_to include(facility)
+    end
+
+    it 'sauna_matの値が取得できること' do
+      params = { sauna_mat: '無料（使い放題）' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_select)
+      expect(results).not_to include(facility)
+    end
+
+    it 'bath_towelの値が取得できること' do
+      params = { bath_towel: '無料（使い放題）' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_select)
+      expect(results).not_to include(facility)
+    end
+
+    it 'face_towelの値が取得できること' do
+      params = { face_towel: '無料（使い放題）' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_select)
+      expect(results).not_to include(facility)
+    end
+
+    it 'in_house_wearの値が取得できること' do
+      params = { in_house_wear: '無料（使い放題）' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_select)
+      expect(results).not_to include(facility)
+    end
+
+    it 'work_spaceの真偽値が取得できること' do
+      params = { work_space: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean2)
+      expect(results).not_to include(facility)
+    end
+
+    it 'in_house_rest_areaの真偽値が取得できること' do
+      params = { in_house_rest_area: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean2)
+      expect(results).not_to include(facility)
+    end
+
+    it 'restaurantの真偽値が取得できること' do
+      params = { restaurant: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean2)
+      expect(results).not_to include(facility)
+    end
+
+    it 'wifiの真偽値が取得できること' do
+      params = { wifi: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean2)
+      expect(results).not_to include(facility)
+    end
+
+    it 'comicsの真偽値が取得できること' do
+      params = { comics: '1' }
+      results = described_class.conditional_search(params)
+      expect(results).to include(facility_boolean2)
+      expect(results).not_to include(facility)
+    end
+  end
 end

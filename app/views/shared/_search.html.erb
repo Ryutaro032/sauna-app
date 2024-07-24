@@ -1,14 +1,18 @@
 <form>
   <div class="search-form">
     <%= form_with url: facilities_index_path, method: :get do |f| %>
-      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, { prompt: "都道府県を選択" }, { id: "prefecture_select", class: "search-field"}) %>
-      <%= f.select :city_id, [], {}, { include_blank: "", class: "default-city-select search-field" } %>
-      <% Prefecture.all.each do |prefecture| %>
-        <template id="city-select<%= prefecture.id %>">
-          <%= f.collection_select(:city_id, prefecture.cities, :id, :name, include_blank: "市区町村を選択してください") %>
-        </template>
-      <% end %>
-      <%= f.search_field :word, class: "search-field", id: "list_search_field",  placeholder: "キーワードを入力" %>
+      <div class="search-contents">
+        <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, { prompt: "都道府県を選択" }, { id: "prefecture_select", class: "search-field"}) %>
+        <%= f.select :city_id, [], {}, { include_blank: "", class: "default-city-select search-field" } %>
+        <% Prefecture.all.each do |prefecture| %>
+          <template id="city-select<%= prefecture.id %>">
+            <%= f.collection_select(:city_id, prefecture.cities, :id, :name, include_blank: "市区町村を選択してください") %>
+          </template>
+        <% end %>
+      </div>
+      <div class="search-contents">
+        <%= f.search_field :word, class: "search-field", id: "list_search_field",  placeholder: "キーワードを入力" %>
+      </div>
       <%= f.submit "検索", class: "search-btn", id: "list-search-btn" %>
     <% end %>
   </div>

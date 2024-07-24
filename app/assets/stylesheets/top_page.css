@@ -51,6 +51,7 @@
 }
 
 .header-inner{
+  width: 70%;
   position: absolute;
   left: 50%;
   top: 45%;

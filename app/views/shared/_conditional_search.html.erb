@@ -1,65 +1,74 @@
-<form class="modal-search-contents" id="easyModal">
-  <span class="modalsearch-close">✖️</span>
-  <div class="con-search-form" >
-    <%= form_with url: facilities_index_path, method: :get do |f| %>
-      <div class="con-search-content">
-        <span class="search-checkbox">
-          <%= f.check_box :outdoor_bath, {}, "1", "0" %>
-          <%= f.label :outdoor_bath, "外気浴" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :rest_area, {}, "1", "0" %>
-          <%= f.label :rest_area, "休憩スペース" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :aufguss, {}, "1", "0" %>
-          <%= f.label :aufguss, "アウフグース" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :auto_louver, {}, "1", "0" %>
-          <%= f.label :auto_louver, "オートロウリュ" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :self_louver, {}, "1", "0" %>
-          <%= f.label :self_louver, "セルフロウリュ" %>
-        </span>
-      </div>
-      <div class="con-search-content">
-        <%= f.label :sauna_mat, "サウナマット" %>
-        <%= f.select :sauna_mat, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
-
-        <%= f.label :bath_towel, "バスタオル" %>
-        <%= f.select :bath_towel, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
-
-        <%= f.label :face_towel, "フェイスタオル" %>
-        <%= f.select :face_towel, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
-
-        <%= f.label :in_house_wear, "館内着" %>
-        <%= f.select :in_house_wear, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
-      </div>
-      <div class="con-search-content">
-        <span class="search-checkbox">
-          <%= f.check_box :work_space, {}, "1", "0" %>
-          <%= f.label :work_space, "作業スペース" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :in_house_rest_area, {}, "1", "0" %>
-          <%= f.label :in_house_rest_area, "館内休憩スペース" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :restaurant, {}, "1", "0" %>
-          <%= f.label :restaurant, "食事処" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :wifi, {}, "1", "0" %>
-          <%= f.label :wifi, "Wi-Fi" %>
-        </span>
-        <span class="search-checkbox">
-          <%= f.check_box :comics, {}, "1", "0" %>
-          <%= f.label :comics, "漫画" %>
-        </span>
-      </div>
-      <%= f.submit "検索", class: "search-btn con-search-btn", id: "list-search-btn" %>
-    <% end %>
+<div class="con-search">
+  <p class="modal-search heading">条件から探す<i class="fa-solid fa-magnifying-glass magnifying-glass"></i></p>
+  <div class="modal-search-contents" id="easyModal">
+    <span class="modalsearch-close">✖️</span>
+    <div class="con-search-form" >
+      <%= form_with url: facilities_index_path, method: :get do |f| %>
+        <div class="con-search-content">
+          <span class="search-checkbox">
+            <%= f.check_box :outdoor_bath, {}, "1", "0" %>
+            <%= f.label :outdoor_bath, "外気浴" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :rest_area, {}, "1", "0" %>
+            <%= f.label :rest_area, "休憩スペース" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :aufguss, {}, "1", "0" %>
+            <%= f.label :aufguss, "アウフグース" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :auto_louver, {}, "1", "0" %>
+            <%= f.label :auto_louver, "オートロウリュ" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :self_louver, {}, "1", "0" %>
+            <%= f.label :self_louver, "セルフロウリュ" %>
+          </span>
+        </div>
+        <div class="con-search-content">
+          <span class="search-select">
+            <%= f.label :sauna_mat, "サウナマット" %>
+            <%= f.select :sauna_mat, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
+          </span>
+          <span class="search-select">
+            <%= f.label :bath_towel, "バスタオル" %>
+            <%= f.select :bath_towel, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
+          </span>
+          <span class="search-select">
+            <%= f.label :face_towel, "フェイスタオル" %>
+            <%= f.select :face_towel, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
+          </span>
+          <span class="search-select">
+            <%= f.label :in_house_wear, "館内着" %>
+            <%= f.select :in_house_wear, options_for_select([['', ''], ['なし', 'なし'], ['無料（使い放題）', '無料（使い放題）'], ['無料（1枚）', '無料（1枚）'], ['有料（レンタル）', '有料（レンタル）']]) %>
+          </span>
+        </div>
+        <div class="con-search-content">
+          <span class="search-checkbox">
+            <%= f.check_box :work_space, {}, "1", "0" %>
+            <%= f.label :work_space, "作業スペース" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :in_house_rest_area, {}, "1", "0" %>
+            <%= f.label :in_house_rest_area, "館内休憩スペース" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :restaurant, {}, "1", "0" %>
+            <%= f.label :restaurant, "食事処" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :wifi, {}, "1", "0" %>
+            <%= f.label :wifi, "Wi-Fi" %>
+          </span>
+          <span class="search-checkbox">
+            <%= f.check_box :comics, {}, "1", "0" %>
+            <%= f.label :comics, "漫画" %>
+          </span>
+        </div>
+        <%= f.submit "検索", class: "search-btn con-search-btn", id: "list-search-btn" %>
+      <% end %>
+    </div>
   </div>
-</form>
+  <div class="masksearch"></div>
+</div>

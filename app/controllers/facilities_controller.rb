@@ -3,7 +3,7 @@ class FacilitiesController < ApplicationController
 
   def home
     @posts = Post.order(created_at: :desc).limit(20)
-    
+
     if search_places
       render :index
     elsif filter_params.present?
@@ -15,8 +15,12 @@ class FacilitiesController < ApplicationController
   end
 
   def index
-    search_places
-    render :index
+    if search_places
+      render :index
+    elsif filter_params.present?
+      @facilities = Facility.conditional_search(filter_params)
+      render :index
+    end
   end
 
   def show
@@ -53,12 +57,12 @@ class FacilitiesController < ApplicationController
     @places = Facility.search_places(params)
     @save_places = Facility.search_places_and_save(params)
   end
-  
+
   def filter_params
     params.permit(
       :prefecture_id, :city_id, :word, :sauna_mat, :bath_towel, :face_towel, :in_house_wear,
       :outdoor_bath, :rest_area, :aufguss, :auto_louver, :self_louver, :work_space,
       :in_house_rest_area, :restaurant, :wifi, :comics
-    ).to_h.reject { |k, v| v == "0" }
+    ).to_h.reject { |_k, v| v == '0' }
   end
 end
