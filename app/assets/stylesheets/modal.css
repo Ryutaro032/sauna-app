@@ -65,3 +65,35 @@
   margin-left: 20px;
   margin-top: 10px;
 }
+
+@media screen and (max-width: 540px){
+  .con-search{
+    width: 150px;
+    padding: 10px 15px;
+  }
+
+  .modal-search{
+    font-size: 14px;
+  }
+
+  .modal-search-contents{
+    height: 500px;
+  }
+
+  .con-search-content{
+    justify-content: center;
+  }
+
+  .search-checkbox{
+    font-size: 0.8rem;
+  }
+
+  .search-select{
+    font-size: 0.8rem;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 60px;
+    width: 70%;
+  }
+}

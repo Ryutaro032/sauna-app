@@ -32,11 +32,6 @@
   font-size: 1.2rem;
 }
 
-.map {
-  height: 400px;
-  width: 600px;
-}
-
 .detail-btn{
   font-size: 1.0rem;
   padding: 5px 10px 5px 10px;
@@ -47,6 +42,11 @@
   font-size: 1.0rem;
   padding: 5px 10px 5px 10px;
   background-color: black;
+}
+
+.facility-list-icon{
+  width: 200px;
+  height: 150px;
 }
 
 @media screen and (max-width: 1024px){
@@ -93,5 +93,10 @@
 
   .review-btn{
     width: 65px;
+  }
+
+  .facility-list-icon{
+    width: 60px;
+    height: 40px;
   }
 }

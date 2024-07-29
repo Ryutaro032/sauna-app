@@ -15,6 +15,13 @@
                 <% facility = Facility.find_by(name: place.name, address: place.formatted_address) %>
                   <% if facility %>
                   <tr>
+                    <td>
+                      <% if facility.facility_icon.attached?  %>
+                        <%= image_tag facility.facility_icon, alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% else %>
+                        <%= image_tag src='sauna-default.webp', alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% end %>
+                    </td>
                     <td class="facility-name">
                       <span class="list-item"><%= place.name %></span>
                     </td>
@@ -32,6 +39,13 @@
             <%elsif @facilities.present?%>
               <% @facilities.each do |facility|%>
                   <tr>
+                    <td>
+                      <% if facility.facility_icon.attached?  %>
+                        <%= image_tag facility.facility_icon, alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% else %>
+                        <%= image_tag src='sauna-default.webp', alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% end %>
+                    </td>
                     <td class="facility-name">
                       <span class="list-item"><%= facility.name %></span>
                     </td>

@@ -68,6 +68,11 @@
   height: 200px;
 }
 
+.map {
+  height: 400px;
+  width: 600px;
+}
+
 @media screen and (max-width: 540px){
   .facility-info-container{
     width: 100%;
@@ -93,5 +98,11 @@
 
   .facility-info td{
     width: 100%;
+  }
+
+  .map{
+    margin-left: 50px;
+    height: 200px;
+    width: 300px;
   }
 }
