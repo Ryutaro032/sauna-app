@@ -52,20 +52,20 @@ https://sauna-app-9262760f4979.herokuapp.com/
 ・キーワードからサウナ施設を検索できます。  
 ・地域での検索も可能です。都道府県を選択後、市区町村が選択できるようになっています。  
 ・下にスクロールするとログインユーザーのレビューを見ることができます。
-<img width="600" height="300" alt="トップページ" src="https://github.com/Ryutaro032/sauna-app/assets/72485351/827113f2-4d59-4a9a-ad68-3d44e36a893f">
+<img width="600" height="300" alt="トップページ" src="https://github.com/user-attachments/assets/c63eb604-ec7a-4d77-8156-5712ef290263">
 
 * ユーザー認証機能（ログイン・ログアウト）  
 ・deviseを利用したログイン機能です。
 
 * リストページ  
 ・検索したサウナ施設をgoogleマップとリストに表示しています。
-<img width="600" height="300" alt="リストページ" src="https://github.com/Ryutaro032/sauna-app/assets/72485351/f077145e-a9f6-419a-bb68-1071b9971829">
+<img width="600" height="300" alt="リストページ" src="https://github.com/user-attachments/assets/848af744-d3bf-44d8-a9b1-7cafdc158503">
 
 * 詳細ページ  
 ・施設のお気に入り登録・削除ができます。  
 ・行ってみたい施設の登録・削除ができます。  
 ・施設の営業時間や設備情報などを編集し、登録できます。
-<img width="600" height="300" alt="詳細ページ" src="https://github.com/Ryutaro032/sauna-app/assets/72485351/4828e5eb-3db6-4405-b756-dae58f2f443d">
+<img width="600" height="300" alt="詳細ページ" src="https://github.com/user-attachments/assets/a4acccce-4eb0-4e5d-9238-0a843b5f60e7">
 
 * 施設のレビューの投稿  
 ・施設のレビューを投稿することができます。  
