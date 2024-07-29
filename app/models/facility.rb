@@ -19,32 +19,15 @@ class Facility < ApplicationRecord
   validate :closing_time_after_opening_time
   validates :free_text, length: { maximum: 1200, message: I18n.t('activerecord.errors.models.facility.attributes.free_text.too_long') }
 
+  include FacilityConditionalSearch
+  include FacilityGoogleSearch
+
   def favorited_by?(user)
     favorites.exists?(user: user)
   end
 
   def place_visited_by?(user)
     place_visits.exists?(user: user)
-  end
-
-  def self.search_places(params)
-    if params[:prefecture_id].present? && params[:city_id].present?
-      prefecture_name = Prefecture.find(params[:prefecture_id])&.name
-      city_name = City.find(params[:city_id])&.name
-      query = "#{prefecture_name} #{city_name},サウナ"
-    elsif params[:prefecture_id].present?
-      prefecture_name = Prefecture.find(params[:prefecture_id])&.name
-      query = "#{prefecture_name},サウナ"
-    elsif params[:word].present?
-      query = "#{params[:word]},サウナ"
-    elsif params[:place_name].present?
-      query = params[:place_name]
-    end
-
-    return nil if query.blank?
-
-    client = ::GooglePlaces::Client.new(ENV.fetch('GOOGLE_API_KEY'))
-    client.spots_by_query(query, language: 'ja', type: '"point_of_interest", "establishment","spa"')
   end
 
   def self.search_places_and_save(params)
