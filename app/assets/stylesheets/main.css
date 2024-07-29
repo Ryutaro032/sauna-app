@@ -113,7 +113,12 @@ header{
 }
 
 .search-form{
-  display: flex;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.search-contents{
+  margin: 5px 0;
 }
 
 .search-field{
@@ -127,6 +132,7 @@ header{
 }
 
 .search-btn{
+  width: 250px;
   background-color: #fff;
   color: #fa0;
   border: 2px solid #fa0;

@@ -7,7 +7,6 @@
       <%= render 'shared/search' %>
     </div>
     <div class="list-contents">
-      <div id='map' class="map"></div>
       <div class="facility-lists">
         <table>
           <tbody>
@@ -16,8 +15,15 @@
                 <% facility = Facility.find_by(name: place.name, address: place.formatted_address) %>
                   <% if facility %>
                   <tr>
+                    <td>
+                      <% if facility.facility_icon.attached?  %>
+                        <%= image_tag facility.facility_icon, alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% else %>
+                        <%= image_tag src='sauna-default.webp', alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% end %>
+                    </td>
                     <td class="facility-name">
-                      <span class="list-item" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"><%= place.name %></span>
+                      <span class="list-item"><%= place.name %></span>
                     </td>
                     <td class="facility-detail" >
                       <%= link_to "施設情報", facility_path(facility.id), class: "link link-btn detail-btn" %>
@@ -30,6 +36,29 @@
                   </tr>
                 <% end %>
               <% end %>
+            <%elsif @facilities.present?%>
+              <% @facilities.each do |facility|%>
+                  <tr>
+                    <td>
+                      <% if facility.facility_icon.attached?  %>
+                        <%= image_tag facility.facility_icon, alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% else %>
+                        <%= image_tag src='sauna-default.webp', alt: "施設イメージ", class: "facility-list-icon" %>
+                      <% end %>
+                    </td>
+                    <td class="facility-name">
+                      <span class="list-item"><%= facility.name %></span>
+                    </td>
+                    <td class="facility-detail" >
+                      <%= link_to "施設情報", facility_path(facility.id), class: "link link-btn detail-btn" %>
+                    </td>
+                    <td>
+                      <% if current_user %>
+                        <%= link_to "投稿", new_post_path(facility_id: facility.id), class: "link link-btn review-btn" %>
+                      <% end %> 
+                    </td>
+                  </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>
@@ -37,4 +66,3 @@
     </div>
   </div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY']%>&callback=initMap" async defer></script>

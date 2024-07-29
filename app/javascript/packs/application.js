@@ -11,6 +11,7 @@ import "channels"
 import "bootstrap";
 import '@fortawesome/fontawesome-free/js/all';
 import "../stylesheets/application.scss";
+import './modal';
 import './nav';
 import './prefecture';
 import './tab_change';

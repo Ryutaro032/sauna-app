@@ -14,6 +14,7 @@
       </nav>
       <div class="nav-wrapper">
         <ul>
+          <li><%= link_to "施設一覧", facilities_index_path(word: '東京'), class: "header-list link heading" %></li>
           <% if user_signed_in? %>
             <li><%= link_to 'マイページ', user_path(current_user), class: "header-list link heading" %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "header-list link heading" %></li>
@@ -26,6 +27,7 @@
       </div>
       <div class="header-lists">
         <ul>
+          <li><%= link_to "施設一覧", facilities_index_path(word: '東京'), class: "header-list link heading" %></li>
           <% if user_signed_in? %>
             <li><%= link_to 'マイページ', user_path(current_user), class: "header-list link heading" %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "header-list link heading" %></li>
