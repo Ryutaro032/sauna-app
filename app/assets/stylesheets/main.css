@@ -40,6 +40,11 @@ img{
 	border:0;
 }
 
+.notes{
+  color: #fff;
+  font-size: 16px;
+}
+
 .sauna-contanier{
   display: flex;
   flex-direction: column;
