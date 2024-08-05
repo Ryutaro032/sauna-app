@@ -42,7 +42,8 @@ img{
 
 .notes{
   color: #fff;
-  font-size: 16px;
+  text-shadow: 1px 1px #fa0, -1px 1px 0 #fa0,1px -1px 0 #fa0,-1px -1px 0 #fa0;
+  font-size: 18px;
 }
 
 .sauna-contanier{
